@@ -35,10 +35,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	private void drawButton(Texture button, Texture buttonPress, int y, int width, int height){
 		int x = (WINDOW_WIDTH-width)/2;
 		if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+width && WINDOW_HEIGHT-Gdx.input.getY()>=y && WINDOW_HEIGHT-Gdx.input.getY()<=y+height){
-			batch.draw(buttonPress, (WINDOW_WIDTH - width) /2, y, width, height);
+			batch.draw(buttonPress, (float) (WINDOW_WIDTH - width) /2, y, width, height);
 		}
 		else{
-            batch.draw(button, (WINDOW_WIDTH - width) /2, y, width, height);
+            batch.draw(button, (float) (WINDOW_WIDTH - width) /2, y, width, height);
         }
 	}
 
