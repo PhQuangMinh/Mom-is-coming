@@ -26,7 +26,7 @@ public class MainStory implements Screen {
         batch.begin();
         batch.draw(mainStory, 0, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.X)){
-            game.setScreen(new MainMenuScreen(game));
+            game.setScreen(new MainGameScreen(game));
         }
         batch.end();
     }
