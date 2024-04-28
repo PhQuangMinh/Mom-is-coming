@@ -2,9 +2,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.model.Character;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static final int WINDOW_WIDTH = 1280;
@@ -19,7 +22,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	private static final int QUIT_BUTTON_Y = 250;
 
 	SpriteBatch batch;
-	Texture play, playPress, options, optionsPress, quit, quitPress;
+	Texture play, playPress, options, optionsPress, quit, quitPress, pl;
+	Character player;
 	
 	@Override
 	public void create () {
@@ -30,6 +34,13 @@ public class MyGdxGame extends ApplicationAdapter {
 		optionsPress = new Texture("button/optionspress.png");
 		quit = new Texture("button/quit.png");
 		quitPress = new Texture("button/quitpress.png");
+		pl = new Texture("character/example.png");
+
+		player = new Character();
+		float x = (float) WINDOW_WIDTH / 2;
+		float y = (float) WINDOW_HEIGHT / 2;
+		player.setPosition(x, y);
+		player.setTexture(pl);
 	}
 
 	private void drawButton(Texture button, Texture buttonPress, int y, int width, int height){
@@ -49,7 +60,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		drawButton(play, playPress, 500, BUTTON_WIDTH, BUTTON_HEIGHT);
 		drawButton(options, optionsPress, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
 		drawButton(quit, quitPress, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
+		player.draw(batch);
 		batch.end();
+
+		player.update();
 	}
 
 	@Override
