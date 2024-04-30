@@ -16,8 +16,8 @@ public class MainGameScreen implements Screen {
     float speed = 120;
     SpaceGame game;
     Texture walk;
-    float x=SpaceGame.WINDOW_HEIGHT/2;
-    float y=SpaceGame.WINDOW_WIDTH/2;
+    float x= (float) SpaceGame.WINDOW_HEIGHT /2;
+    float y= (float) SpaceGame.WINDOW_WIDTH /2;
     int roll;
     float stateTime;
     SpriteBatch batch;
