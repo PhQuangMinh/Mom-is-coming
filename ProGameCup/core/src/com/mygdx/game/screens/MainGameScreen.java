@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.tiledMapGame.screens.Play;
 
 public class MainGameScreen implements Screen {
 
@@ -23,6 +24,7 @@ public class MainGameScreen implements Screen {
     SpriteBatch batch;
     Animation[] rolls;
     public MainGameScreen (SpaceGame game){
+        game.setScreen(new Play(game));
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("walk.png");
