@@ -30,7 +30,7 @@ public class MainStory implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && elapsedTime>=3.5){
             countMessages++;
             if (countMessages==9) {
                 game.setScreen(new MainGameScreen(game));
