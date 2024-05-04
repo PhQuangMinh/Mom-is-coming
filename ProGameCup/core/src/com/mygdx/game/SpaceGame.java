@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.screens.MainGameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.tiledMapGame.screens.Play;
 
 public class SpaceGame extends Game {
 	public static final int WINDOW_WIDTH = 720;
