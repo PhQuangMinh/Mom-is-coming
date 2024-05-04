@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Good impression");
-		config.setWindowedMode(MyGdxGame.WINDOW_WIDTH, MyGdxGame.WINDOW_HEIGHT);
-		new Lwjgl3Application(new MyGdxGame(), config);
+		config.setWindowedMode(SpaceGame.WINDOW_WIDTH, SpaceGame.WINDOW_HEIGHT);
+		new Lwjgl3Application(new SpaceGame(), config);
 	}
 }

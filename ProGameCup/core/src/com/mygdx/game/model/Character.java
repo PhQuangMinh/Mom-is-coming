@@ -41,8 +41,4 @@ public class Character extends Entity{
         CharacterMovement movement = new CharacterMovement();
         movement.move(this);
     }
-
-    public void draw(Batch batch){
-        batch.draw(this.getTexture(), x, y);
-    }
 }
