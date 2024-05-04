@@ -9,15 +9,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.model.Character;
 import com.mygdx.game.SpaceGame;
 
 public class MainGameScreen implements Screen {
 
     float speed = 120;
+    Character character;
     SpaceGame game;
-    Texture walk;
-    float x=SpaceGame.WINDOW_HEIGHT/2;
-    float y=SpaceGame.WINDOW_WIDTH/2;
+    Texture walk, ch;
+    float x = (float) SpaceGame.WINDOW_HEIGHT /2;
+    float y = (float) SpaceGame.WINDOW_WIDTH /2;
     int roll;
     float stateTime;
     SpriteBatch batch;
@@ -26,6 +28,9 @@ public class MainGameScreen implements Screen {
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("walk.png");
+        ch = new Texture("character/example.png");
+        character = new Character(speed);
+        character.setTexture(ch);
         roll = 0;
         rolls = new Animation[10];
         TextureRegion[][] rollSpriteSheet = TextureRegion.split(walk, 16, 20);
@@ -44,25 +49,26 @@ public class MainGameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            y += speed * Gdx.graphics.getDeltaTime();
-            roll = 3;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            y -= speed * Gdx.graphics.getDeltaTime();
-            roll = 0;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            x -= speed * Gdx.graphics.getDeltaTime();
-            roll = 1;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            x += speed * Gdx.graphics.getDeltaTime();
-            roll = 2;
-        }
-        stateTime += delta;
+//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+//            y += speed * Gdx.graphics.getDeltaTime();
+//            roll = 3;
+//        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+//            y -= speed * Gdx.graphics.getDeltaTime();
+//            roll = 0;
+//        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+//            x -= speed * Gdx.graphics.getDeltaTime();
+//            roll = 1;
+//        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+//            x += speed * Gdx.graphics.getDeltaTime();
+//            roll = 2;
+//        }
+//        stateTime += delta;
         batch.begin();
-        batch.draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), x, y, 100, 100);
+        character.draw(batch);
+        character.update();
         batch.end();
     }
 
