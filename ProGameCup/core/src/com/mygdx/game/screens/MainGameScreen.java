@@ -23,10 +23,7 @@ public class MainGameScreen implements Screen {
     float x= (float) SpaceGame.WINDOW_HEIGHT /2;
     float y= (float) SpaceGame.WINDOW_WIDTH /2;
     int roll;
-    private float screenWidth, screenHeight;
     private float mapWidth, mapHeight;
-    private float mapPosX, mapPosY;
-    private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     float stateTime;
@@ -49,17 +46,13 @@ public class MainGameScreen implements Screen {
     @Override
     public void show() {
         TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("maps/map2.tmx");
+        TiledMap map = loader.load("maps/map2.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        screenWidth = SpaceGame.WINDOW_WIDTH;
-        screenHeight = SpaceGame.WINDOW_HEIGHT;
 
         mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
         mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
 
-        mapPosX = (screenWidth - mapWidth) / 2;
-        mapPosY = (screenHeight - mapHeight) / 2;
     }
 
     @Override
@@ -94,8 +87,9 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.setToOrtho(false, SpaceGame.WINDOW_WIDTH, SpaceGame.WINDOW_HEIGHT);
+
+        camera.position.set(mapWidth/2, mapHeight/2, 0);
 
         camera.update();
     }
