@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3050b1cd-495a-4ba1-a09c-ca5b08e7ca87" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/maps/Interiors_free_16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/Interiors_free_16x16.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/Room_Builder_free_16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/Room_Builder_free_16x16.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_FloorsAndWalls.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_FloorsAndWalls.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_FurnitureState1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_FurnitureState1.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_SmallItems.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/TopDownHouse_SmallItems.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/maps/map2.tmx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/run.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/walk.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/SpaceGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/SpaceGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainGameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainStory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainStory.java" afterDir="false" />
-    </list>
+    <list default="true" id="3050b1cd-495a-4ba1-a09c-ca5b08e7ca87" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +54,7 @@
     "Gradle.ProGameCup:desktop [:desktop:DesktopLauncher.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging feature/NHOM6-40",
+    "git-widget-placeholder": "feature/NHOM6-40",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Coding/Java/BTCK2/ProGameCup/assets/animations",
