@@ -1,4 +1,3 @@
-
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.model.Character;
 
 public class MainGameScreen implements Screen {
 
@@ -21,13 +21,13 @@ public class MainGameScreen implements Screen {
     Texture walk;
     float x= (float) SpaceGame.WINDOW_HEIGHT /2;
     float y= (float) SpaceGame.WINDOW_WIDTH /2;
-    int roll;
     private float mapWidth, mapHeight;
     private OrthogonalTiledMapRenderer renderer;
+    Character character;
     private OrthographicCamera camera;
     float stateTime;
     SpriteBatch batch;
-    Animation[] rolls;
+
     BitmapFont letterFont;
     private int minutes = 2;
     private int seconds = 0;
@@ -38,17 +38,9 @@ public class MainGameScreen implements Screen {
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
-        walk = new Texture("walk.png");
-        roll = 0;
-        rolls = new Animation[10];
-        TextureRegion[][] rollSpriteSheet = TextureRegion.split(walk, 16, 20);
-        rolls[0] = new Animation(0.2f, rollSpriteSheet[0]);
-        rolls[1] = new Animation(0.2f, rollSpriteSheet[1]);
-        rolls[2] = new Animation(0.2f, rollSpriteSheet[2]);
-        rolls[3] = new Animation(0.2f, rollSpriteSheet[3]);
-
+        walk = new Texture("move.png");
+        character = new Character(walk, x, y, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
-
     }
     @Override
     public void show() {
@@ -76,23 +68,6 @@ public class MainGameScreen implements Screen {
         }
         int remainMinutes = (int)(timeLeft / 60);
         int remainSeconds = (int)(timeLeft % 60);
-
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            y += speed * Gdx.graphics.getDeltaTime();
-            roll = 3;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            y -= speed * Gdx.graphics.getDeltaTime();
-            roll = 0;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            x -= speed * Gdx.graphics.getDeltaTime();
-            roll = 1;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            x += speed * Gdx.graphics.getDeltaTime();
-            roll = 2;
-        }
         stateTime += delta;
 
         if(Gdx.input.isKeyPressed(Input.Keys.E)){
@@ -106,12 +81,13 @@ public class MainGameScreen implements Screen {
         renderer.render();
 
         batch.begin();
-
+        character.draw(batch, stateTime);
         letterFont.draw(batch, "end game - E", 10, 35);
         letterFont.draw(batch, "stop - S", SpaceGame.WINDOW_WIDTH - 200, 35);
         letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), SpaceGame.WINDOW_WIDTH - 150, 820 );
-        batch.draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), x, y, 40, 40);
         batch.end();
+
+        character.update();
     }
 
     @Override
