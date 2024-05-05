@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.controller.CharacterMovement;
 import com.mygdx.game.controller.Direction;
@@ -11,11 +12,13 @@ public class Character extends Entity{
     private float DIAGONAL_SPEED = 2.8F;
     private Direction direction;
     private CharacterStatus status;
+    private Animation[] animations;
 
     public Character(){
         direction = null;
         setPosition(0, 0);
         status = CharacterStatus.IDLE;
+        passable = false;
     }
 
     public Character(float x, float y){

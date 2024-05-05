@@ -23,7 +23,9 @@ public class MainGameScreen implements Screen {
     int roll;
     float stateTime;
     SpriteBatch batch;
-    Animation[] rolls;
+    Animation[] characterAnimations;
+
+
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
@@ -32,13 +34,9 @@ public class MainGameScreen implements Screen {
         character = new Character(speed);
         character.setTexture(ch);
         roll = 0;
-        rolls = new Animation[10];
-        TextureRegion[][] rollSpriteSheet = TextureRegion.split(walk, 16, 20);
-        rolls[0] = new Animation(0.2f, rollSpriteSheet[0]);
-        rolls[1] = new Animation(0.2f, rollSpriteSheet[1]);
-        rolls[2] = new Animation(0.2f, rollSpriteSheet[2]);
-        rolls[3] = new Animation(0.2f, rollSpriteSheet[3]);
-
+        characterAnimations = new Animation[100];
+        TextureRegion[][] spriteSheet = TextureRegion.split(new Texture("animations/ABC_universal.png"), 16, 20);
+        characterAnimations[0] = new Animation(0.2f, spriteSheet[0]);
     }
     @Override
     public void show() {
@@ -49,26 +47,13 @@ public class MainGameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-//            y += speed * Gdx.graphics.getDeltaTime();
-//            roll = 3;
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-//            y -= speed * Gdx.graphics.getDeltaTime();
-//            roll = 0;
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            x -= speed * Gdx.graphics.getDeltaTime();
-//            roll = 1;
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-//            x += speed * Gdx.graphics.getDeltaTime();
-//            roll = 2;
-//        }
-//        stateTime += delta;
+
+        stateTime += delta;
+
         batch.begin();
-        character.draw(batch);
-        character.update();
+//        character.draw(batch);
+//        character.update();
+        batch.draw((Texture) characterAnimations[0].getKeyFrame(stateTime, true), x, y, 200, 200);
         batch.end();
     }
 
