@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3050b1cd-495a-4ba1-a09c-ca5b08e7ca87" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/BTCK2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/dependencies-accessors/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.4.2/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/dependencies-accessors/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.5/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/animations/ABC_universal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/animations/free_farm_character_shovel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/animations/move.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/score.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/score.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/maps/Interiors_free_32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/maps/Interiors_free_32x32.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/maps/atlas_32x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/maps/atlas_32x.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/maps/map.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CharacterStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/desktop/build/classes/java/main/com/mygdx/game/DesktopLauncher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/Interiors_free_16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/Interiors_free_16x16.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/Room_Builder_free_16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/Room_Builder_free_16x16.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_FloorsAndWalls.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_FloorsAndWalls.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_FurnitureState1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_FurnitureState1.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_SmallItems.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/TopDownHouse_SmallItems.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/map2.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/run.atlas" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/walk.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/move.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CharacterMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CharacterMovement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CheckCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CheckCollision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MainGameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainMenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainMenuScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainStory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainStory.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2fTpIj1oiXMmOZCISLHX8hxxCyA" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.ProGameCup:desktop [:desktop:DesktopLauncher.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging feature/NHOM6-38",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Coding/Java/BTCK2/ProGameCup/assets/animations",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.6228151",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\Java\BTCK2\ProGameCup\assets\animations" />
+      <recent name="D:\BTCK\BTCK2\ProGameCup\assets\mainstory" />
+      <recent name="D:\gdx\ProGameCup\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Coding\Java\BTCK2\ProGameCup\assets\animations" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.mygdx.game.DesktopLauncher" />
+      <module name="ProGameCup.desktop.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3050b1cd-495a-4ba1-a09c-ca5b08e7ca87" name="Changes" comment="" />
+      <created>1713834844526</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713834844526</updated>
+      <workItem from="1714788784461" duration="608000" />
+      <workItem from="1714809249373" duration="867000" />
+      <workItem from="1714855802474" duration="8274000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

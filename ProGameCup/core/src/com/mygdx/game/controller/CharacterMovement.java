@@ -1,5 +1,10 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Character;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -7,102 +12,96 @@ import com.badlogic.gdx.Input.Keys;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class CharacterMovement implements Movable {
+public class CharacterMovement{
     Direction direction;
+    CharacterStatus status;
+    boolean isLeftKeyPressed;
+    boolean isRightKeyPressed;
+    boolean isUpKeyPressed;
+    boolean isDownKeyPressed;
 
-    @Override
-    public void move(Character character) {
+    private void moveDirection(){
         direction = null;
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-            direction = Direction.LEFT;
-        }
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            direction = Direction.RIGHT;
-        }
-        if (Gdx.input.isKeyPressed(Keys.UP)) {
-            direction = Direction.UP;
-        }
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            direction = Direction.DOWN;
-        }
-        //up left
-        if (Gdx.input.isKeyPressed(Keys.UP) && Gdx.input.isKeyPressed(Keys.LEFT)) {
-            direction = Direction.UPLEFT;
-        }
-        //up Gdx.input.isKeyPressed(Keys.RIGHT)
-        if (Gdx.input.isKeyPressed(Keys.UP) && Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            direction = Direction.UPRIGHT;
-        }
-        //down left
-        if (Gdx.input.isKeyPressed(Keys.DOWN) && Gdx.input.isKeyPressed(Keys.LEFT)) {
-            direction = Direction.DOWNLEFT;
-        }
-        //down right
-        if (Gdx.input.isKeyPressed(Keys.DOWN) && Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            direction = Direction.DOWNRIGHT;
-        }
+        status = null;
 
+        isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
+        isRightKeyPressed = Gdx.input.isKeyPressed(Keys.RIGHT);
+        isUpKeyPressed = Gdx.input.isKeyPressed(Keys.UP);
+        isDownKeyPressed = Gdx.input.isKeyPressed(Keys.DOWN);
+
+        if(!isLeftKeyPressed && !isRightKeyPressed && !isUpKeyPressed && !isDownKeyPressed) {
+            status = CharacterStatus.IDLE;
+        }
+        else {
+            status = CharacterStatus.WALKING;
+            if(isLeftKeyPressed && !isRightKeyPressed && isUpKeyPressed && !isDownKeyPressed) {
+                direction = Direction.UPLEFT;
+            }
+            else if(isLeftKeyPressed && !isRightKeyPressed && !isUpKeyPressed && isDownKeyPressed) {
+                direction = Direction.DOWNLEFT;
+            }
+            else if(!isLeftKeyPressed && isRightKeyPressed && isUpKeyPressed && !isDownKeyPressed) {
+                direction = Direction.UPRIGHT;
+            }
+            else if(!isLeftKeyPressed && isRightKeyPressed && !isUpKeyPressed && isDownKeyPressed) {
+                direction = Direction.DOWNRIGHT;
+            }
+            else if(isLeftKeyPressed) {
+                direction = Direction.LEFT;
+            }
+            else if(isRightKeyPressed) {
+                direction = Direction.RIGHT;
+            }
+            else if(isUpKeyPressed) {
+                direction = Direction.UP;
+            }
+            else {
+                direction = Direction.DOWN;
+            }
+        }
+    }
+
+    public void move(Character character, MapObjects mapObjects) {
+        moveDirection();
 
         float x = character.getX();
         float y = character.getY();
+        Vector2 oldPosition = new Vector2(x, y);
         if(direction == Direction.UP){
-            y += character.getSTRAIGHT_SPEED();
+            y += character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.DOWN){
-            y -= character.getSTRAIGHT_SPEED();
+            y -= character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.LEFT){
-            x -= character.getSTRAIGHT_SPEED();
+            x -= character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.RIGHT){
-            x += character.getSTRAIGHT_SPEED();
+            x += character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.UPLEFT){
-            y += character.getDIAGONAL_SPEED();
-            x -= character.getDIAGONAL_SPEED();
+            y += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            x -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.UPRIGHT){
-            y += character.getDIAGONAL_SPEED();
-            x += character.getDIAGONAL_SPEED();
+            y += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            x += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.DOWNLEFT){
-            y -= character.getDIAGONAL_SPEED();
-            x -= character.getDIAGONAL_SPEED();
+            y -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            x -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         }
         if(direction == Direction.DOWNRIGHT){
-            y -= character.getDIAGONAL_SPEED();
-            x += character.getDIAGONAL_SPEED();
+            y -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            x += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         }
-//        switch (direction) {
-//            case UP:
-//                x += character.getSTRAIGHT_SPEED();
-//                break;
-//            case DOWN:
-//                x -= character.getSTRAIGHT_SPEED();
-//                break;
-//            case LEFT:
-//                y -= character.getSTRAIGHT_SPEED();
-//                break;
-//            case RIGHT:
-//                y += character.getSTRAIGHT_SPEED();
-//                break;
-//            case UPLEFT:
-//                x += character.getDIAGONAL_SPEED();
-//                y -= character.getDIAGONAL_SPEED();
-//                break;
-//            case UPRIGHT:
-//                x += character.getDIAGONAL_SPEED();
-//                y += character.getDIAGONAL_SPEED();
-//                break;
-//            case DOWNLEFT:
-//                x -= character.getDIAGONAL_SPEED();
-//                y -= character.getDIAGONAL_SPEED();
-//                break;
-//            case DOWNRIGHT:
-//                x -= character.getDIAGONAL_SPEED();
-//                y += character.getDIAGONAL_SPEED();
-//                break;
-//        }
-        character.setPosition(x, y);
+        Vector2 newPosition = new Vector2(x, y);
+        CheckCollision checkCollision = new CheckCollision();
+        newPosition = checkCollision.updatePosition(newPosition, oldPosition, mapObjects);
+
+        character.setPosition(newPosition.x, newPosition.y);
+        character.setStatus(status);
+        if(status != CharacterStatus.IDLE)
+            character.setDirection(direction);
     }
 }

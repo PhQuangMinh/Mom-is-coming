@@ -12,8 +12,6 @@ public class CheckCollision {
         float yObject = (GameConstant.windowHeight-GameConstant.mapHeight)/2+ 0.8f* GameConstant.playerHeight +mapObject.getProperties().get("y", Float.class);
         float widthObject = mapObject.getProperties().get("width", Float.class) - 0.4f*GameConstant.playerWidth;
         float heightObject = Math.max(mapObject.getProperties().get("height", Float.class)-0.8f*GameConstant.playerHeight, 1f);
-//        float yObject = cameraPosY+mapObject.getProperties().get("y", Float.class);
-//        System.out.println(xObject + " " + yObject + " " + mapObject.getName());
         return new Rectangle(xObject, yObject, widthObject, heightObject);
     }
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 
@@ -20,7 +21,7 @@ public class MainMenuScreen implements Screen {
             batch.draw(buttonPress, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(new MainGameScreen(game));
+                    game.setScreen(new MainStory(game));
                 }
                 else{
                     if (choice==2){

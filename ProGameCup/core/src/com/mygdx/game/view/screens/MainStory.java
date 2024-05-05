@@ -12,8 +12,7 @@ import com.mygdx.game.common.constant.GameConstant;
 public class MainStory implements Screen {
     private final SpaceGame game;
     private final SpriteBatch batch;
-    private Texture impression;
-    private Texture press;
+    private Texture impression, message, press;
 
     private float elapsedTime = 0;
 
@@ -31,7 +30,7 @@ public class MainStory implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && elapsedTime>=3.5){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
             countMessages++;
             if (countMessages==9) {
                 game.setScreen(new MainGameScreen(game));

@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public abstract class Entity {
     protected float x, y;
@@ -11,6 +12,10 @@ public abstract class Entity {
     public Entity(){
         width = 0; height = 0;
         passable = false;
+    }
+
+    public void draw(Batch batch){
+        batch.draw(this.getTexture(), x, y);
     }
 
     public void setPosition(float x, float y){
