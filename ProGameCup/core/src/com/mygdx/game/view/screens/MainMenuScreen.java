@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,20 +6,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.common.constant.GameConstant;
 
 public class MainMenuScreen implements Screen {
-    private static final int BUTTON_WIDTH = 200;
-    private static final int BUTTON_HEIGHT = 80;
-
     Texture play, playPress, options, optionsPress, quit, quitPress;
     private final SpaceGame game;
 
     private final SpriteBatch batch;
 
     private void drawButton(Texture button, Texture buttonPress, int y, int choice){
-        int x = (SpaceGame.WINDOW_WIDTH- MainMenuScreen.BUTTON_WIDTH)/2;
-        if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ MainMenuScreen.BUTTON_WIDTH && SpaceGame.WINDOW_HEIGHT-Gdx.input.getY()>=y && SpaceGame.WINDOW_HEIGHT-Gdx.input.getY()<=y+ MainMenuScreen.BUTTON_HEIGHT){
-            batch.draw(buttonPress, (float) (SpaceGame.WINDOW_WIDTH - MainMenuScreen.BUTTON_WIDTH) /2, y, MainMenuScreen.BUTTON_WIDTH, MainMenuScreen.BUTTON_HEIGHT);
+        int x = (int)(GameConstant.windowWidth- GameConstant.buttonWidth)/2;
+        if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ GameConstant.buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ GameConstant.buttonHeight){
+            batch.draw(buttonPress, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
             if (Gdx.input.isTouched()){
                 if (choice==1){
                     game.setScreen(new MainGameScreen(game));
@@ -35,7 +33,7 @@ public class MainMenuScreen implements Screen {
             }
         }
         else{
-            batch.draw(button, (float) (SpaceGame.WINDOW_WIDTH - MainMenuScreen.BUTTON_WIDTH) /2, y, MainMenuScreen.BUTTON_WIDTH, MainMenuScreen.BUTTON_HEIGHT);
+            batch.draw(button, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
         }
     }
 
