@@ -5,12 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
-import com.mygdx.game.tiledMapGame.screens.Play;
 
 public class MainGameScreen implements Screen {
 
@@ -20,11 +23,14 @@ public class MainGameScreen implements Screen {
     float x= (float) SpaceGame.WINDOW_HEIGHT /2;
     float y= (float) SpaceGame.WINDOW_WIDTH /2;
     int roll;
+    private float mapWidth, mapHeight;
+    private OrthogonalTiledMapRenderer renderer;
+    private OrthographicCamera camera;
     float stateTime;
     SpriteBatch batch;
     Animation[] rolls;
     public MainGameScreen (SpaceGame game){
-        game.setScreen(new Play(game));
+//        game.setScreen(new Play(game));
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("walk.png");
@@ -39,6 +45,13 @@ public class MainGameScreen implements Screen {
     }
     @Override
     public void show() {
+        TmxMapLoader loader = new TmxMapLoader();
+        TiledMap map = loader.load("maps/map2.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
+        camera = new OrthographicCamera();
+
+        mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
 
     }
 
@@ -63,14 +76,22 @@ public class MainGameScreen implements Screen {
             roll = 2;
         }
         stateTime += delta;
+
+        renderer.setView(camera);
+        renderer.render();
+
         batch.begin();
-        batch.draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), x, y, 100, 100);
+        batch.draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), x, y, 40, 40);
         batch.end();
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
+        camera.setToOrtho(false, SpaceGame.WINDOW_WIDTH, SpaceGame.WINDOW_HEIGHT);
 
+        camera.position.set(mapWidth/2, mapHeight/2, 0);
+
+        camera.update();
     }
 
     @Override

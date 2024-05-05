@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
-import com.mygdx.game.tiledMapGame.TiledMapGame;
-import com.mygdx.game.tiledMapGame.screens.Play;
 
 public class MainStory implements Screen {
     private final SpaceGame game;
@@ -32,10 +30,10 @@ public class MainStory implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && elapsedTime>=3.5){
             countMessages++;
             if (countMessages==9) {
-                game.setScreen(new Play(game));
+                game.setScreen(new MainGameScreen(game));
                 return;
             }
         }
