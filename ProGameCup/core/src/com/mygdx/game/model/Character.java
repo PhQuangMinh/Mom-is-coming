@@ -1,7 +1,9 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.controller.CharacterMovement;
 import com.mygdx.game.controller.Direction;
 import com.mygdx.game.controller.CharacterStatus;
@@ -10,26 +12,37 @@ import java.lang.Math;
 public class Character extends Entity{
     private float STRAIGHT_SPEED = 4; // 4 pixels per frame
     private float DIAGONAL_SPEED = 2.8F;
+    public static int CHARACTER_WIDTH = 16;
+    public static int CHARACTER_HEIGHT = 20;
     private Direction direction;
     private CharacterStatus status;
-    private Animation[] animations;
+    private Animation[] walking;
+    private TextureRegion[] idleTexture;
 
     public Character(){
-        direction = null;
-        setPosition(0, 0);
+        direction = Direction.DOWN;
         status = CharacterStatus.IDLE;
+        setPosition(0, 0);
         passable = false;
     }
 
-    public Character(float x, float y){
+    public Character(Texture texture, float x, float y, float speed){
         this();
+        setTexture(texture);
         setPosition(x, y);
+        setSpeed(speed);
+        setAnimations(texture);
     }
 
-    public Character(float speed){
-        this();
-        setSpeed(speed);
-        System.out.printf("%.2f %.2f\n", STRAIGHT_SPEED, DIAGONAL_SPEED);
+    public void setAnimations(Texture texture) {
+        walking = new Animation[10];
+        idleTexture = new TextureRegion[10];
+        TextureRegion[][] region = TextureRegion.split(texture, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+
+        for(int i = 0; i < 4; ++i){
+            walking[i] = new Animation(0.2f, region[i]);
+            idleTexture[i] = region[i][1];
+        }
     }
 
     public Direction getDirection() {
@@ -38,6 +51,14 @@ public class Character extends Entity{
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public CharacterStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CharacterStatus status) {
+        this.status = status;
     }
 
     public float getSTRAIGHT_SPEED() {
@@ -58,15 +79,19 @@ public class Character extends Entity{
         movement.move(this);
     }
 
-    public CharacterStatus getStatus() {
-        return status;
-    }
+    public void draw(Batch batch, float stateTime){
+        int index;
 
-    public void setStatus(CharacterStatus status) {
-        this.status = status;
-    }
+        if(direction == Direction.DOWN) index = 0;
+        else if(direction == Direction.LEFT || direction == Direction.DOWNLEFT || direction == Direction.UPLEFT) index = 1;
+        else if(direction == Direction.RIGHT || direction == Direction.DOWNRIGHT || direction == Direction.UPRIGHT) index = 2;
+        else index = 3;
 
-    public void draw(Batch batch){
-        batch.draw(this.getTexture(), x, y);
+        if(status == CharacterStatus.IDLE){
+            batch.draw(idleTexture[index], this.getX(), this.getY(), 40, 40);
+        }
+        else if(status == CharacterStatus.WALKING){
+            batch.draw((TextureRegion) walking[index].getKeyFrame(stateTime, true), this.getX(), this.getY(), 40, 40);
+        }
     }
 }

@@ -5,61 +5,65 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.model.Character;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.model.Character;
 
 public class MainGameScreen implements Screen {
 
     float speed = 120;
-    Character character;
     SpaceGame game;
-    Texture walk, ch;
-    float x = (float) SpaceGame.WINDOW_HEIGHT /2;
-    float y = (float) SpaceGame.WINDOW_WIDTH /2;
+    Texture walk;
+    float x= (float) SpaceGame.WINDOW_HEIGHT /2;
+    float y= (float) SpaceGame.WINDOW_WIDTH /2;
     int roll;
+    private float mapWidth, mapHeight;
+    private OrthogonalTiledMapRenderer renderer;
+    Character character;
+    private OrthographicCamera camera;
     float stateTime;
     SpriteBatch batch;
-    Animation[] characterAnimations;
-
+    Animation[] rolls;
 
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
-        walk = new Texture("walk.png");
-        ch = new Texture("character/example.png");
-        character = new Character(speed);
-        character.setTexture(ch);
+        walk = new Texture("move.png");
+        character = new Character(walk, x, y, speed);
         roll = 0;
-        characterAnimations = new Animation[100];
-        TextureRegion[][] spriteSheet = TextureRegion.split(new Texture("animations/ABC_universal.png"), 16, 20);
-        characterAnimations[0] = new Animation(0.2f, spriteSheet[0]);
+        rolls = new Animation[10];
+        TextureRegion[][] rollSpriteSheet = TextureRegion.split(walk, 16, 20);
+        rolls[0] = new Animation(0.2f, rollSpriteSheet[0]);
+        rolls[1] = new Animation(0.2f, rollSpriteSheet[1]);
+        rolls[2] = new Animation(0.2f, rollSpriteSheet[2]);
+        rolls[3] = new Animation(0.2f, rollSpriteSheet[3]);
     }
     @Override
-    public void show() {
-
-    }
+    public void show() {    }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stateTime += delta;
 
         batch.begin();
-//        character.draw(batch);
-//        character.update();
-        batch.draw((Texture) characterAnimations[0].getKeyFrame(stateTime, true), x, y, 200, 200);
+        character.draw(batch, stateTime);
+        //batch.draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), x, y, 40, 40);
         batch.end();
+
+        character.update();
     }
 
     @Override
-    public void resize(int i, int i1) {
-
+    public void resize(int width, int height) {
     }
 
     @Override

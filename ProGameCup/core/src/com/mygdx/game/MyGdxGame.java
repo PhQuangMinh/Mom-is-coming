@@ -60,10 +60,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		drawButton(play, playPress, 500, BUTTON_WIDTH, BUTTON_HEIGHT);
 		drawButton(options, optionsPress, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
 		drawButton(quit, quitPress, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
-		player.draw(batch);
+		player.draw(batch, 0);
 		batch.end();
 
-		player.update();
+//		player.update();
 	}
 
 	@Override
