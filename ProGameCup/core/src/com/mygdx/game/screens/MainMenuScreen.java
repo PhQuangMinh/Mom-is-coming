@@ -23,7 +23,7 @@ public class MainMenuScreen implements Screen {
             batch.draw(buttonPress, (float) (SpaceGame.WINDOW_WIDTH - MainMenuScreen.BUTTON_WIDTH) /2, y, MainMenuScreen.BUTTON_WIDTH, MainMenuScreen.BUTTON_HEIGHT);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(new MainStory(game));
+                    game.setScreen(new MainGameScreen(game));
                 }
                 else{
                     if (choice==2){
