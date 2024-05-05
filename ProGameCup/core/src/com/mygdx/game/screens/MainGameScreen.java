@@ -1,4 +1,3 @@
-
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -38,13 +37,25 @@ public class MainGameScreen implements Screen {
         character = new Character(walk, x, y, speed);
     }
     @Override
-    public void show() {    }
+    public void show() {
+        TmxMapLoader loader = new TmxMapLoader();
+        TiledMap map = loader.load("maps/map2.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
+        camera = new OrthographicCamera();
+
+        mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
+
+    }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stateTime += delta;
+
+        renderer.setView(camera);
+        renderer.render();
 
         batch.begin();
         character.draw(batch, stateTime);
@@ -55,6 +66,11 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        camera.setToOrtho(false, SpaceGame.WINDOW_WIDTH, SpaceGame.WINDOW_HEIGHT);
+
+        camera.position.set(mapWidth/2, mapHeight/2, 0);
+
+        camera.update();
     }
 
     @Override
