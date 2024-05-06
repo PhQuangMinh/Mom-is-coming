@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObjects;
 import com.mygdx.game.controller.CharacterMovement;
 import com.mygdx.game.controller.Direction;
 import com.mygdx.game.controller.CharacterStatus;
@@ -74,9 +75,9 @@ public class Character extends Entity{
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public void update(){
+    public void update(MapObjects mapObjects){
         CharacterMovement movement = new CharacterMovement();
-        movement.move(this);
+        movement.move(this, mapObjects);
     }
 
     public void draw(Batch batch, float stateTime){

@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -7,11 +7,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.CheckCollision;
 import com.mygdx.game.model.Character;
 
 public class MainGameScreen implements Screen {
@@ -19,28 +26,23 @@ public class MainGameScreen implements Screen {
     float speed = 120;
     SpaceGame game;
     Texture walk;
-    float x= (float) SpaceGame.WINDOW_HEIGHT /2;
-    float y= (float) SpaceGame.WINDOW_WIDTH /2;
-    private float mapWidth, mapHeight;
+    int roll;
     private OrthogonalTiledMapRenderer renderer;
-    Character character;
     private OrthographicCamera camera;
+
+    private MapObjects mapObjects;
     float stateTime;
     SpriteBatch batch;
-
     BitmapFont letterFont;
-    private int minutes = 2;
-    private int seconds = 0;
-    private float countdownTime = minutes * 60 + seconds;
-    private float eslapedTime = 0;
-    String letter;
 
+    private final Character character;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        character = new Character(walk, x, y, speed);
+        character = new Character(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
+
     }
     @Override
     public void show() {
@@ -49,9 +51,9 @@ public class MainGameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
 
-        mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
-        mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
-
+        GameConstant.mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        GameConstant.mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
+        mapObjects = map.getLayers().get(3).getObjects();
         letterFont.setColor(Color.ORANGE);
         letterFont.getData().setScale(0.7f);
     }
@@ -60,9 +62,12 @@ public class MainGameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stateTime += delta;
 
-        eslapedTime += delta;
-        float timeLeft = countdownTime - eslapedTime;
+        int minutes = 2;
+        int seconds = 0;
+        float countdownTime = minutes * 60 + seconds;
+        float timeLeft = countdownTime - stateTime;
         if(timeLeft <= 0){
             game.setScreen(new MainMenuScreen(game));
         }
@@ -80,24 +85,26 @@ public class MainGameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
+        character.update(mapObjects);
+
         batch.begin();
         character.draw(batch, stateTime);
         letterFont.draw(batch, "end game - E", 10, 35);
-        letterFont.draw(batch, "stop - S", SpaceGame.WINDOW_WIDTH - 200, 35);
-        letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), SpaceGame.WINDOW_WIDTH - 150, 820 );
+        letterFont.draw(batch, "stop - S", GameConstant.windowWidth - 200, 35);
+        letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), GameConstant.windowHeight - 150, 820 );
         batch.end();
 
-        character.update();
     }
 
     @Override
     public void resize(int width, int height) {
-        camera.setToOrtho(false, SpaceGame.WINDOW_WIDTH, SpaceGame.WINDOW_HEIGHT);
+        camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
 
-        camera.position.set(mapWidth/2, mapHeight/2, 0);
+        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
 
         camera.update();
     }
+
 
     @Override
     public void pause() {

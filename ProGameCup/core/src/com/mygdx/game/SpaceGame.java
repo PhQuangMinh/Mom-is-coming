@@ -2,11 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class SpaceGame extends Game {
-	public static final int WINDOW_WIDTH = 864;
-	public static final int WINDOW_HEIGHT = 864;
 
 	SpriteBatch batch;
 
