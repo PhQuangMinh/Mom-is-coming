@@ -15,21 +15,21 @@ public class CheckCollision {
         return new Rectangle(xObject, yObject, widthObject, heightObject);
     }
 
-    private Vector2 updateFrame(Vector2 position){
+    private void updateFrame(Vector2 position){
         float pos= (GameConstant.windowWidth-GameConstant.mapHeight)/2;
         if (position.x<pos + GameConstant.tileWidth)
             position.x = pos + GameConstant.tileWidth;
-        if (position.x>pos + GameConstant.mapWidth - GameConstant.tileWidth)
-            position.x = pos + GameConstant.mapWidth - GameConstant.tileWidth;
+        if (position.x>pos + GameConstant.mapWidth - GameConstant.tileWidth*2)
+            position.x = pos + GameConstant.mapWidth - GameConstant.tileWidth*2;
         if (position.y<pos + GameConstant.tileHeight)
             position.y = pos + GameConstant.tileHeight;
         if (position.y>pos + GameConstant.mapHeight - GameConstant.tileHeight-10)
             position.y = pos + GameConstant.mapHeight - GameConstant.tileHeight-10;
-
-        return position;
+        if (position.y > pos + 12*GameConstant.tileHeight+0.7f*GameConstant.playerHeight)
+            position.y = pos + 12*GameConstant.tileHeight+0.7f*GameConstant.playerHeight;
     }
     public Vector2 updatePosition(Vector2 position, Vector2 oldPosition, MapObjects mapObjects) {
-        position = updateFrame(position);
+        updateFrame(position);
 
         for (MapObject mapObject:mapObjects){
             Rectangle characterRect = new Rectangle(position.x, position.y, GameConstant.playerWidth, GameConstant.playerHeight);

@@ -9,12 +9,12 @@ public class GameConstant {
 
     public static final float playerWidth = 40;
     public static final float playerHeight = 40;
-    public static final float mapWidth = 560;
-    public static final float mapHeight = 560;
+    public static float mapWidth = 560;
+    public static float mapHeight = 560;
 
     public static final float spend = 120f;
 
-    public static final float tileWidth = 16;
-    public static final float tileHeight = 16;
+    public static final float tileWidth = 32;
+    public static final float tileHeight = 32;
 
 }

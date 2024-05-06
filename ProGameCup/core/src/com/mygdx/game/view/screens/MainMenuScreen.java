@@ -21,7 +21,7 @@ public class MainMenuScreen implements Screen {
             batch.draw(buttonPress, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(new MainStory(game));
+                    game.setScreen(new MainGameScreen(game));
                 }
                 else{
                     if (choice==2){

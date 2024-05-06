@@ -26,7 +26,6 @@ public class MainGameScreen implements Screen {
     float speed = 120;
     SpaceGame game;
     Texture walk;
-    Vector2 position, oldPosition;
     int roll;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -41,8 +40,7 @@ public class MainGameScreen implements Screen {
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        position = new Vector2(0.0f, 0.0f);
-        character = new Character(walk, position.x, position.y, speed);
+        character = new Character(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
 
     }
@@ -53,6 +51,8 @@ public class MainGameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
 
+        GameConstant.mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        GameConstant.mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
         mapObjects = map.getLayers().get(3).getObjects();
         letterFont.setColor(Color.ORANGE);
         letterFont.getData().setScale(0.7f);
