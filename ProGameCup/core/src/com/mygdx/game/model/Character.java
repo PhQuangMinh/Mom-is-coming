@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.CharacterMovement;
-import com.mygdx.game.controller.Direction;
-import com.mygdx.game.controller.CharacterStatus;
+import com.mygdx.game.controller.constant.Direction;
+import com.mygdx.game.controller.constant.CharacterStatus;
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class Character extends Entity{
     private float STRAIGHT_SPEED = 4; // 4 pixels per frame
@@ -75,9 +77,9 @@ public class Character extends Entity{
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public void update(MapObjects mapObjects){
+    public void update(MapObjects mapObjects, ArrayList<Item> items){
         CharacterMovement movement = new CharacterMovement();
-        movement.move(this, mapObjects);
+        movement.move(this, mapObjects, items);
     }
 
     public void draw(Batch batch, float stateTime){
@@ -89,10 +91,10 @@ public class Character extends Entity{
         else index = 3;
 
         if(status == CharacterStatus.IDLE){
-            batch.draw(idleTexture[index], this.getX(), this.getY(), 40, 40);
+            batch.draw(idleTexture[index], this.getX(), this.getY(), GameConstant.playerWidth, GameConstant.playerHeight);
         }
         else if(status == CharacterStatus.WALKING){
-            batch.draw((TextureRegion) walking[index].getKeyFrame(stateTime, true), this.getX(), this.getY(), 40, 40);
+            batch.draw((TextureRegion) walking[index].getKeyFrame(stateTime, true), this.getX(), this.getY(), GameConstant.playerWidth, GameConstant.playerHeight);
         }
     }
 }

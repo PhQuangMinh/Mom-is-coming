@@ -3,7 +3,7 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-public abstract class Entity {
+public abstract class  Entity {
     protected float x, y;
     protected float width, height;
     protected Texture texture;

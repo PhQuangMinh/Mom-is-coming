@@ -7,26 +7,26 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.CheckCollision;
+import com.mygdx.game.controller.item.DrawItems;
+import com.mygdx.game.controller.item.SetUpItem;
 import com.mygdx.game.model.Character;
+import com.mygdx.game.model.Item;
+
+import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
 
     float speed = 120;
     SpaceGame game;
     Texture walk;
-    int roll;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
@@ -35,6 +35,10 @@ public class MainGameScreen implements Screen {
     SpriteBatch batch;
     BitmapFont letterFont;
 
+    SetUpItem setUpItem;
+    DrawItems drawItems;
+    ArrayList<Item> items;
+
     private final Character character;
     public MainGameScreen (SpaceGame game){
         this.game = game;
@@ -42,6 +46,10 @@ public class MainGameScreen implements Screen {
         walk = new Texture("move.png");
         character = new Character(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
+        setUpItem = new SetUpItem();
+
+        drawItems = new DrawItems();
+        items = new ArrayList<>();
 
     }
     @Override
@@ -56,6 +64,8 @@ public class MainGameScreen implements Screen {
         mapObjects = map.getLayers().get(3).getObjects();
         letterFont.setColor(Color.ORANGE);
         letterFont.getData().setScale(0.7f);
+
+        setUpItem.setUpItems(items);
     }
 
     @Override
@@ -85,9 +95,11 @@ public class MainGameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        character.update(mapObjects);
+        character.update(mapObjects, items);
 
         batch.begin();
+
+        drawItems.drawItems(items, batch, character);
         character.draw(batch, stateTime);
         letterFont.draw(batch, "end game - E", 10, 35);
         letterFont.draw(batch, "stop - S", GameConstant.windowWidth - 200, 35);

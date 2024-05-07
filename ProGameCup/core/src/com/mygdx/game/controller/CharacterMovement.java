@@ -1,16 +1,15 @@
 package com.mygdx.game.controller;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.controller.constant.CharacterStatus;
+import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.model.Character;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.mygdx.game.model.Item;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class CharacterMovement{
     Direction direction;
@@ -61,7 +60,7 @@ public class CharacterMovement{
         }
     }
 
-    public void move(Character character, MapObjects mapObjects) {
+    public void move(Character character, MapObjects mapObjects, ArrayList<Item> items) {
         moveDirection();
 
         float x = character.getX();
@@ -95,9 +94,8 @@ public class CharacterMovement{
             y -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
             x += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         }
-        Vector2 newPosition = new Vector2(x, y);
         CheckCollision checkCollision = new CheckCollision();
-        newPosition = checkCollision.updatePosition(newPosition, oldPosition, mapObjects);
+        Vector2 newPosition = checkCollision.updatePosition(new Vector2(x, y), oldPosition, mapObjects, items);
 
         character.setPosition(newPosition.x, newPosition.y);
         character.setStatus(status);
