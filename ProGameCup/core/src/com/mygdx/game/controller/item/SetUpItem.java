@@ -8,16 +8,22 @@ import com.mygdx.game.model.Item;
 import java.util.ArrayList;
 
 public class SetUpItem {
+    private float overlap;
     private Vector2 getPosition(String nameImage, float width, float height){
+        overlap = 0;
         float x = GameConstant.posMap, y = GameConstant.posMap;
         float mapSize = GameConstant.mapHeight;
         float itemSize = GameConstant.itemSize;
         float tileSize = GameConstant.tileSize;
         float patioTop = 2/3f;
+        float patioLow = 1/4f*height;
+        float patioMedium = 1/3f*height;
+        float patioHigh = 1/2f*height;
         switch (nameImage){
             case "bed":
+                overlap = patioMedium;
                 x += mapSize - width - tileSize;
-                y += 1/2f * mapSize;
+                y += 1/2.2f * mapSize;
                 break;
             case "box":
                 x += mapSize - itemSize - tileSize - 5;
@@ -29,13 +35,15 @@ public class SetUpItem {
                 break;
             case "cabinet2":
                 x += mapSize - itemSize - tileSize;
-                y += 3/7f*mapSize;
+                y += 3/7.2f*mapSize;
                 break;
             case "chair":
+                overlap = patioMedium;
                 x += mapSize/2 - width/2;
-                y += 1/3f*mapSize;
+                y += 1.1f/3f*mapSize;
                 break;
             case "computer-desk":
+                overlap = patioHigh;
                 x += tileSize + 5;
                 y += 1/4f*mapSize;
                 break;
@@ -52,57 +60,73 @@ public class SetUpItem {
                 y += patioTop*mapSize;
                 break;
             case "table1":
+                overlap = patioLow;
                 x += 2.3f*width;
                 y += 3/7f*mapSize;
                 break;
             case "table2":
+                overlap = patioLow;
                 x += mapSize/2 - width/2;
                 y += 1/5f*mapSize;
                 break;
             case "tivi":
+                overlap = patioHigh;
                 x += mapSize/2 - width/2;
                 y += tileSize;
                 break;
             case "trash-can":
+                overlap = patioMedium;
                 x += tileSize + 5;
                 y += tileSize + 5;
                 break;
             case "washing-machine":
+                overlap = patioMedium;
                 x += mapSize - itemSize - tileSize - 5;
                 y += tileSize + 10 + height;
                 break;
         }
         return new Vector2(x, y);
     }
-    public Item getItem(String image){
-        Texture imageItem = new Texture("items/" + image + ".png");
-        Texture chosenImageItem = new Texture("chosen-items/" + image + ".png");
+
+    private Vector2 getSize(String image, Texture imageTexture) {
         float width = GameConstant.itemSize;
         float height = GameConstant.itemSize;
-        float patio = (float) imageItem.getHeight() /imageItem.getWidth();
+        float patio = (float) imageTexture.getHeight() /imageTexture.getWidth();
         if (patio>1) height*=patio;
         else width/=patio;
         if (image.equals("bed") || image.equals("computer-desk")){
             height*=1.5f;
             width*=1.5f;
         }
-        Vector2 position = getPosition(image, width, height);
-        return new Item(image, imageItem, chosenImageItem, position.x, position.y, width, height);
+        if (image.equals("trash-can")){
+            height/=1.5f;
+            width/=1.5f;
+        }
+        return new Vector2(width, height);
+    }
+    public Item getItem(String image, boolean check){
+        Texture imageItem = new Texture("items/" + image + ".png");
+        Texture chosenImageItem;
+        Vector2 size = getSize(image, imageItem);
+        Vector2 position = getPosition(image, size.x, size.y);
+        if (!check) chosenImageItem = null;
+        else chosenImageItem = new Texture("chosen-items/" + image + ".png");
+        return new Item(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y, overlap);
     }
     public void setUpItems(ArrayList<Item> items){
-        items.add(getItem("bed"));
-        items.add(getItem("box"));
-        items.add(getItem("cabinet1"));
-        items.add(getItem("cabinet2"));
-        items.add(getItem("chair"));
-        items.add(getItem("computer-desk"));
-        items.add(getItem("dish-washing"));
-        items.add(getItem("fridge"));
-        items.add(getItem("oven"));
-        items.add(getItem("table1"));
-        items.add(getItem("table2"));
-        items.add(getItem("tivi"));
-        items.add(getItem("trash-can"));
-        items.add(getItem("washing-machine"));
+        items.add(getItem("bed", true));
+        items.add(getItem("box", true));
+        items.add(getItem("cabinet1", true));
+        items.add(getItem("cabinet2", true));
+        items.add(getItem("chair", false));
+        items.add(getItem("computer-desk", true));
+        items.add(getItem("dish-washing", true));
+        items.add(getItem("fridge", true));
+        items.add(getItem("oven", true));
+        items.add(getItem("table1", false));
+        items.add(getItem("table2", false));
+        items.add(getItem("tivi", false));
+        items.add(getItem("trash-can", true));
+        items.add(getItem("washing-machine", true));
     }
 }

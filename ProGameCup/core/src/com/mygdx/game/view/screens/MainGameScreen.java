@@ -15,9 +15,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.CheckCollision;
+import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.controller.item.DrawItems;
 import com.mygdx.game.controller.item.SetUpItem;
-import com.mygdx.game.model.Character;
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Item;
 
 import java.util.ArrayList;
@@ -39,17 +41,21 @@ public class MainGameScreen implements Screen {
     DrawItems drawItems;
     ArrayList<Item> items;
 
-    private final Character character;
+    CheckCollision checkCollision;
+
+    private final Player player;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        character = new Character(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2, speed);
+        player = new Player(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2
+                , GameConstant.playerWidth, GameConstant.playerHeight, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         setUpItem = new SetUpItem();
 
         drawItems = new DrawItems();
         items = new ArrayList<>();
+        checkCollision = new CheckCollision();
 
     }
     @Override
@@ -74,7 +80,7 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stateTime += delta;
 
-        int minutes = 2;
+        int minutes = 10;
         int seconds = 0;
         float countdownTime = minutes * 60 + seconds;
         float timeLeft = countdownTime - stateTime;
@@ -95,12 +101,19 @@ public class MainGameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        character.update(mapObjects, items);
+        player.update(mapObjects, items);
 
         batch.begin();
+        player.setOverlap(checkCollision.checkFull(items, player));
+        if (player.getOverlap()){
+            player.draw(batch, stateTime);
+            drawItems.drawItems(items, batch, player);
+        }
+        else{
+            drawItems.drawItems(items, batch, player);
+            player.draw(batch, stateTime);
+        }
 
-        drawItems.drawItems(items, batch, character);
-        character.draw(batch, stateTime);
         letterFont.draw(batch, "end game - E", 10, 35);
         letterFont.draw(batch, "stop - S", GameConstant.windowWidth - 200, 35);
         letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), GameConstant.windowHeight - 150, 820 );

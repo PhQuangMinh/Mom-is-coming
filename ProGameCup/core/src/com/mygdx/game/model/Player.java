@@ -3,16 +3,17 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.CharacterMovement;
+import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.controller.constant.CharacterStatus;
 import java.lang.Math;
 import java.util.ArrayList;
 
-public class Character extends Entity{
+public class Player extends Sprite {
     private float STRAIGHT_SPEED = 4; // 4 pixels per frame
     private float DIAGONAL_SPEED = 2.8F;
     public static int CHARACTER_WIDTH = 16;
@@ -22,19 +23,21 @@ public class Character extends Entity{
     private Animation[] walking;
     private TextureRegion[] idleTexture;
 
-    public Character(){
+    private boolean overlap;
+
+    public Player(){
         direction = Direction.DOWN;
         status = CharacterStatus.IDLE;
         setPosition(0, 0);
-        passable = false;
     }
 
-    public Character(Texture texture, float x, float y, float speed){
+    public Player(Texture texture, float x, float y, float width, float height, float speed){
         this();
         setTexture(texture);
         setPosition(x, y);
         setSpeed(speed);
         setAnimations(texture);
+        setSize(width, height);
     }
 
     public void setAnimations(Texture texture) {
@@ -46,6 +49,14 @@ public class Character extends Entity{
             walking[i] = new Animation(0.2f, region[i]);
             idleTexture[i] = region[i][1];
         }
+    }
+
+    public boolean getOverlap() {
+        return overlap;
+    }
+
+    public void setOverlap(boolean overlap) {
+        this.overlap = overlap;
     }
 
     public Direction getDirection() {
@@ -78,7 +89,7 @@ public class Character extends Entity{
     }
 
     public void update(MapObjects mapObjects, ArrayList<Item> items){
-        CharacterMovement movement = new CharacterMovement();
+        PlayerMovement movement = new PlayerMovement();
         movement.move(this, mapObjects, items);
     }
 

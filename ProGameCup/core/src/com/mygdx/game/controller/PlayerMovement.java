@@ -4,14 +4,14 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.controller.constant.CharacterStatus;
 import com.mygdx.game.controller.constant.Direction;
-import com.mygdx.game.model.Character;
+import com.mygdx.game.model.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.model.Item;
 
 import java.util.ArrayList;
 
-public class CharacterMovement{
+public class PlayerMovement {
     Direction direction;
     CharacterStatus status;
     boolean isLeftKeyPressed;
@@ -60,46 +60,63 @@ public class CharacterMovement{
         }
     }
 
-    public void move(Character character, MapObjects mapObjects, ArrayList<Item> items) {
-        moveDirection();
-
-        float x = character.getX();
-        float y = character.getY();
-        Vector2 oldPosition = new Vector2(x, y);
+    private Vector2 getNewPosition(float x, float y, Player player) {
+        float straight = player.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
+        float diagonal = player.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
         if(direction == Direction.UP){
-            y += character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
+            y += straight;
         }
         if(direction == Direction.DOWN){
-            y -= character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
+            y -= straight;
         }
         if(direction == Direction.LEFT){
-            x -= character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
+            x -= straight;
         }
         if(direction == Direction.RIGHT){
-            x += character.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
+            x += straight;
         }
         if(direction == Direction.UPLEFT){
-            y += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
-            x -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            y += diagonal;
+            x -= diagonal;
         }
         if(direction == Direction.UPRIGHT){
-            y += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
-            x += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            y += diagonal;
+            x += diagonal;
         }
         if(direction == Direction.DOWNLEFT){
-            y -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
-            x -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            y -= diagonal;
+            x -= diagonal;
         }
         if(direction == Direction.DOWNRIGHT){
-            y -= character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
-            x += character.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+            y -= diagonal;
+            x += diagonal;
         }
-        CheckCollision checkCollision = new CheckCollision();
-        Vector2 newPosition = checkCollision.updatePosition(new Vector2(x, y), oldPosition, mapObjects, items);
+        return new Vector2(x, y);
+    }
 
-        character.setPosition(newPosition.x, newPosition.y);
-        character.setStatus(status);
-        if(status != CharacterStatus.IDLE)
-            character.setDirection(direction);
+    private void setDirection(Player player){
+        if (direction == Direction.UP || direction == Direction.DOWN
+                || direction == Direction.LEFT || direction == Direction.RIGHT)
+            player.setDirection(direction);
+        if (direction == Direction.UPLEFT || direction == Direction.DOWNLEFT)
+            player.setDirection(Direction.LEFT);
+        if (direction == Direction.UPRIGHT || direction == Direction.DOWNRIGHT)
+            player.setDirection(Direction.RIGHT);
+    }
+
+    public void move(Player player, MapObjects mapObjects, ArrayList<Item> items) {
+        moveDirection();
+        Vector2 oldPosition = new Vector2(player.getX(), player.getY());
+        Vector2 newPosition = getNewPosition(player.getX(), player.getY(), player);
+
+        CheckCollision checkCollision = new CheckCollision();
+        checkCollision.updatePosition(newPosition, oldPosition, mapObjects, items);
+
+        setDirection(player);
+
+        player.setPosition(newPosition.x, newPosition.y);
+        player.setStatus(status);
+//        if(status != CharacterStatus.IDLE)
+//            player.setDirection(direction);
     }
 }

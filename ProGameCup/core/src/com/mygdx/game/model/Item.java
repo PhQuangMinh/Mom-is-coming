@@ -9,15 +9,35 @@ public class Item extends Sprite{
 
     private String name;
 
-    public Item(String name, Texture image, Texture chosenImage, float x, float y, float width, float height) {
+    private float overlap;
+
+    private boolean discover;
+
+    public Item(String name, Texture image, Texture chosenImage, float x, float y, float width, float height, float overlap) {
         this.name = name;
         this.image = image;
         this.chosenImage = chosenImage;
         this.setX(x);
         this.setY(y);
         this.setSize(width, height);
+        this.overlap = overlap;
     }
 
+    public boolean getDiscover() {
+        return discover;
+    }
+
+    public void setDiscover(boolean discover) {
+        this.discover = discover;
+    }
+
+    public float getOverlap() {
+        return overlap;
+    }
+
+    public void setOverlap(float overlap) {
+        this.overlap = overlap;
+    }
     public String getName() {
         return name;
     }
