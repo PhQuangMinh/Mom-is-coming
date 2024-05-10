@@ -16,11 +16,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.CheckCollision;
-import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.controller.item.DrawItems;
 import com.mygdx.game.controller.item.SetUpItem;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.model.item.Item;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class MainGameScreen implements Screen {
 
     SetUpItem setUpItem;
     DrawItems drawItems;
-    ArrayList<Item> items;
+    ArrayList<StaticItem> staticItems;
 
     CheckCollision checkCollision;
 
@@ -54,7 +55,7 @@ public class MainGameScreen implements Screen {
         setUpItem = new SetUpItem();
 
         drawItems = new DrawItems();
-        items = new ArrayList<>();
+        staticItems = new ArrayList<>();
         checkCollision = new CheckCollision();
 
     }
@@ -71,7 +72,7 @@ public class MainGameScreen implements Screen {
         letterFont.setColor(Color.ORANGE);
         letterFont.getData().setScale(0.7f);
 
-        setUpItem.setUpItems(items);
+        setUpItem.setUpItems(staticItems);
     }
 
     @Override
@@ -100,17 +101,16 @@ public class MainGameScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-
-        player.update(mapObjects, items);
+        player.update(mapObjects, staticItems);
 
         batch.begin();
-        player.setOverlap(checkCollision.checkFull(items, player));
+        player.setOverlap(checkCollision.checkFull(staticItems, player));
         if (player.getOverlap()){
             player.draw(batch, stateTime);
-            drawItems.drawItems(items, batch, player);
+            drawItems.drawItems(staticItems, batch, player);
         }
         else{
-            drawItems.drawItems(items, batch, player);
+            drawItems.drawItems(staticItems, batch, player);
             player.draw(batch, stateTime);
         }
 

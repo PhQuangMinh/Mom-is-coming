@@ -3,7 +3,9 @@ package com.mygdx.game.controller.item;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.model.item.Item;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
@@ -104,16 +106,16 @@ public class SetUpItem {
         }
         return new Vector2(width, height);
     }
-    public Item getItem(String image, boolean check){
+    public StaticItem getItem(String image, boolean check){
         Texture imageItem = new Texture("items/" + image + ".png");
         Texture chosenImageItem;
         Vector2 size = getSize(image, imageItem);
         Vector2 position = getPosition(image, size.x, size.y);
         if (!check) chosenImageItem = null;
         else chosenImageItem = new Texture("chosen-items/" + image + ".png");
-        return new Item(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y, overlap);
+        return new StaticItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y, overlap);
     }
-    public void setUpItems(ArrayList<Item> items){
+    public void setUpItems(ArrayList<StaticItem> items){
         items.add(getItem("bed", true));
         items.add(getItem("box", true));
         items.add(getItem("cabinet1", true));

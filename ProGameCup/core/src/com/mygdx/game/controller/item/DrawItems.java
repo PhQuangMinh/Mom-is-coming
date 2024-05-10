@@ -2,8 +2,9 @@ package com.mygdx.game.controller.item;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ public class DrawItems{
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
 
-    public void drawItems(ArrayList<Item> items, SpriteBatch batch, Player player){
+    public void drawItems(ArrayList<StaticItem> staticItems, SpriteBatch batch, Player player){
         SolveDiscover discover = new SolveDiscover();
-        discover.discoverItems(items, player);
-        for (Item item : items) {
+        discover.discoverItems(staticItems, player);
+        for (Item item : staticItems) {
 //            System.out.println(item.getDiscover());
             drawItem(item, batch);
         }

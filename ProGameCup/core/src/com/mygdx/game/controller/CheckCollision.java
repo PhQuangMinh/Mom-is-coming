@@ -5,8 +5,9 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
@@ -56,8 +57,8 @@ public class CheckCollision {
         return new Rectangle(xObject, yObject, width, height);
     }
 
-    private boolean checkItem(Vector2 position, ArrayList<Item> items) {
-        for (Item item : items) {
+    private boolean checkItem(Vector2 position, ArrayList<StaticItem> staticItems) {
+        for (Item item : staticItems) {
             Rectangle characterRect = new Rectangle(position.x, position.y, GameConstant.playerWidth, GameConstant.playerHeight);
             Rectangle itemRect = getRectItem(item);
             if (characterRect.overlaps(itemRect)) {
@@ -67,10 +68,10 @@ public class CheckCollision {
         return false;
     }
 
-    public void updatePosition(Vector2 position, Vector2 oldPosition, MapObjects mapObjects, ArrayList<Item> items) {
+    public void updatePosition(Vector2 position, Vector2 oldPosition, MapObjects mapObjects, ArrayList<StaticItem> staticItems) {
         updateFrame(position);
         if (checkMapObject(position, mapObjects)
-                || checkItem(position, items)) position.set(oldPosition);
+                || checkItem(position, staticItems)) position.set(oldPosition);
     }
 
     public boolean checkObscure(Item item, Player player){
@@ -80,7 +81,7 @@ public class CheckCollision {
                 && player.getY() <= item.getY() + item.getHeight();
     }
 
-    public boolean checkFull(ArrayList<Item> items, Player player) {
+    public boolean checkFull(ArrayList<StaticItem> items, Player player) {
         for (Item item : items) {
             if (checkObscure(item, player)) return true;
         }

@@ -1,17 +1,17 @@
 package com.mygdx.game.controller.item;
 
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.CheckCollision;
 import com.mygdx.game.controller.constant.Direction;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
 public class SolveDiscover {
-    public void discoverItems(ArrayList<Item> items, Player player) {
-        resetDiscover(items);
-        for (Item item : items) {
+    public void discoverItems(ArrayList<StaticItem> staticItems, Player player) {
+        resetDiscover(staticItems);
+        for (StaticItem item : staticItems) {
             if (checkDiscover(item, player)){
                 item.setDiscover(true);
                 return;
@@ -19,8 +19,8 @@ public class SolveDiscover {
         }
     }
 
-    public void resetDiscover(ArrayList<Item> items) {
-        for (Item item : items) {
+    public void resetDiscover(ArrayList<StaticItem> staticItems) {
+        for (Item item : staticItems) {
             item.setDiscover(false);
         }
     }

@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.item;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -6,11 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Item extends Sprite{
     private Texture image;
     private Texture chosenImage;
-
     private String name;
-
     private float overlap;
-
     private boolean discover;
 
     public Item(String name, Texture image, Texture chosenImage, float x, float y, float width, float height, float overlap) {

@@ -10,6 +10,9 @@ import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.controller.constant.CharacterStatus;
+import com.mygdx.game.model.item.Item;
+import com.mygdx.game.model.item.StaticItem;
+
 import java.lang.Math;
 import java.util.ArrayList;
 
@@ -88,9 +91,9 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public void update(MapObjects mapObjects, ArrayList<Item> items){
+    public void update(MapObjects mapObjects, ArrayList<StaticItem> staticItems){
         PlayerMovement movement = new PlayerMovement();
-        movement.move(this, mapObjects, items);
+        movement.move(this, mapObjects, staticItems);
     }
 
     public void draw(Batch batch, float stateTime){

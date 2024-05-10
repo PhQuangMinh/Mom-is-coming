@@ -7,7 +7,8 @@ import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.model.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.mygdx.game.model.Item;
+import com.mygdx.game.model.item.Item;
+import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
@@ -104,13 +105,13 @@ public class PlayerMovement {
             player.setDirection(Direction.RIGHT);
     }
 
-    public void move(Player player, MapObjects mapObjects, ArrayList<Item> items) {
+    public void move(Player player, MapObjects mapObjects, ArrayList<StaticItem> staticItems) {
         moveDirection();
         Vector2 oldPosition = new Vector2(player.getX(), player.getY());
         Vector2 newPosition = getNewPosition(player.getX(), player.getY(), player);
 
         CheckCollision checkCollision = new CheckCollision();
-        checkCollision.updatePosition(newPosition, oldPosition, mapObjects, items);
+        checkCollision.updatePosition(newPosition, oldPosition, mapObjects, staticItems);
 
         setDirection(player);
 

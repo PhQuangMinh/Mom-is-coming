@@ -9,13 +9,43 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CharacterMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/PlayerMovement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/bed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/box.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/cabinet1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/cabinet2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/chair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/computer-desk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/dish-washing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/fridge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/holding.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/oven.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/table1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/table2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/tivi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/trash-can.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/chosen-items/washing-machine.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/bed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/box.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/cabinet1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/cabinet2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/chair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/computer-desk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/dish-washing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/fridge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/holding.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/oven.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/table1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/table2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/tivi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/trash-can.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/items/washing-machine.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CheckCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/CheckCollision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Movable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/PlayerMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/PlayerMovement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/DrawItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/DrawItems.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SetUpItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SetUpItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SolveDiscover.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SolveDiscover.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/item/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +100,7 @@
     &quot;git-widget-placeholder&quot;: &quot;feature/NHOM6-38&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Coding/Java/BTCK2/ProGameCup/assets/animations&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/BTCK2/BTCK2/ProGameCup&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
