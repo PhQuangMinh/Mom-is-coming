@@ -45,7 +45,8 @@ public class MainStory implements Screen {
 
         batch.begin();
         batch.setColor(1, 1, 1, alpha);
-        batch.draw(impression, (float) (GameConstant.windowWidth-impression.getWidth())/2, (float)(GameConstant.windowHeight-impression.getHeight())/2+50);
+        batch.draw(impression, (GameConstant.windowWidth-impression.getWidth())/2
+                , (GameConstant.windowHeight-impression.getHeight())/2+50);
         if (elapsedTime>=2){
             batch.setColor(1f, 1f, 1f, Math.min((elapsedTime-2)/2f, 1f));
             Texture message = new Texture("mainstory/message" + countMessages + ".png");

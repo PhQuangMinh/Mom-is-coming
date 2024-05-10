@@ -16,12 +16,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.CheckCollision;
-import com.mygdx.game.controller.item.DrawItems;
-import com.mygdx.game.controller.item.SetUpItem;
+import com.mygdx.game.controller.item.*;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.uiingame.Holding;
+import com.mygdx.game.view.uiingame.MakeAlert;
 
 import java.util.ArrayList;
 
@@ -32,32 +32,41 @@ public class MainGameScreen implements Screen {
     Texture walk;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-
     private MapObjects mapObjects;
     float stateTime;
     SpriteBatch batch;
     BitmapFont letterFont;
-
-    SetUpItem setUpItem;
-    DrawItems drawItems;
+    SetStaticItem setStaticItem;
+    SetDynamicItem setDynamicItem;
+    Draw draw;
     ArrayList<StaticItem> staticItems;
-
+    ArrayList<DynamicItem> dynamicItems;
     CheckCollision checkCollision;
+    ThrowItem throwItem;
+    Holding holding;
+    MakeAlert makeAlert;
+    float firstValue = -1;
+    GetItem getItem;
 
     private final Player player;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        player = new Player(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2
+        player = new Player(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2/1.2f
                 , GameConstant.playerWidth, GameConstant.playerHeight, speed);
         letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
-        setUpItem = new SetUpItem();
+        setStaticItem = new SetStaticItem();
 
-        drawItems = new DrawItems();
+        draw = new Draw();
         staticItems = new ArrayList<>();
         checkCollision = new CheckCollision();
-
+        setDynamicItem = new SetDynamicItem();
+        dynamicItems = new ArrayList<>();
+        throwItem = new ThrowItem();
+        holding = new Holding();
+        makeAlert = new MakeAlert();
+        getItem = new GetItem();
     }
     @Override
     public void show() {
@@ -72,7 +81,10 @@ public class MainGameScreen implements Screen {
         letterFont.setColor(Color.ORANGE);
         letterFont.getData().setScale(0.7f);
 
-        setUpItem.setUpItems(staticItems);
+        setStaticItem.setStatic(staticItems);
+        setDynamicItem.setDynamic(dynamicItems);
+        player.setValidThrow(true);
+        player.setStatusHold(1);
     }
 
     @Override
@@ -98,22 +110,30 @@ public class MainGameScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
             game.setScreen(new MainMenuScreen(game));
         }
-
         renderer.setView(camera);
         renderer.render();
-        player.update(mapObjects, staticItems);
+        player.update(mapObjects, staticItems, dynamicItems);
 
+        if (player.getItemHolding()==null){
+            if (player.getContainer()==null || player.getContainer().getNumber()==0)
+                player.setStatusHold(1);
+            else player.setStatusHold(3);
+        }
+        else player.setStatusHold(2);
         batch.begin();
+        getItem.takeItemStatic(player, dynamicItems);
+        holding.drawHold(batch, player);
+        throwItem.updatePosition(dynamicItems, staticItems, player);
         player.setOverlap(checkCollision.checkFull(staticItems, player));
-        if (player.getOverlap()){
-            player.draw(batch, stateTime);
-            drawItems.drawItems(staticItems, batch, player);
+        draw.draw(dynamicItems, staticItems, player, batch, stateTime);
+        if (!player.isValidThrow()){
+            if (firstValue == -1) firstValue = stateTime;
+            makeAlert.drawAlert(batch, firstValue, stateTime, player);
+            if (stateTime - firstValue > 2){
+                player.setValidThrow(true);
+                firstValue = -1;
+            }
         }
-        else{
-            drawItems.drawItems(staticItems, batch, player);
-            player.draw(batch, stateTime);
-        }
-
         letterFont.draw(batch, "end game - E", 10, 35);
         letterFont.draw(batch, "stop - S", GameConstant.windowWidth - 200, 35);
         letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), GameConstant.windowHeight - 150, 820 );
@@ -125,7 +145,7 @@ public class MainGameScreen implements Screen {
     public void resize(int width, int height) {
         camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
 
-        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
+        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2/1.2f, 0);
 
         camera.update();
     }
@@ -148,6 +168,9 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        renderer.dispose();
+        batch.dispose();
+        walk.dispose();
+        letterFont.dispose();
     }
 }

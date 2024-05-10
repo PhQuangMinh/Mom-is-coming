@@ -1,11 +1,28 @@
 package com.mygdx.game.model.item;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.model.item.Item;
 
 public class DynamicItem extends Item {
-
-    public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width, float height, float overlap) {
+    private boolean visible;
+    private boolean cross;
+    public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width
+            , float height, float overlap, boolean cross) {
         super(name, image, chosenImage, x, y, width, height, overlap);
+        this.visible = true;
+        this.cross = cross;
+    }
+    public boolean isVisible() {
+        return visible;
+    }
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isCross() {
+        return cross;
+    }
+
+    public void setCross(boolean cross) {
+        this.cross = cross;
     }
 }
