@@ -107,12 +107,12 @@ public class SetUpItem {
         return new Vector2(width, height);
     }
     public StaticItem getItem(String image, boolean check){
-        Texture imageItem = new Texture("items/" + image + ".png");
+        Texture imageItem = new Texture("items/static-items/items/" + image + ".png");
         Texture chosenImageItem;
         Vector2 size = getSize(image, imageItem);
         Vector2 position = getPosition(image, size.x, size.y);
         if (!check) chosenImageItem = null;
-        else chosenImageItem = new Texture("chosen-items/" + image + ".png");
+        else chosenImageItem = new Texture("items/static-items/pick-items/" + image + ".png");
         return new StaticItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y, overlap);
     }
     public void setUpItems(ArrayList<StaticItem> items){

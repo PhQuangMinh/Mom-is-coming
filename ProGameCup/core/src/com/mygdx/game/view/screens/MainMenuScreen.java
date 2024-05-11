@@ -1,57 +1,51 @@
 package com.mygdx.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.view.DrawText;
+import com.mygdx.game.view.NewButton;
+import com.mygdx.game.view.music.PlaySound;
+import com.mygdx.game.view.screens.MainGameScreen;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class MainMenuScreen implements Screen {
-    Texture play, playPress, options, optionsPress, quit, quitPress;
-    private final SpaceGame game;
-
-    private final SpriteBatch batch;
-
-    private void drawButton(Texture button, Texture buttonPress, int y, int choice){
-        int x = (int)(GameConstant.windowWidth- GameConstant.buttonWidth)/2;
-        if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ GameConstant.buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ GameConstant.buttonHeight){
-            batch.draw(buttonPress, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
-            if (Gdx.input.isTouched()){
-                if (choice==1){
-                    game.setScreen(new MainGameScreen(game));
-                }
-                else{
-                    if (choice==2){
-                        //options
-                    }
-                    else{
-                        Gdx.app.exit();
-                    }
-                }
-            }
-        }
-        else{
-            batch.draw(button, (GameConstant.windowWidth - GameConstant.buttonWidth) /2, y, GameConstant.buttonWidth, GameConstant.buttonHeight);
-        }
-    }
+    Texture play, playPress, leaderboard, leaderboardPress, back, backPress, github, githubPress, musicOn, musicOff, musicOnPress, musicOffPress;
+    private  SpaceGame game;
+    private  SpriteBatch batch;
+    PlaySound playSound;
+    DrawText drawText;
+    private NewButton newButton;
+    int posX = (int)(GameConstant.windowWidth- GameConstant.buttonWidth)/2;
 
     private void createTexture(){
         play = new Texture("button/play.png");
-        playPress = new Texture("button/playpress.png");
-        options = new Texture("button/options.png");
-        optionsPress = new Texture("button/optionspress.png");
-        quit = new Texture("button/quit.png");
-        quitPress = new Texture("button/quitpress.png");
+        playPress = new Texture("button/playPress.png");
+        leaderboard = new Texture("button/leaderboard.png");
+        leaderboardPress = new Texture("button/leaderboardPress.png");
+        back = new Texture("button/back.png");
+        backPress = new Texture("button/backPress.png");
+        github = new Texture("button/github.png");
+        githubPress = new Texture("button/githubPress.png");
+        musicOn = new Texture("button/musicOn.png");
+        musicOff = new Texture("button/musicOff.png");
     }
-
     public MainMenuScreen(SpaceGame game) {
         this.game = game;
         this.batch = game.getBatch();
+        drawText = new DrawText();
+        newButton = new NewButton(game);
+        playSound = PlaySound.getInstance(batch);
         createTexture();
-
     }
     @Override
     public void show() {
@@ -62,10 +56,14 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if(newButton.isStopMusic) playSound.stopMusic();
+        else playSound.playMusic();
         batch.begin();
-        drawButton(play, playPress, 500, 1);
-        drawButton(options, optionsPress, 400, 2);
-        drawButton(quit, quitPress, 300, 3);
+        newButton.drawButton(play, playPress, posX,500, GameConstant.buttonWidth, GameConstant.buttonHeight,1);
+        newButton.drawMusicButton(musicOn, musicOff, 800, 800, GameConstant.iconWidth, GameConstant.iconHeight);
+        newButton.drawButton(leaderboard, leaderboardPress, posX, 400, GameConstant.buttonWidth, GameConstant.buttonHeight,4);
+        newButton.drawButton(back, backPress, posX,  300, GameConstant.buttonWidth, GameConstant.buttonHeight,4);
+        newButton.drawButton(github, githubPress, 15,15,GameConstant.iconWidth, GameConstant.iconHeight, 6);
         batch.end();
     }
 
@@ -91,6 +89,5 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }

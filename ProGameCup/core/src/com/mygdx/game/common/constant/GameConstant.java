@@ -14,5 +14,6 @@ public class GameConstant {
     public static final float itemSize = 55;
     public static final float tileSize = 32;
     public static final float posMap = (windowWidth-mapWidth)/2;
-
+    public static final int iconWidth = 50;
+    public static final int iconHeight = 50;
 }
