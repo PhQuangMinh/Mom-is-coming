@@ -23,7 +23,7 @@ public class SpaceGame extends Game {
 		batch = new SpriteBatch();
 		newButton = new NewButton(this);
 
-		this.setScreen(new MainGameScreen(this));
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

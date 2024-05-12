@@ -50,7 +50,7 @@ public class MainGameScreen implements Screen {
     float firstValue = -1;
     GetItem getItem;
 
-    private Player player;
+    private final Player player;
 
     NewButton newButton;
     PlaySound playSound;
@@ -91,7 +91,6 @@ public class MainGameScreen implements Screen {
         setStaticItem.setStatic(staticItems);
         setDynamicItem.setDynamic(dynamicItems);
         player.setValidThrow(true);
-        player.setStatusHold(1);
     }
 
     public void createTexture(){
@@ -108,7 +107,6 @@ public class MainGameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stateTime += delta;
 
         if(newButton.isStopMusic) playSound.stopMusic();
         else playSound.playMusic();
@@ -121,7 +119,6 @@ public class MainGameScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-        player.update(mapObjects, staticItems, dynamicItems);
 
         if (player.getItemHolding()==null){
             if (player.getContainer()==null || player.getContainer().getNumber()==0)
@@ -129,11 +126,12 @@ public class MainGameScreen implements Screen {
             else player.setStatusHold(3);
         }
         else player.setStatusHold(2);
+        if(!newButton.isPause) {
+            stateTime += delta;
+            player.update(mapObjects, staticItems, dynamicItems);
+        }
         batch.begin();
-//        if(!newButton.isPause) {
-//            stateTime += delta;
-//            player.update(mapObjects, staticItems);
-//        }
+        batch.setColor(1, 1, 1, 1);
         getItem.takeItemStatic(player, dynamicItems);
         holding.drawHold(batch, player);
         throwItem.updatePosition(dynamicItems, staticItems, player);
@@ -152,7 +150,7 @@ public class MainGameScreen implements Screen {
         newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
         newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
 
-        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 800, 1.2f);
+        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
         batch.end();
 
 
