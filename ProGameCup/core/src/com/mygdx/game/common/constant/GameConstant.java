@@ -11,9 +11,15 @@ public class GameConstant {
     public static final float playerHeight = 40;
     public static float mapWidth = 576;
     public static float mapHeight = 576;
-    public static final float itemSize = 55;
+    public static final float staticSize = 55;
+    public static final float dynamicSize = 25;
     public static final float tileSize = 32;
-    public static final float posMap = (windowWidth-mapWidth)/2;
+
+    public static final float posMapX = (windowWidth-mapWidth)/2;
+    public static final float posMapY = posMapX*1.3f;
+
+    public static int CHARACTER_WIDTH = 16;
+    public static int CHARACTER_HEIGHT = 20;
     public static final int iconWidth = 50;
     public static final int iconHeight = 50;
 }

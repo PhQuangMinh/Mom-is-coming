@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.NewButton;
 import com.mygdx.game.view.music.PlaySound;
+import com.mygdx.game.view.screens.MainGameScreen;
 import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class SpaceGame extends Game {
@@ -22,7 +23,7 @@ public class SpaceGame extends Game {
 		batch = new SpriteBatch();
 		newButton = new NewButton(this);
 
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new MainGameScreen(this));
 	}
 
 	@Override

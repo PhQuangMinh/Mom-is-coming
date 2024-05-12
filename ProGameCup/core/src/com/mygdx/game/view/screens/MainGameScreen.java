@@ -1,13 +1,11 @@
 package com.mygdx.game.view.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,15 +14,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.CheckCollision;
-import com.mygdx.game.controller.item.DrawItems;
-import com.mygdx.game.controller.item.SetUpItem;
+import com.mygdx.game.controller.item.*;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.uiingame.Holding;
+import com.mygdx.game.view.uiingame.MakeAlert;
 import com.mygdx.game.view.DrawText;
 import com.mygdx.game.view.NewButton;
 import com.mygdx.game.view.music.PlaySound;
 
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
@@ -39,14 +38,19 @@ public class MainGameScreen implements Screen {
     private MapObjects mapObjects;
     float stateTime;
     SpriteBatch batch;
-    SetUpItem setUpItem;
-    DrawItems drawItems;
-    BitmapFont letterFont;
+    SetStaticItem setStaticItem;
+    SetDynamicItem setDynamicItem;
+    Draw draw;
     ArrayList<StaticItem> staticItems;
-
+    ArrayList<DynamicItem> dynamicItems;
     CheckCollision checkCollision;
+    ThrowItem throwItem;
+    Holding holding;
+    MakeAlert makeAlert;
+    float firstValue = -1;
+    GetItem getItem;
 
-    private final Player player;
+    private Player player;
 
     NewButton newButton;
     PlaySound playSound;
@@ -54,15 +58,23 @@ public class MainGameScreen implements Screen {
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        player = new Player(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2
+        player = new Player(walk, GameConstant.windowHeight/2 + 50, GameConstant.windowWidth/2
                 , GameConstant.playerWidth, GameConstant.playerHeight, speed);
-        setUpItem = new SetUpItem();
-        drawText = new DrawText();
-        drawItems = new DrawItems();
+//        letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
+        setStaticItem = new SetStaticItem();
+
+        draw = new Draw();
         staticItems = new ArrayList<>();
         checkCollision = new CheckCollision();
+        setDynamicItem = new SetDynamicItem();
+        dynamicItems = new ArrayList<>();
+        throwItem = new ThrowItem();
+        holding = new Holding();
+        makeAlert = new MakeAlert();
+        getItem = new GetItem();
         newButton = new NewButton(game);
         playSound = PlaySound.getInstance(batch);
+        drawText = new DrawText();
         createTexture();
     }
     @Override
@@ -76,7 +88,10 @@ public class MainGameScreen implements Screen {
         GameConstant.mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
         mapObjects = map.getLayers().get(3).getObjects();
 
-        setUpItem.setUpItems(staticItems);
+        setStaticItem.setStatic(staticItems);
+        setDynamicItem.setDynamic(dynamicItems);
+        player.setValidThrow(true);
+        player.setStatusHold(1);
     }
 
     public void createTexture(){
@@ -93,6 +108,7 @@ public class MainGameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stateTime += delta;
 
         if(newButton.isStopMusic) playSound.stopMusic();
         else playSound.playMusic();
@@ -105,19 +121,31 @@ public class MainGameScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
+        player.update(mapObjects, staticItems, dynamicItems);
+
+        if (player.getItemHolding()==null){
+            if (player.getContainer()==null || player.getContainer().getNumber()==0)
+                player.setStatusHold(1);
+            else player.setStatusHold(3);
+        }
+        else player.setStatusHold(2);
         batch.begin();
-        if(!newButton.isPause) {
-            stateTime += delta;
-            player.update(mapObjects, staticItems);
-        }
+//        if(!newButton.isPause) {
+//            stateTime += delta;
+//            player.update(mapObjects, staticItems);
+//        }
+        getItem.takeItemStatic(player, dynamicItems);
+        holding.drawHold(batch, player);
+        throwItem.updatePosition(dynamicItems, staticItems, player);
         player.setOverlap(checkCollision.checkFull(staticItems, player));
-        if (player.getOverlap()){
-            player.draw(batch, stateTime);
-            drawItems.drawItems(staticItems, batch, player);
-        }
-        else{
-            drawItems.drawItems(staticItems, batch, player);
-            player.draw(batch, stateTime);
+        draw.draw(dynamicItems, staticItems, player, batch, stateTime);
+        if (!player.isValidThrow()){
+            if (firstValue == -1) firstValue = stateTime;
+            makeAlert.drawAlert(batch, firstValue, stateTime, player);
+            if (stateTime - firstValue > 2){
+                player.setValidThrow(true);
+                firstValue = -1;
+            }
         }
         newButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight);
         newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
@@ -135,7 +163,7 @@ public class MainGameScreen implements Screen {
     public void resize(int width, int height) {
         camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
 
-        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
+        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2/1.2f, 0);
 
         camera.update();
     }
@@ -158,5 +186,8 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void dispose() {
+        renderer.dispose();
+        batch.dispose();
+        walk.dispose();
     }
 }

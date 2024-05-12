@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.item;
+package com.mygdx.game.controller.discover;
 
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.constant.Direction;
@@ -8,19 +8,21 @@ import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
-public class SolveDiscover {
-    public void discoverItems(ArrayList<StaticItem> staticItems, Player player) {
-        resetDiscover(staticItems);
-        for (StaticItem item : staticItems) {
+public class DiscoverStatic {
+    public void discoverStatic(ArrayList<StaticItem> items, Player player) {
+        resetStatic(items);
+        for (StaticItem item : items) {
             if (checkDiscover(item, player)){
                 item.setDiscover(true);
+                player.setContainer(item);
                 return;
             }
         }
+        player.setContainer(null);
     }
 
-    public void resetDiscover(ArrayList<StaticItem> staticItems) {
-        for (Item item : staticItems) {
+    public void resetStatic(ArrayList<StaticItem> items) {
+        for (Item item : items) {
             item.setDiscover(false);
         }
     }
@@ -29,13 +31,13 @@ public class SolveDiscover {
         return player.getDirection() == Direction.DOWN
                 && player.getY() <= item.getY() + item.getHeight()-5
                 && player.getY() >= item.getY()
-                && player.getX() + player.getWidth()>= item.getX()
+                && player.getX() + 0.8f*player.getWidth()>= item.getX()
                 && player.getX() <= item.getX() + item.getWidth();
     }
 
     private boolean checkBottom(Item item, Player player) {
         return player.getDirection() == Direction.UP
-                && player.getX() + player.getWidth() >= item.getX()
+                && player.getX() + 0.8f*player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getY() <= item.getY() + item.getHeight()
                 && player.getY() >= item.getY() - 0.5f * GameConstant.playerHeight;

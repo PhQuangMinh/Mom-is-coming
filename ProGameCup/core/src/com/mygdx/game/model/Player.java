@@ -6,28 +6,31 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.controller.constant.CharacterStatus;
+import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Player extends Sprite {
-    private float STRAIGHT_SPEED = 4; // 4 pixels per frame
+    private float STRAIGHT_SPEED = 4;
     private float DIAGONAL_SPEED = 2.8F;
-    public static int CHARACTER_WIDTH = 16;
-    public static int CHARACTER_HEIGHT = 20;
     private Direction direction;
     private CharacterStatus status;
     private Animation[] walking;
     private TextureRegion[] idleTexture;
-
-    private boolean overlap;
-
+    private boolean overlap, validThrow;
+    private Item itemHolding;
+    private StaticItem container;
+    private Vector2 positionThrew;
+    private int statusHold;
     public Player(){
         direction = Direction.DOWN;
         status = CharacterStatus.IDLE;
@@ -46,12 +49,51 @@ public class Player extends Sprite {
     public void setAnimations(Texture texture) {
         walking = new Animation[10];
         idleTexture = new TextureRegion[10];
-        TextureRegion[][] region = TextureRegion.split(texture, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+        TextureRegion[][] region = TextureRegion.split(texture, GameConstant.CHARACTER_WIDTH, GameConstant.CHARACTER_HEIGHT);
 
         for(int i = 0; i < 4; ++i){
             walking[i] = new Animation(0.2f, region[i]);
             idleTexture[i] = region[i][1];
         }
+    }
+
+    public Vector2 getPositionThrew() {
+        return positionThrew;
+    }
+
+    public void setPositionThrew(Vector2 positionThrew) {
+        this.positionThrew = positionThrew;
+    }
+
+    public boolean isValidThrow() {
+        return validThrow;
+    }
+    public void setValidThrow(boolean validThrow) {
+        this.validThrow = validThrow;
+    }
+
+    public int getStatusHold() {
+        return statusHold;
+    }
+
+    public void setStatusHold(int statusHold) {
+        this.statusHold = statusHold;
+    }
+
+    public StaticItem getContainer() {
+        return container;
+    }
+
+    public void setContainer(StaticItem container) {
+        this.container = container;
+    }
+
+    public Item getItemHolding() {
+        return itemHolding;
+    }
+
+    public void setItemHolding(Item itemHolding) {
+        this.itemHolding = itemHolding;
     }
 
     public boolean getOverlap() {
@@ -91,9 +133,9 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public void update(MapObjects mapObjects, ArrayList<StaticItem> staticItems){
+    public void update(MapObjects mapObjects, ArrayList<StaticItem> staticItems, ArrayList<DynamicItem> dynamicItems){
         PlayerMovement movement = new PlayerMovement();
-        movement.move(this, mapObjects, staticItems);
+        movement.move(this, mapObjects, staticItems, dynamicItems);
     }
 
     public void draw(Batch batch, float stateTime){

@@ -20,6 +20,15 @@ public class Item extends Sprite{
         this.overlap = overlap;
     }
 
+    public Item(String name, Texture image, Texture chosenImage, float x, float y, float width, float height) {
+        this.name = name;
+        this.image = image;
+        this.chosenImage = chosenImage;
+        this.setX(x);
+        this.setY(y);
+        this.setSize(width, height);
+    }
+
     public boolean getDiscover() {
         return discover;
     }

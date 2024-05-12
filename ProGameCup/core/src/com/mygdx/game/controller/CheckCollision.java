@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.StaticItem;
@@ -15,8 +16,8 @@ public class CheckCollision {
     private Rectangle getRectObject(MapObject mapObject) {
         float width = mapObject.getProperties().get("width", Float.class);
         float height = mapObject.getProperties().get("height", Float.class);
-        float xObject = GameConstant.posMap + 0.2f * GameConstant.playerWidth;
-        float yObject = GameConstant.posMap + 0.8f * GameConstant.playerHeight;
+        float xObject = GameConstant.posMapX + 0.2f * GameConstant.playerWidth;
+        float yObject = GameConstant.posMapY + 0.8f * GameConstant.playerHeight;
         float widthObject = width - 0.4f * GameConstant.playerWidth;
         float heightObject = Math.max(height - 0.8f * GameConstant.playerHeight, 1f);
         return new Rectangle(xObject, yObject, widthObject, heightObject);
@@ -24,17 +25,18 @@ public class CheckCollision {
 
     private void updateFrame(Vector2 position) {
         float tileSize = GameConstant.tileSize;
-        float pos = (GameConstant.windowWidth - GameConstant.mapHeight) / 2;
-        if (position.x < pos + tileSize - 0.2f * GameConstant.playerWidth)
-            position.x = pos + tileSize - 0.2f * GameConstant.playerWidth;
-        if (position.x > pos + GameConstant.mapWidth - tileSize * 2)
-            position.x = pos + GameConstant.mapWidth - tileSize * 2;
-        if (position.y < pos + tileSize)
-            position.y = pos + tileSize;
-        if (position.y > pos + GameConstant.mapHeight - tileSize - 10)
-            position.y = pos + GameConstant.mapHeight - tileSize - 10;
-        if (position.y > pos + 12 * tileSize + 0.7f * GameConstant.playerHeight)
-            position.y = pos + 12 * tileSize + 0.7f * GameConstant.playerHeight;
+        float posX = GameConstant.posMapX;
+        float posY = GameConstant.posMapY;
+        if (position.x < posX + tileSize - 0.2f * GameConstant.playerWidth)
+            position.x = posX + tileSize - 0.2f * GameConstant.playerWidth;
+        if (position.x > posX + GameConstant.mapWidth - tileSize * 2)
+            position.x = posX + GameConstant.mapWidth - tileSize * 2;
+        if (position.y < posY + tileSize + 5)
+            position.y = posY + tileSize + 5;
+        if (position.y > posY + GameConstant.mapHeight - tileSize - 10)
+            position.y = posY + GameConstant.mapHeight - tileSize - 10;
+        if (position.y > posY + 12 * tileSize + 0.7f * GameConstant.playerHeight)
+            position.y = posY + 12 * tileSize + 0.7f * GameConstant.playerHeight;
     }
 
     private boolean checkMapObject(Vector2 position, MapObjects mapObjects) {
@@ -42,7 +44,6 @@ public class CheckCollision {
             Rectangle characterRect = new Rectangle(position.x, position.y, GameConstant.playerWidth, GameConstant.playerHeight);
             Rectangle blockRect = getRectObject(mapObject);
             if (characterRect.overlaps(blockRect) || blockRect.overlaps(characterRect)) {
-//                System.out.println("aaaa" + mapObject.getName() + " " + blockRect.getX() + " " + blockRect.getY());
                 return true;
             }
         }
@@ -57,7 +58,7 @@ public class CheckCollision {
         return new Rectangle(xObject, yObject, width, height);
     }
 
-    private boolean checkItem(Vector2 position, ArrayList<StaticItem> staticItems) {
+    private boolean checkStaticItem(Vector2 position, ArrayList<StaticItem> staticItems) {
         for (Item item : staticItems) {
             Rectangle characterRect = new Rectangle(position.x, position.y, GameConstant.playerWidth, GameConstant.playerHeight);
             Rectangle itemRect = getRectItem(item);
@@ -68,10 +69,23 @@ public class CheckCollision {
         return false;
     }
 
-    public void updatePosition(Vector2 position, Vector2 oldPosition, MapObjects mapObjects, ArrayList<StaticItem> staticItems) {
+    private boolean checkDynamicItem(Vector2 position, ArrayList<DynamicItem> dynamicItems){
+        for (DynamicItem item : dynamicItems) {
+            if (item.isCross()) continue;
+            Rectangle characterRect = new Rectangle(position.x, position.y, GameConstant.playerWidth, GameConstant.playerHeight);
+            Rectangle itemRect = getRectItem(item);
+            if (characterRect.overlaps(itemRect)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void updatePosition(Vector2 position, Vector2 oldPosition, MapObjects mapObjects
+            , ArrayList<StaticItem> staticItems, ArrayList<DynamicItem> dynamicItems) {
         updateFrame(position);
-        if (checkMapObject(position, mapObjects)
-                || checkItem(position, staticItems)) position.set(oldPosition);
+        if (checkMapObject(position, mapObjects) || checkStaticItem(position, staticItems)
+        || checkDynamicItem(position, dynamicItems)) position.set(oldPosition);
     }
 
     public boolean checkObscure(Item item, Player player){
