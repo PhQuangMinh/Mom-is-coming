@@ -3,11 +3,9 @@ package com.mygdx.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,20 +20,24 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.uiingame.Holding;
 import com.mygdx.game.view.uiingame.MakeAlert;
+import com.mygdx.game.view.DrawText;
+import com.mygdx.game.view.NewButton;
+import com.mygdx.game.view.music.PlaySound;
 
 import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
-
+    Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff;
     float speed = 120;
     SpaceGame game;
+    DrawText drawText;
     Texture walk;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+
     private MapObjects mapObjects;
     float stateTime;
     SpriteBatch batch;
-    BitmapFont letterFont;
     SetStaticItem setStaticItem;
     SetDynamicItem setDynamicItem;
     Draw draw;
@@ -48,14 +50,17 @@ public class MainGameScreen implements Screen {
     float firstValue = -1;
     GetItem getItem;
 
-    private final Player player;
+    private Player player;
+
+    NewButton newButton;
+    PlaySound playSound;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
-        player = new Player(walk, GameConstant.windowHeight/2, GameConstant.windowWidth/2/1.2f
+        player = new Player(walk, GameConstant.windowHeight/2 + 50, GameConstant.windowWidth/2
                 , GameConstant.playerWidth, GameConstant.playerHeight, speed);
-        letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
+//        letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         setStaticItem = new SetStaticItem();
 
         draw = new Draw();
@@ -67,6 +72,10 @@ public class MainGameScreen implements Screen {
         holding = new Holding();
         makeAlert = new MakeAlert();
         getItem = new GetItem();
+        newButton = new NewButton(game);
+        playSound = PlaySound.getInstance(batch);
+        drawText = new DrawText();
+        createTexture();
     }
     @Override
     public void show() {
@@ -78,8 +87,6 @@ public class MainGameScreen implements Screen {
         GameConstant.mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
         GameConstant.mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
         mapObjects = map.getLayers().get(3).getObjects();
-        letterFont.setColor(Color.ORANGE);
-        letterFont.getData().setScale(0.7f);
 
         setStaticItem.setStatic(staticItems);
         setDynamicItem.setDynamic(dynamicItems);
@@ -87,29 +94,31 @@ public class MainGameScreen implements Screen {
         player.setStatusHold(1);
     }
 
+    public void createTexture(){
+        resume = new Texture("button/resume.png");
+        pause = new Texture("button/pause.png");
+        home = new Texture("button/home.png");
+        homePress = new Texture("button/homePress.png");
+        replay = new Texture("button/replay.png");
+        replayPress = new Texture("button/replayPress.png");
+        musicOn = new Texture("button/musicOn.png");
+        musicOff = new Texture("button/musicOff.png");
+    }
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stateTime += delta;
 
-        int minutes = 10;
-        int seconds = 0;
-        float countdownTime = minutes * 60 + seconds;
-        float timeLeft = countdownTime - stateTime;
-        if(timeLeft <= 0){
-            game.setScreen(new MainMenuScreen(game));
-        }
-        int remainMinutes = (int)(timeLeft / 60);
-        int remainSeconds = (int)(timeLeft % 60);
-        stateTime += delta;
-
+        if(newButton.isStopMusic) playSound.stopMusic();
+        else playSound.playMusic();
         if(Gdx.input.isKeyPressed(Input.Keys.E)){
             game.setScreen(new MainMenuScreen(game));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
             game.setScreen(new MainMenuScreen(game));
         }
+
         renderer.setView(camera);
         renderer.render();
         player.update(mapObjects, staticItems, dynamicItems);
@@ -121,6 +130,10 @@ public class MainGameScreen implements Screen {
         }
         else player.setStatusHold(2);
         batch.begin();
+//        if(!newButton.isPause) {
+//            stateTime += delta;
+//            player.update(mapObjects, staticItems);
+//        }
         getItem.takeItemStatic(player, dynamicItems);
         holding.drawHold(batch, player);
         throwItem.updatePosition(dynamicItems, staticItems, player);
@@ -134,12 +147,17 @@ public class MainGameScreen implements Screen {
                 firstValue = -1;
             }
         }
-        letterFont.draw(batch, "end game - E", 10, 35);
-        letterFont.draw(batch, "stop - S", GameConstant.windowWidth - 200, 35);
-        letterFont.draw(batch,String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds), GameConstant.windowHeight - 150, 820 );
+        newButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight);
+        newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
+        newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
+        newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
+
+        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 800, 1.2f);
         batch.end();
 
+
     }
+
 
     @Override
     public void resize(int width, int height) {
@@ -171,6 +189,5 @@ public class MainGameScreen implements Screen {
         renderer.dispose();
         batch.dispose();
         walk.dispose();
-        letterFont.dispose();
     }
 }

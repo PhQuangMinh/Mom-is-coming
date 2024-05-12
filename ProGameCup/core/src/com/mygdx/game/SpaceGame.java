@@ -2,12 +2,16 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.view.NewButton;
+import com.mygdx.game.view.music.PlaySound;
 import com.mygdx.game.view.screens.MainGameScreen;
 import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class SpaceGame extends Game {
 
 	SpriteBatch batch;
+	PlaySound playSound;
+	NewButton newButton;
 
 	public SpriteBatch getBatch() {
 		return batch;
@@ -17,6 +21,8 @@ public class SpaceGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		newButton = new NewButton(this);
+
 		this.setScreen(new MainGameScreen(this));
 	}
 
@@ -27,6 +33,6 @@ public class SpaceGame extends Game {
 
 	@Override
 	public void dispose () {
-		batch.dispose();
+		super.dispose();
 	}
 }

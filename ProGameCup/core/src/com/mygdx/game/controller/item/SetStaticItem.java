@@ -3,6 +3,8 @@ package com.mygdx.game.controller.item;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
@@ -137,5 +139,4 @@ public class SetStaticItem {
         items.add(getItem("trash", true, 6));
         items.add(getItem("washing-machine", true, 3));
     }
-
 }

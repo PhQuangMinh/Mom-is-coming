@@ -119,7 +119,7 @@ public class PlayerMovement {
 
         player.setPosition(newPosition.x, newPosition.y);
         player.setStatus(status);
-//        if(status != CharacterStatus.IDLE)
-//            player.setDirection(direction);
+        if(status != CharacterStatus.IDLE)
+            player.setDirection(direction);
     }
 }

@@ -20,4 +20,6 @@ public class GameConstant {
 
     public static int CHARACTER_WIDTH = 16;
     public static int CHARACTER_HEIGHT = 20;
+    public static final int iconWidth = 50;
+    public static final int iconHeight = 50;
 }
