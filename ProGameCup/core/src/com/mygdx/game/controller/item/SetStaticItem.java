@@ -121,7 +121,7 @@ public class SetStaticItem {
             chosenImageItem = new Texture("items/static-items/pick-items/" + image + ".png");
         }
         return new StaticItem(image, imageItem, chosenImageItem, position.x, position.y, size.x,
-                size.y, overlap, containItem, number);
+                 size.y, overlap, containItem, number);
     }
     public void setStatic(ArrayList<StaticItem> items){
         items.add(getItem("bed", true, 4));
