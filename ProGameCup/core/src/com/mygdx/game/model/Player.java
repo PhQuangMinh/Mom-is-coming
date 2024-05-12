@@ -1,10 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
@@ -17,6 +14,7 @@ import com.mygdx.game.model.item.StaticItem;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Vector;
 
 public class Player extends Sprite {
@@ -24,37 +22,64 @@ public class Player extends Sprite {
     private float DIAGONAL_SPEED = 2.8F;
     private Direction direction;
     private CharacterStatus status;
-    private Animation[] walking;
-    private TextureRegion[] idleTexture;
+
     private boolean overlap, validThrow;
     private Item itemHolding;
     private StaticItem container;
     private Vector2 positionThrew;
     private int statusHold;
+    private boolean isCountingXPress;
+    private int washingIndex;
+
+    private LinkedHashMap<String, Animation> animations;
+    private LinkedHashMap<String, TextureRegion> textures;
+
     public Player(){
         direction = Direction.DOWN;
         status = CharacterStatus.IDLE;
         setPosition(0, 0);
     }
 
-    public Player(Texture texture, float x, float y, float width, float height, float speed){
+    public Player(TextureAtlas atlas, String[] animationNames, String[] textureNames, float x, float y, float width, float height, float speed){
         this();
-        setTexture(texture);
+        setAnimation(atlas, animationNames);
+        setTextures(atlas, textureNames);
         setPosition(x, y);
         setSpeed(speed);
-        setAnimations(texture);
         setSize(width, height);
     }
 
-    public void setAnimations(Texture texture) {
-        walking = new Animation[10];
-        idleTexture = new TextureRegion[10];
-        TextureRegion[][] region = TextureRegion.split(texture, GameConstant.CHARACTER_WIDTH, GameConstant.CHARACTER_HEIGHT);
-
-        for(int i = 0; i < 4; ++i){
-            walking[i] = new Animation(0.2f, region[i]);
-            idleTexture[i] = region[i][1];
+    public void setAnimation(TextureAtlas atlas, String[] animationNames){
+        animations = new LinkedHashMap<>();
+        for(String s : animationNames){
+            TextureRegion[] frames = atlas.findRegions(s).toArray();
+            Animation ani = new Animation(0.15f, frames);
+            animations.put(s, ani);
         }
+    }
+
+    public void setTextures(TextureAtlas atlas, String[] textureNames){
+        textures = new LinkedHashMap<>();
+        for(String s : textureNames){
+            TextureRegion texture = atlas.findRegion(s);
+            textures.put(s, texture);
+        }
+    }
+
+    public Animation getAnimation(String animationName){
+        if(animations.containsKey(animationName)){
+            Animation animation = animations.get(animationName);
+            return animation;
+        }
+        System.out.println("Animation not found");
+        return null;
+    }
+
+    public TextureRegion getTexture(String textureName){
+        if(textures.containsKey(textureName))
+            return textures.get(textureName);
+        System.out.println("Texture not found");
+        return null;
     }
 
     public Vector2 getPositionThrew() {
@@ -133,24 +158,19 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public void update(MapObjects mapObjects, ArrayList<StaticItem> staticItems, ArrayList<DynamicItem> dynamicItems){
-        PlayerMovement movement = new PlayerMovement();
-        movement.move(this, mapObjects, staticItems, dynamicItems);
+    public boolean getIsCountingXPress() {
+        return isCountingXPress;
     }
 
-    public void draw(Batch batch, float stateTime){
-        int index;
+    public void setIsCountingXPress(boolean countingXPress) {
+        isCountingXPress = countingXPress;
+    }
 
-        if(direction == Direction.DOWN) index = 0;
-        else if(direction == Direction.LEFT || direction == Direction.DOWNLEFT || direction == Direction.UPLEFT) index = 1;
-        else if(direction == Direction.RIGHT || direction == Direction.DOWNRIGHT || direction == Direction.UPRIGHT) index = 2;
-        else index = 3;
+    public int getWashingIndex() {
+        return washingIndex;
+    }
 
-        if(status == CharacterStatus.IDLE){
-            batch.draw(idleTexture[index], this.getX(), this.getY(), GameConstant.playerWidth, GameConstant.playerHeight);
-        }
-        else if(status == CharacterStatus.WALKING){
-            batch.draw((TextureRegion) walking[index].getKeyFrame(stateTime, true), this.getX(), this.getY(), GameConstant.playerWidth, GameConstant.playerHeight);
-        }
+    public void setWashingIndex(int washingIndex) {
+        this.washingIndex = washingIndex;
     }
 }

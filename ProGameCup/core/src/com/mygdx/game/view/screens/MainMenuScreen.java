@@ -1,28 +1,20 @@
 package com.mygdx.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.view.DrawText;
-import com.mygdx.game.view.NewButton;
-import com.mygdx.game.view.music.PlaySound;
-import com.mygdx.game.view.screens.MainGameScreen;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.mygdx.game.view.uiingame.*;
+//import com.mygdx.game.view.effect.PlaySound;
 
 public class MainMenuScreen implements Screen {
     Texture play, playPress, leaderboard, leaderboardPress, back, backPress, github, githubPress, musicOn, musicOff, musicOnPress, musicOffPress;
     private  SpaceGame game;
     private  SpriteBatch batch;
-    PlaySound playSound;
+//    PlaySound playSound;
     DrawText drawText;
     private NewButton newButton;
     int posX = (int)(GameConstant.windowWidth- GameConstant.buttonWidth)/2;
@@ -44,7 +36,7 @@ public class MainMenuScreen implements Screen {
         this.batch = game.getBatch();
         drawText = new DrawText();
         newButton = new NewButton(game);
-        playSound = PlaySound.getInstance(batch);
+//        playSound = PlaySound.getInstance(batch);
         createTexture();
     }
     @Override
@@ -56,8 +48,8 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(newButton.isStopMusic) playSound.stopMusic();
-        else playSound.playMusic();
+//        if(newButton.isStopMusic) playSound.stopMusic();
+//        else playSound.playMusic();
         batch.begin();
         newButton.drawButton(play, playPress, posX,500, GameConstant.buttonWidth, GameConstant.buttonHeight,1);
         newButton.drawMusicButton(musicOn, musicOff, 800, 800, GameConstant.iconWidth, GameConstant.iconHeight);

@@ -15,11 +15,11 @@ public class MakeAlert {
                     , 25, 25);
         }
         else
-            if (alpha<=2){
-                batch.setColor(1, 1, 1, (alpha-1)*1.5f);
-                batch.draw(redBlock, player.getPositionThrew().x, player.getPositionThrew().y
-                        ,25, 25);
-            }
+        if (alpha<=2){
+            batch.setColor(1, 1, 1, (alpha-1)*1.5f);
+            batch.draw(redBlock, player.getPositionThrew().x, player.getPositionThrew().y
+                    ,25, 25);
+        }
         batch.setColor(1, 1, 1, 1);
     }
 }
