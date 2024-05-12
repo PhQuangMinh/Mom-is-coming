@@ -1,8 +1,7 @@
 package com.mygdx.game.controller;
 
-import com.mygdx.game.model.*;
-import com.mygdx.game.model.Character;
+import com.mygdx.game.model.Player;
 
 public interface Movable {
-    void move(Character character);
+    void move(Player player);
 }
