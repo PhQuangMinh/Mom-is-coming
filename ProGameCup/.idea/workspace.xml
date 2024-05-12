@@ -5,45 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3050b1cd-495a-4ba1-a09c-ca5b08e7ca87" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/Smooth Sailing.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/backPress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/githubPress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/homePress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/leaderboard.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/leaderboardPress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/musicOff.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/musicOn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/pause.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/replay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/replayPress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/button/resume.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/DrawText.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/NewButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/music/PlaySound.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/options.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/optionspress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/play.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/button/play.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/playpress.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/button/playpress.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/quit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/quitpress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/save.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button/savepress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/score.fnt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/char.fnt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/score.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/char.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/SpaceGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/SpaceGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/common/constant/GameConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/common/constant/GameConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/PlayerMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/PlayerMovement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SetStaticItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/item/SetStaticItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/NewButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/NewButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainGameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainMenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainMenuScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainStory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/view/screens/MainStory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +43,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
@@ -94,7 +66,7 @@
     "Gradle.ProGameCup:desktop [:desktop:DesktopLauncher.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging feature/NHOM6-37",
+    "git-widget-placeholder": "feature/NHOM6-37",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/BTCK2/BTCK2/ProGameCup",
