@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GetItem {
     public void takeItemStatic(Player player, ArrayList<DynamicItem> dynamicItems) {
         if (player.getContainer() == null || player.getItemHolding() != null
-                || player.getContainer().getNumber()==0) return;
+                || player.getContainer().getNumber()==0 || player.getContainer().getItems().isEmpty()) return;
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && player.getStatusHold()==3){
             ArrayList<DynamicItem> dynamic = player.getContainer().getItems();
             DynamicItem dynamicItem = dynamic.get(dynamic.size()-1);
