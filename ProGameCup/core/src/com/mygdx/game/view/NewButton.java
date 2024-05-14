@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.view.music.PlaySound;
-import com.mygdx.game.view.screens.MainGameScreen;
+import com.mygdx.game.view.effect.MakeMusic;
 import com.mygdx.game.view.screens.MainMenuScreen;
 import com.mygdx.game.view.screens.MainStory;
 
@@ -19,7 +18,6 @@ public class NewButton {
     SpriteBatch batch;
     DrawText drawText;
     SpaceGame game;
-    PlaySound playSound;
     public boolean isPause = false;
     public boolean isStopMusic = false;
     public NewButton(SpaceGame game) {
@@ -61,8 +59,7 @@ public class NewButton {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI(link));
             }
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException ignored) {
         }
     }
 
@@ -89,7 +86,11 @@ public class NewButton {
         }
         if(isStopMusic){
             batch.draw(musicOffButton, x, y, buttonWidth, buttonHeight);
+            MakeMusic.stopMusic();
         }
-        else batch.draw(musicOnButton, x, y, buttonWidth, buttonHeight);
+        else{
+            batch.draw(musicOnButton, x, y, buttonWidth, buttonHeight);
+            MakeMusic.resumeMusic();
+        }
     }
 }

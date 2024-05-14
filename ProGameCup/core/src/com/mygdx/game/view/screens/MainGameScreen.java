@@ -22,7 +22,6 @@ import com.mygdx.game.view.uiingame.Holding;
 import com.mygdx.game.view.uiingame.MakeAlert;
 import com.mygdx.game.view.DrawText;
 import com.mygdx.game.view.NewButton;
-import com.mygdx.game.view.music.PlaySound;
 
 import java.util.ArrayList;
 
@@ -53,14 +52,12 @@ public class MainGameScreen implements Screen {
     private final Player player;
 
     NewButton newButton;
-    PlaySound playSound;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
         walk = new Texture("move.png");
         player = new Player(walk, GameConstant.windowHeight/2 + 50, GameConstant.windowWidth/2
                 , GameConstant.playerWidth, GameConstant.playerHeight, speed);
-//        letterFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         setStaticItem = new SetStaticItem();
 
         draw = new Draw();
@@ -73,7 +70,7 @@ public class MainGameScreen implements Screen {
         makeAlert = new MakeAlert();
         getItem = new GetItem();
         newButton = new NewButton(game);
-        playSound = PlaySound.getInstance(batch);
+//        playSound = PlaySound.getInstance(batch);
         drawText = new DrawText();
         createTexture();
     }
@@ -108,8 +105,6 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(newButton.isStopMusic) playSound.stopMusic();
-        else playSound.playMusic();
         if(Gdx.input.isKeyPressed(Input.Keys.E)){
             game.setScreen(new MainMenuScreen(game));
         }
