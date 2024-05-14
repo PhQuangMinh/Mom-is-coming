@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.screens.MainGameScreen;
 
 public class MainStory implements Screen {
@@ -33,6 +34,7 @@ public class MainStory implements Screen {
     public void render(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
             countMessages++;
+            MakeSound.makeSound("music/press.mp3");
             if (countMessages==9) {
                 game.setScreen(new MainGameScreen(game));
                 return;
