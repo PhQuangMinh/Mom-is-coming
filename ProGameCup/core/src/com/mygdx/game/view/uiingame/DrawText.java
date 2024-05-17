@@ -1,15 +1,11 @@
-package com.mygdx.game.view;
+package com.mygdx.game.view.uiingame;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
-import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.view.screens.MainGameScreen;
 import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class DrawText {

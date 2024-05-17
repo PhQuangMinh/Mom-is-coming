@@ -7,27 +7,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.CheckCollision;
+import com.mygdx.game.controller.*;
 import com.mygdx.game.controller.item.*;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.uiingame.Holding;
-import com.mygdx.game.view.uiingame.MakeAlert;
-import com.mygdx.game.view.DrawText;
-import com.mygdx.game.view.NewButton;
+import com.mygdx.game.model.item.*;
+import com.mygdx.game.view.uiingame.*;
 
 import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
     Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff;
-    float speed = 120;
     SpaceGame game;
     DrawText drawText;
     Texture walk;
@@ -55,9 +51,18 @@ public class MainGameScreen implements Screen {
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
-        walk = new Texture("move.png");
-        player = new Player(walk, GameConstant.windowHeight/2 + 50, GameConstant.windowWidth/2
-                , GameConstant.playerWidth, GameConstant.playerHeight, speed);
+        String[] animationNames = new String[]{"WALKING_UP", "WALKING_DOWN", "WALKING_LEFT", "WALKING_RIGHT",
+                "HOLDING_WALKING_UP", "HOLDING_WALKING_DOWN", "HOLDING_WALKING_LEFT", "HOLDING_WALKING_RIGHT",
+                "MOPPING_FLOOR_UP", "MOPPING_FLOOR_DOWN", "MOPPING_FLOOR_LEFT", "MOPPING_FLOOR_RIGHT",
+                "CLEANING_DISH"};
+        String[] textureNames = new String[]{"IDLE_UP", "IDLE_DOWN", "IDLE_LEFT", "IDLE_RIGHT",
+                "HOLDING_IDLE_UP", "HOLDING_IDLE_DOWN", "HOLDING_IDLE_LEFT", "HOLDING_IDLE_RIGHT"};
+
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("animations/Main_char_animations.atlas"));
+        player = new Player(textureAtlas, animationNames, textureNames,
+                GameConstant.windowHeight/2 + 50, GameConstant.windowHeight/2+ 50,
+                GameConstant.playerWidth, GameConstant.playerHeight, 120);
+
         setStaticItem = new SetStaticItem();
 
         draw = new Draw();
@@ -70,7 +75,6 @@ public class MainGameScreen implements Screen {
         makeAlert = new MakeAlert();
         getItem = new GetItem();
         newButton = new NewButton(game);
-//        playSound = PlaySound.getInstance(batch);
         drawText = new DrawText();
         createTexture();
     }
@@ -123,8 +127,9 @@ public class MainGameScreen implements Screen {
         else player.setStatusHold(2);
         if(!newButton.isPause) {
             stateTime += delta;
-            player.update(mapObjects, staticItems, dynamicItems);
+            PlayerMovement.move(player, mapObjects, staticItems, dynamicItems);
         }
+
         batch.begin();
         batch.setColor(1, 1, 1, 1);
         getItem.takeItemStatic(player, dynamicItems);
@@ -132,6 +137,7 @@ public class MainGameScreen implements Screen {
         throwItem.updatePosition(dynamicItems, staticItems, player);
         player.setOverlap(checkCollision.checkFull(staticItems, player));
         draw.draw(dynamicItems, staticItems, player, batch, stateTime);
+
         if (!player.isValidThrow()){
             if (firstValue == -1) firstValue = stateTime;
             makeAlert.drawAlert(batch, firstValue, stateTime, player);
@@ -147,8 +153,6 @@ public class MainGameScreen implements Screen {
 
         drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
         batch.end();
-
-
     }
 
 

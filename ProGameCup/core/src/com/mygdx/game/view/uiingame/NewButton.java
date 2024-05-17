@@ -1,4 +1,4 @@
-package com.mygdx.game.view;
+package com.mygdx.game.view.uiingame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.effect.MakeMusic;
-import com.mygdx.game.view.screens.MainMenuScreen;
-import com.mygdx.game.view.screens.MainStory;
+import com.mygdx.game.view.screens.*;
 
 import java.awt.*;
 import java.io.IOException;

@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.view.DrawText;
-import com.mygdx.game.view.NewButton;
+import com.mygdx.game.view.uiingame.*;
 //import com.mygdx.game.view.effect.PlaySound;
 
 public class MainMenuScreen implements Screen {

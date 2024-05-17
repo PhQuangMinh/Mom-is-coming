@@ -1,5 +1,8 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.controller.constant.CharacterStatus;
@@ -14,23 +17,25 @@ import com.mygdx.game.model.item.StaticItem;
 import java.util.ArrayList;
 
 public class PlayerMovement {
-    Direction direction;
-    CharacterStatus status;
-    boolean isLeftKeyPressed;
-    boolean isRightKeyPressed;
-    boolean isUpKeyPressed;
-    boolean isDownKeyPressed;
+    private static Direction direction;
+    private static CharacterStatus status;
 
-    private void moveDirection(){
-        direction = null;
-        status = null;
+    private static void controlHandle(){
+        boolean isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
+        boolean isRightKeyPressed = Gdx.input.isKeyPressed(Keys.RIGHT);
+        boolean isUpKeyPressed = Gdx.input.isKeyPressed(Keys.UP);
+        boolean isDownKeyPressed = Gdx.input.isKeyPressed(Keys.DOWN);
 
-        isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
-        isRightKeyPressed = Gdx.input.isKeyPressed(Keys.RIGHT);
-        isUpKeyPressed = Gdx.input.isKeyPressed(Keys.UP);
-        isDownKeyPressed = Gdx.input.isKeyPressed(Keys.DOWN);
-
-        if(!isLeftKeyPressed && !isRightKeyPressed && !isUpKeyPressed && !isDownKeyPressed) {
+        if(status == CharacterStatus.CLEANING_DISH) {
+        }
+        else if(Gdx.input.isKeyPressed(Keys.M)){
+            status = CharacterStatus.MOPPING_FLOOR;
+        }
+        else if(Gdx.input.isKeyPressed(Keys.C)){
+            direction = Direction.UP;
+            status = CharacterStatus.CLEANING_DISH;
+        }
+        else if(!isLeftKeyPressed && !isRightKeyPressed && !isUpKeyPressed && !isDownKeyPressed) {
             status = CharacterStatus.IDLE;
         }
         else {
@@ -62,9 +67,10 @@ public class PlayerMovement {
         }
     }
 
-    private Vector2 getNewPosition(float x, float y, Player player) {
+    private static Vector2 getNewPosition(float x, float y, Player player) {
         float straight = player.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
         float diagonal = player.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+
         if(direction == Direction.UP){
             y += straight;
         }
@@ -96,7 +102,7 @@ public class PlayerMovement {
         return new Vector2(x, y);
     }
 
-    private void setDirection(Player player){
+    private static void setDirection(Player player){
         if (direction == Direction.UP || direction == Direction.DOWN
                 || direction == Direction.LEFT || direction == Direction.RIGHT)
             player.setDirection(direction);
@@ -106,20 +112,71 @@ public class PlayerMovement {
             player.setDirection(Direction.RIGHT);
     }
 
-    public void move(Player player, MapObjects mapObjects, ArrayList<StaticItem> staticItems
+    public static void move(Player player, MapObjects mapObjects, ArrayList<StaticItem> staticItems
             , ArrayList<DynamicItem> dynamicItems) {
-        moveDirection();
+        direction = player.getDirection();
+        status = player.getStatus();
+        controlHandle();
+
         Vector2 oldPosition = new Vector2(player.getX(), player.getY());
         Vector2 newPosition = getNewPosition(player.getX(), player.getY(), player);
 
         CheckCollision checkCollision = new CheckCollision();
         checkCollision.updatePosition(newPosition, oldPosition, mapObjects, staticItems, dynamicItems);
 
-        setDirection(player);
 
-        player.setPosition(newPosition.x, newPosition.y);
+        if(status == CharacterStatus.WALKING){
+            player.setPosition(newPosition.x, newPosition.y);
+        }
         player.setStatus(status);
-        if(status != CharacterStatus.IDLE)
-            player.setDirection(direction);
+        setDirection(player);
+    }
+
+    public static void draw(Player player, Batch batch, float stateTime){
+        boolean isHoldingItem = (player.getItemHolding() != null);
+        CharacterStatus status = player.getStatus();
+        Direction direction = player.getDirection();
+
+        if(status == CharacterStatus.CLEANING_DISH){
+            int index = player.getWashingIndex();
+            TextureRegion[] regions = (TextureRegion[]) player.getAnimation(status.name()).getKeyFrames();
+            float width = (float) regions[index].getRegionWidth()/1.5f;
+            float height = (float) regions[index].getRegionHeight()/1.5f;
+            batch.draw(regions[index], player.getX(), player.getY(), width, height);
+            return;
+        }
+
+        if(status == CharacterStatus.IDLE){
+            TextureRegion region =  player.getTexture((isHoldingItem ? "HOLDING_" : "") + status.name() + "_" + direction.name());
+            float width = (float) region.getRegionWidth()/1.5f;
+            float height = (float) region.getRegionHeight()/1.5f;
+            batch.draw(region, player.getX(), player.getY(), width, height);
+        }
+        else{
+            Animation animation;
+            if(status == CharacterStatus.CLEANING_DISH){
+                animation = player.getAnimation(status.name());
+            }
+            else{
+                String animationName = "";
+                if(status == CharacterStatus.WALKING)
+                    animationName = (isHoldingItem ? "HOLDING_" : "");
+                animationName += status.name();
+
+                if(direction == Direction.LEFT || direction == Direction.UPLEFT || direction == Direction.DOWNLEFT)
+                    animationName += "_LEFT";
+                else if(direction == Direction.RIGHT || direction == Direction.UPRIGHT || direction == Direction.DOWNRIGHT)
+                    animationName += "_RIGHT";
+                else if(direction == Direction.UP)
+                    animationName += "_UP";
+                else if(direction == Direction.DOWN)
+                    animationName += "_DOWN";
+                animation = player.getAnimation(animationName);
+            }
+
+            float width = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionWidth()/1.5f;
+            float height = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionHeight()/1.5f;
+            batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), player.getX(), player.getY(), width, height);
+        }
     }
 }
