@@ -16,7 +16,7 @@ public class GameConstant {
     public static final float tileSize = 32;
 
     public static final float posMapX = (windowWidth-mapWidth)/2;
-    public static final float posMapY = posMapX*1.3f;
+    public static final float posMapY = (windowWidth-mapWidth)/2;
 
     public static int CHARACTER_WIDTH = 16;
     public static int CHARACTER_HEIGHT = 20;

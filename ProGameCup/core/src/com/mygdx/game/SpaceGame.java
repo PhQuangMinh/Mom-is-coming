@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.NewButton;
 import com.mygdx.game.view.effect.MakeMusic;
+import com.mygdx.game.view.screens.MainGameScreen;
 import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class SpaceGame extends Game {

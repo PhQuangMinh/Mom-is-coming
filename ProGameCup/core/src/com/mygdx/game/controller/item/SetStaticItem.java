@@ -31,11 +31,11 @@ public class SetStaticItem {
                 x += mapSize - itemSize - tileSize - 5;
                 y += tileSize + 10;
                 break;
-            case "cabinet1":
+            case "wardrobe":
                 x += mapSize - itemSize*3;
                 y += patioTop*mapSize;
                 break;
-            case "cabinet2":
+            case "night-stand":
                 x += mapSize - itemSize - tileSize;
                 y += 3/7.2f*mapSize;
                 break;
@@ -126,8 +126,8 @@ public class SetStaticItem {
     public void setStatic(ArrayList<StaticItem> items){
         items.add(getItem("bed", true, 4));
         items.add(getItem("box", true, 2));
-        items.add(getItem("cabinet1", true, 3));
-        items.add(getItem("cabinet2", true, 1));
+        items.add(getItem("wardrobe", true, 3));
+        items.add(getItem("night-stand", true, 1));
         items.add(getItem("chair", false, 0));
         items.add(getItem("computer-desk", true, 1));
         items.add(getItem("dish-washing", true, 0));

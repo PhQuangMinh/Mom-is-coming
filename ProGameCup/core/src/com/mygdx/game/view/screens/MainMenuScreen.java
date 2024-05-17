@@ -82,5 +82,15 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
+        play.dispose();
+        playPress.dispose();
+        leaderboard.dispose();
+        leaderboardPress.dispose();
+        back.dispose();
+        backPress.dispose();
+        github.dispose();
+        githubPress.dispose();
+        musicOn.dispose();
+        musicOff.dispose();
     }
 }

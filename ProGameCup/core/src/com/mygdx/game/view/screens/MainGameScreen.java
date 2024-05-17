@@ -3,6 +3,7 @@ package com.mygdx.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -50,6 +51,7 @@ public class MainGameScreen implements Screen {
     GetItem getItem;
 
     private final Player player;
+    private int countImpress = 0;
 
     NewButton newButton;
     public MainGameScreen (SpaceGame game){
@@ -105,26 +107,42 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-            game.setScreen(new MainMenuScreen(game));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            game.setScreen(new MainMenuScreen(game));
-        }
-
         renderer.setView(camera);
         renderer.render();
-
+        if(!newButton.isPause) {
+            stateTime += delta;
+            player.update(mapObjects, staticItems, dynamicItems);
+        }
+        if (countImpress<5){
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+            Texture texture = new Texture("mainstory/impression" + (countImpress + 1) + ".png");
+            float ratio = (float)texture.getWidth() / texture.getHeight();
+            float width, height;
+            float t = 720;
+            if (ratio>1) {
+                width = t;
+                height = t / ratio;
+            }
+            else{
+                height = t;
+                width = t * ratio;
+            }
+            int[] a = {110, 110, 110, 500, 680};
+            batch.draw(texture, 80
+                   , a[countImpress], width, height);
+//            batch.draw(texture, 100
+//                    , 100, 700, 650);
+            countImpress = (int)(1 + stateTime*4);
+            batch.end();
+            return;
+        }
         if (player.getItemHolding()==null){
             if (player.getContainer()==null || player.getContainer().getNumber()==0)
                 player.setStatusHold(1);
             else player.setStatusHold(3);
         }
         else player.setStatusHold(2);
-        if(!newButton.isPause) {
-            stateTime += delta;
-            player.update(mapObjects, staticItems, dynamicItems);
-        }
         batch.begin();
         batch.setColor(1, 1, 1, 1);
         getItem.takeItemStatic(player, dynamicItems);
@@ -144,8 +162,7 @@ public class MainGameScreen implements Screen {
         newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
         newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
         newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
-
-        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
+        drawText.drawClock(game, batch, stateTime, 10, 0, 100, 850, 0.5f, "fonts/char.fnt", Color.ORANGE);
         batch.end();
 
 
@@ -156,7 +173,7 @@ public class MainGameScreen implements Screen {
     public void resize(int width, int height) {
         camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
 
-        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2/1.2f, 0);
+        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
 
         camera.update();
     }
@@ -180,7 +197,15 @@ public class MainGameScreen implements Screen {
     @Override
     public void dispose() {
         renderer.dispose();
-        batch.dispose();
         walk.dispose();
+        resume.dispose();
+        pause.dispose();
+        home.dispose();
+        homePress.dispose();
+        replay.dispose();
+        replayPress.dispose();
+        musicOn.dispose();
+        musicOff.dispose();
+        batch.dispose();
     }
 }
