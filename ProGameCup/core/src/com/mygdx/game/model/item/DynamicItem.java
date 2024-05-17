@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 public class DynamicItem extends Item {
     private boolean visible;
     private boolean cross;
+    private boolean isClothes;
+
     public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width
-            , float height, float overlap, boolean cross) {
+            , float height, float overlap, boolean cross, boolean isClothes) {
         super(name, image, chosenImage, x, y, width, height, overlap);
         this.visible = true;
         this.cross = cross;
+        this.isClothes = isClothes;
     }
     public boolean isVisible() {
         return visible;
@@ -24,5 +27,9 @@ public class DynamicItem extends Item {
 
     public void setCross(boolean cross) {
         this.cross = cross;
+    }
+
+    public boolean isClothes() {
+        return isClothes;
     }
 }

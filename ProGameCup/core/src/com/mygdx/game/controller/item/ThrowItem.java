@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.constant.CharacterStatus;
 import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.model.Player;
@@ -25,7 +26,8 @@ public class ThrowItem {
     }
 
     public void updatePosition(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player){
-        if (player.getItemHolding()==null) return;
+        if (player.getItemHolding()==null || player.getStatusHold() == 4) return;
+
         for (DynamicItem item : dynamicItems) {
             if (item.getName().equals(player.getItemHolding().getName())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.X) && player.getStatusHold()==2){
@@ -139,6 +141,8 @@ public class ThrowItem {
             if(player.getContainer().getName().equals("dish-washing")){
                 if(dynamicItem.getName().equals("dish")){
                     player.setIsCountingXPress(true);
+                    if(player.getStatus() != CharacterStatus.CLEANING_DISH)
+                        player.setFrameIndex(-1);
                     washing.washingDish(dynamicItem, dynamicItems, player, true);
                 }
                 else{

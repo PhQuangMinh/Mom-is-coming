@@ -101,6 +101,7 @@ public class Draw {
         ArrayList<DynamicItem> dynamicBottom = new ArrayList<>();
         filterDynamic(dynamicItems, dynamicTop, dynamicBottom, player, staticItems);
         drawDynamic(dynamicBottom, batch, player);
+
         if (player.getOverlap()){
             PlayerMovement.draw(player, batch, stateTime);
             drawStatic(staticItems, batch, player);

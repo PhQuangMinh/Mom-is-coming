@@ -28,8 +28,9 @@ public class Player extends Sprite {
     private StaticItem container;
     private Vector2 positionThrew;
     private int statusHold;
+    // statusHold = 4: đang cầm đồ vật bằng vải đứng trên vũng nước, chuẩn bị lau
+    private int frameIndex;
     private boolean isCountingXPress;
-    private int washingIndex;
 
     private LinkedHashMap<String, Animation> animations;
     private LinkedHashMap<String, TextureRegion> textures;
@@ -79,6 +80,16 @@ public class Player extends Sprite {
         if(textures.containsKey(textureName))
             return textures.get(textureName);
         System.out.println("Texture not found");
+        return null;
+    }
+
+    public TextureRegion getAnimationFrame(String animationName, int index){
+        if(animations.containsKey(animationName)){
+            TextureRegion[] region = (TextureRegion[]) getAnimation(animationName).getKeyFrames();
+            index %= region.length;
+            return region[index];
+        }
+        System.out.println("Animation not found");
         return null;
     }
 
@@ -158,19 +169,19 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
+    public int getFrameIndex() {
+        return frameIndex;
+    }
+
+    public void setFrameIndex(int frameIndex) {
+        this.frameIndex = frameIndex;
+    }
+
     public boolean getIsCountingXPress() {
         return isCountingXPress;
     }
 
     public void setIsCountingXPress(boolean countingXPress) {
         isCountingXPress = countingXPress;
-    }
-
-    public int getWashingIndex() {
-        return washingIndex;
-    }
-
-    public void setWashingIndex(int washingIndex) {
-        this.washingIndex = washingIndex;
     }
 }

@@ -38,6 +38,8 @@ public class SetDynamicItem {
                 return new Vector2(posX + 400, posY + 200);
             case "red-sock":
                 return new Vector2(posX + 280, posY + 140);
+            case "puddle":
+                return new Vector2(posX + 210, posY + 290);
         }
         return new Vector2(posX + 300, posY + 300);//shirt
     }
@@ -47,6 +49,8 @@ public class SetDynamicItem {
         float width = GameConstant.dynamicSize, height = GameConstant.dynamicSize;
         if (patio>1) height *= patio;
         else width /= patio;
+        if(image.equals("puddle"))
+            return new Vector2(64, 64);
         if (image.equals("battery") || image.equals("red-sock")){
             width/=1.5f;
             height/=1.5f;
@@ -63,7 +67,11 @@ public class SetDynamicItem {
         Texture chosenImageItem = new Texture("items/dynamic-items/pick-items/" + image + ".png");
         Vector2 size = getSize(image, imageItem);
         Vector2 position = getPosition(image, size.y);
-        return new DynamicItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y,overlap, isCross);
+        boolean isClothes = false;
+        if(image.equals("blue-sock") || image.equals("red-sock") || image.equals("red-shirt") || image.equals("red-paper") || image.equals("shirt")){
+            isClothes = true;
+        }
+        return new DynamicItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y,overlap, isCross, isClothes);
     }
 
     public void setDynamic(ArrayList<DynamicItem> items) {
@@ -78,5 +86,6 @@ public class SetDynamicItem {
         items.add(getItem("red-shirt", true));
         items.add(getItem("red-sock", true));
         items.add(getItem("shirt", true));
+        items.add(getItem("puddle", true));
     }
 }
