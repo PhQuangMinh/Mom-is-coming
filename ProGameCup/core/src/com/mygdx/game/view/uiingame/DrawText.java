@@ -9,12 +9,17 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.view.screens.MainMenuScreen;
 
 public class DrawText {
-    GlyphLayout glyphLayout;
     BitmapFont charFont;
+
+    public DrawText(){
+        setCharFont();
+    }
+
     public void setCharFont(){
         charFont = new BitmapFont(Gdx.files.internal("fonts/char.fnt"));
         charFont.setColor(Color.ORANGE);
     }
+
     public void drawStaticText(SpriteBatch batch, String text, float x, float y, float size){
         setCharFont();
         charFont.getData().setScale(size);
@@ -23,7 +28,6 @@ public class DrawText {
 
 
     public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int minutes, int seconds, float x, float y, float size){
-        setCharFont();
         charFont.getData().setScale(size);
 
         float countdownTime = minutes * 60 + seconds;
