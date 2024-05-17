@@ -28,7 +28,6 @@ public class MainGameScreen implements Screen {
     Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff;
     SpaceGame game;
     DrawText drawText;
-    Texture walk;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
@@ -133,35 +132,30 @@ public class MainGameScreen implements Screen {
             stateTime += delta;
             PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, stateTime);
         }
-//        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("animations/Main_char_animations.atlas"));
-//        TextureRegion[] regions = atlas.findRegions("MOPPING_FLOOR_DOWN").toArray();
-//        Animation animation = new Animation(0.2f, regions);
 
         batch.begin();
         batch.setColor(1, 1, 1, 1);
-//        batch.draw((TextureRegion) animation.getKeyFrame(stateTime, false), 0, 0);
-//        System.out.println(animation.isAnimationFinished(stateTime));
         getItem.takeItemStatic(player, dynamicItems);
-//        holding.drawHold(batch, player);
+        holding.drawHold(batch, player);
         throwItem.updatePosition(dynamicItems, staticItems, player);
         player.setOverlap(checkCollision.checkFull(staticItems, player));
         draw.draw(dynamicItems, staticItems, player, batch, stateTime);
 
-//        if (!player.isValidThrow()){
-//            if (firstValue == -1) firstValue = stateTime;
-//            makeAlert.drawAlert(batch, firstValue, stateTime, player);
-//            if (stateTime - firstValue > 2){
-//                player.setValidThrow(true);
-//                firstValue = -1;
-//            }
-//        }
+        if (!player.isValidThrow()){
+            if (firstValue == -1) firstValue = stateTime;
+            makeAlert.drawAlert(batch, firstValue, stateTime, player);
+            if (stateTime - firstValue > 2){
+                player.setValidThrow(true);
+                firstValue = -1;
+            }
+        }
 
-//        newButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight);
-//        newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
-//        newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
-//        newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
-//
-//        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
+        newButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight);
+        newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
+        newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
+        newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
+
+        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
         batch.end();
     }
 
@@ -195,6 +189,5 @@ public class MainGameScreen implements Screen {
     public void dispose() {
         renderer.dispose();
         batch.dispose();
-        walk.dispose();
     }
 }

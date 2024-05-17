@@ -30,7 +30,7 @@ public class NewButton {
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(new MainGameScreen(game));
+                    game.setScreen(new MainStory(game));
                 }
 //                else if(choice == 2){
 //                   playSound.checkMusic(musicOn, musicOff, x, y, buttonWidth, buttonHeight);
