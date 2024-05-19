@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.discover.DiscoverDynamic;
 import com.mygdx.game.controller.discover.DiscoverStatic;
 import com.mygdx.game.model.item.DynamicItem;
@@ -100,13 +101,14 @@ public class Draw {
         ArrayList<DynamicItem> dynamicBottom = new ArrayList<>();
         filterDynamic(dynamicItems, dynamicTop, dynamicBottom, player, staticItems);
         drawDynamic(dynamicBottom, batch, player);
+
         if (player.getOverlap()){
-            player.draw(batch, stateTime);
+            PlayerMovement.draw(player, batch, stateTime);
             drawStatic(staticItems, batch, player);
         }
         else{
             drawStatic(staticItems, batch, player);
-            player.draw(batch, stateTime);
+            PlayerMovement.draw(player, batch, stateTime);
         }
         drawDynamic(dynamicTop, batch, player);
     }

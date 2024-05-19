@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.screens.MainGameScreen;
 
 public class MainStory implements Screen {
     private final SpaceGame game;
     private final SpriteBatch batch;
-    private Texture impression, message, press;
+    private Texture impression, press;
+    private Texture messages[];
 
     private float elapsedTime = 0;
 
@@ -22,17 +24,24 @@ public class MainStory implements Screen {
     public MainStory(SpaceGame game) {
         this.game = game;
         batch = game.getBatch();
+        messages = new Texture[10];
+        for(int i = 1; i < 9; ++i){
+            messages[i] = new Texture("mainstory/message" + i + ".png");
+        }
+
     }
     @Override
     public void show() {
         impression = new Texture("mainstory/impression.png");
         press = new Texture("mainstory/press.png");
+
     }
 
     @Override
     public void render(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
             countMessages++;
+            MakeSound.makeSound("music/press.mp3");
             if (countMessages==9) {
                 game.setScreen(new MainGameScreen(game));
                 return;
@@ -50,8 +59,7 @@ public class MainStory implements Screen {
                 , (GameConstant.windowHeight-impression.getHeight())/2+50);
         if (elapsedTime>=2){
             batch.setColor(1f, 1f, 1f, Math.min((elapsedTime-2)/2f, 1f));
-            Texture message = new Texture("mainstory/message" + countMessages + ".png");
-            batch.draw(message, (GameConstant.windowWidth- message.getWidth())/2, 0);
+            batch.draw(messages[countMessages], (GameConstant.windowWidth- messages[countMessages].getWidth())/2, 0);
             if (elapsedTime>=3.5 && Math.abs(elapsedTime-(int)elapsedTime)<=0.5){
                 batch.draw(press, (GameConstant.windowWidth-press.getWidth())/2, 2);
             }

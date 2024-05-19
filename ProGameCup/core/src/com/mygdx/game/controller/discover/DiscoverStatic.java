@@ -39,7 +39,7 @@ public class DiscoverStatic {
         return player.getDirection() == Direction.UP
                 && player.getX() + 0.8f*player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()
-                && player.getY() <= item.getY() + item.getHeight()
+                && player.getY() <= item.getY() + item.getHeight() - item.getOverlap()
                 && player.getY() >= item.getY() - 0.5f * GameConstant.playerHeight;
     }
 
