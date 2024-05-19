@@ -17,20 +17,30 @@ public class SetDynamicItem {
         float posX = GameConstant.posMapX;
         float posY = GameConstant.posMapY;
         switch (nameImage) {
-            case "battery":
+            case "coca1":
                 return new Vector2(posX + 240, posY + 140);
+            case "coca2":
+                return new Vector2(posX + 300 , posY + 180);
             case "blue-sock":
                 return new Vector2(posX + 150, posY + 100);
-            case "box":
+            case "box1":
                 return new Vector2(posX + 350, posY + 350);
+            case "box2":
+                return new Vector2(posX + 70, posY + 300);
+            case "box3":
+                return new Vector2(posX + 500, posY + 360);
+            case "carpet":
+                return new Vector2(posX + 80, posY + 110);
             case "dish":
                 return new Vector2(posX + 400, posY + 100);
             case "letter":
                 return new Vector2(posX + 140, posY + 295);
             case "paper":
                 return new Vector2(posX + 140, posY + 265);
-            case "pizza":
+            case "pizza1":
                 return new Vector2(posX + 200, posY + 200);
+            case "pizza2":
+                return new Vector2(posX + 370, posY + 280);
             case "box-pizza":
                 overlap = 1/3f*height;
                 return new Vector2(posX + 100, posY + 200);
@@ -38,6 +48,12 @@ public class SetDynamicItem {
                 return new Vector2(posX + 400, posY + 200);
             case "red-sock":
                 return new Vector2(posX + 280, posY + 140);
+            case "trouser":
+                return new Vector2(posX + 450, posY + 180);
+            case "underwear":
+                return new Vector2(posX + 350, posY + 50);
+            case "garbage":
+                return new Vector2(posX + 180, posY + 340);
             case "puddle":
                 return new Vector2(posX + 210, posY + 290);
         }
@@ -51,7 +67,7 @@ public class SetDynamicItem {
         else width /= patio;
         if(image.equals("puddle"))
             return new Vector2(64, 64);
-        if (image.equals("battery") || image.equals("red-sock")){
+        if (image.equals("coca1") || image.equals("red-sock")){
             width/=1.5f;
             height/=1.5f;
         }
@@ -75,17 +91,25 @@ public class SetDynamicItem {
     }
 
     public void setDynamic(ArrayList<DynamicItem> items) {
-        items.add(getItem("battery", true));
+        items.add(getItem("coca1", true));
         items.add(getItem("blue-sock", true));
-        items.add(getItem("box", false));
+        items.add(getItem("box1", false));
+        items.add(getItem("box2", false));
+        items.add(getItem("box3", false));
+        items.add(getItem("carpet", true));
+        items.add(getItem("coca2", true));
         items.add(getItem("box-pizza", false));
         items.add(getItem("dish", true));
         items.add(getItem("letter", true));
         items.add(getItem("paper", true));
-        items.add(getItem("pizza", true));
+        items.add(getItem("pizza1", true));
+        items.add(getItem("pizza2", true));
         items.add(getItem("red-shirt", true));
         items.add(getItem("red-sock", true));
         items.add(getItem("shirt", true));
+        items.add(getItem("trouser", true));
+        items.add(getItem("underwear", true));
+        items.add(getItem("garbage", true));
         items.add(getItem("puddle", true));
     }
 }

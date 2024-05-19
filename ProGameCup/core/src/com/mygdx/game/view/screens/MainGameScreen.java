@@ -25,7 +25,7 @@ import com.mygdx.game.view.uiingame.*;
 import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
-    Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff;
+    Texture menuBar, menuBarPress;
     SpaceGame game;
     DrawText drawText;
     private OrthogonalTiledMapRenderer renderer;
@@ -96,14 +96,16 @@ public class MainGameScreen implements Screen {
     }
 
     public void createTexture(){
-        resume = new Texture("button/resume.png");
-        pause = new Texture("button/pause.png");
-        home = new Texture("button/home.png");
-        homePress = new Texture("button/homePress.png");
-        replay = new Texture("button/replay.png");
-        replayPress = new Texture("button/replayPress.png");
-        musicOn = new Texture("button/musicOn.png");
-        musicOff = new Texture("button/musicOff.png");
+//        resume = new Texture("button/resume.png");
+//        pause = new Texture("button/pause.png");
+//        home = new Texture("button/home.png");
+//        homePress = new Texture("button/homePress.png");
+//        replay = new Texture("button/replay.png");
+//        replayPress = new Texture("button/replayPress.png");
+//        musicOn = new Texture("button/musicOn.png");
+//        musicOff = new Texture("button/musicOff.png");
+        menuBar = new Texture("button/menuBar.png");
+        menuBarPress = new Texture("button/menuBarPress.png");
     }
     @Override
     public void render(float delta) {
@@ -149,12 +151,8 @@ public class MainGameScreen implements Screen {
                 firstValue = -1;
             }
         }
-
-        newButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight);
-        newButton.drawButton(home,homePress, (int)GameConstant.windowWidth - 125, 800, GameConstant.iconWidth, GameConstant.iconHeight, 5);
-        newButton.drawButton(replay, replayPress, (int)GameConstant.windowWidth - 180, 800,GameConstant.iconWidth, GameConstant.iconHeight, 1);
-        newButton.drawPauseButton(resume, pause, (int)GameConstant.windowWidth - 235, 800, GameConstant.iconWidth, GameConstant.iconHeight);
-
+        newButton.drawButton(menuBar, menuBarPress, (int)GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight, 3);
+        newButton.drawMenuBar();
         drawText.drawClock(game, batch, stateTime, 10, 0, 360, 820, 1.2f);
         batch.end();
     }
