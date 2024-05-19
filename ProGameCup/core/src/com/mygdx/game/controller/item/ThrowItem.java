@@ -35,7 +35,7 @@ public class ThrowItem {
                 }
                 else{
                     item.setPosition(player.getX() + (player.getWidth() - item.getWidth()) / 2
-                            , player.getY() + 0.6f * player.getHeight());
+                            , player.getY() + 1.5f * player.getHeight());
                 }
                 return;
             }
