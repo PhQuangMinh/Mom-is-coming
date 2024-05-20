@@ -1,6 +1,7 @@
 package com.mygdx.game.view.uiingame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
@@ -45,9 +46,9 @@ public class NewButton {
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ buttonHeight){
             batch.draw(buttonPress, x, y, buttonWidth, buttonHeight);
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
-            if (Gdx.input.isTouched()){
+            if (Gdx.input.isTouched()){ 
                 if (choice==1){
-                    game.setScreen(new MainGameScreen(game));
+                    game.setScreen(new MainStory(game));
                 }
                 else if(choice == 2){
                      isHowToPlayOpen = true;
@@ -83,8 +84,7 @@ public class NewButton {
         boolean isTouched = Gdx.input.justTouched();
         if (Gdx.input.getX() >= x && Gdx.input.getX() <= x + buttonWidth && GameConstant.windowHeight - Gdx.input.getY() >= y && GameConstant.windowHeight - Gdx.input.getY() <= y + buttonHeight) {
             if (isTouched) {
-                if(isPause) isPause = false;
-                else isPause = true;
+                isPause = !isPause;
             }
         }
         if(isPause){
@@ -96,8 +96,7 @@ public class NewButton {
         boolean isTouched = Gdx.input.justTouched();
         if (Gdx.input.getX() >= x && Gdx.input.getX() <= x + buttonWidth && GameConstant.windowHeight - Gdx.input.getY() >= y && GameConstant.windowHeight - Gdx.input.getY() <= y + buttonHeight) {
             if (isTouched) {
-                if(isStopMusic) isStopMusic= false;
-                else isStopMusic= true;
+                isStopMusic= !isStopMusic;
             }
         }
         if(isStopMusic){

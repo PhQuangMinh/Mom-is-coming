@@ -1,5 +1,6 @@
 package com.mygdx.game.controller.item;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,11 +10,14 @@ import com.mygdx.game.controller.discover.DiscoverDynamic;
 import com.mygdx.game.controller.discover.DiscoverStatic;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.uiingame.DrawText;
 
 import java.util.ArrayList;
 
 public class Draw {
+    private float noteX, noteY;
 
     private int getFirstPosition(int quantity){
         switch (quantity){
@@ -29,32 +33,80 @@ public class Draw {
         return 10;
     }
 
+    private void drawNoteName(Item item, SpriteBatch batch, DrawText drawText){
+        Texture note = new Texture("alert/note.png");
+        batch.draw(note, (GameConstant.windowWidth-note.getWidth())/2
+                , GameConstant.posMapY + GameConstant.mapHeight + 10);
+        String noteText;
+        if (item instanceof StaticItem){
+            noteText = "It's the " + item.getName() + ".";
+        }
+        else{
+            noteText = "It's a " + item.getName() + ".";
+        }
+        noteX = (GameConstant.windowWidth-note.getWidth())/2 + 10;
+        noteY = GameConstant.posMapY + GameConstant.mapHeight + note.getHeight() - 5;
+        drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
+    }
+
+    private void drawNoteStatic(StaticItem item, SpriteBatch batch){
+        DrawText drawText = new DrawText();
+        drawNoteName(item, batch, drawText);
+        if (item.getName().equals("dish-washing")){
+            return;
+        }
+        String noteContains;
+        if (item.getItems().isEmpty()) {
+            noteContains = "It's empty.";
+        }
+        else if (item.getItems().size() == item.getNumber()) {
+            noteContains = "It's full.";
+        }
+        else noteContains = "You can take " + item.getItems().get(item.getItems().size() - 1).getName() + ".";
+        drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f);
+    }
+
+    private void drawContains(StaticItem item, SpriteBatch batch){
+        float containX = (GameConstant.windowWidth-item.getContainItem().getWidth())/2;
+        batch.draw(item.getContainItem(), containX, 20);
+        float firstPos = containX + getFirstPosition(item.getNumber());
+        for (DynamicItem dynamicItem:item.getItems()){
+            batch.draw(dynamicItem.getImage(), firstPos + (60-dynamicItem.getWidth())/2
+                    , 30 + (60-dynamicItem.getHeight())/2
+                    , dynamicItem.getWidth(), dynamicItem.getHeight());
+            firstPos += 80;
+        }
+    }
     private void drawStaticItem(StaticItem item, SpriteBatch batch) {
         Texture image;
         if (item.getDiscover() && item.getChosenImage()!=null){
             image = item.getChosenImage();
+            drawNoteStatic(item, batch);
             if (!item.getName().equals("dish-washing")){
-                float containX = (GameConstant.windowWidth-item.getContainItem().getWidth())/2;
-                batch.draw(item.getContainItem(), containX, 50);
-                float firstPos = containX + getFirstPosition(item.getNumber());
-                for (DynamicItem dynamicItem:item.getItems()){
-                    batch.draw(dynamicItem.getImage(), firstPos + (60-dynamicItem.getWidth())/2
-                            , 60 + (60-dynamicItem.getHeight())/2
-                            , dynamicItem.getWidth(), dynamicItem.getHeight());
-                    firstPos += 80;
-                }
+                drawContains(item, batch);
             }
         }
         else image = item.getImage();
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
 
+    private void drawNoteDynamic(DynamicItem item, SpriteBatch batch) {
+        DrawText drawText = new DrawText();
+        drawNoteName(item, batch, drawText);
+    }
     private void drawDynamicItem(DynamicItem item, SpriteBatch batch, Player player){
         if (!item.isVisible()) return;
         Texture image;
-        if (player.getItemHolding()!=null) image = item.getImage();
+        if (player.getItemHolding()!=null){
+            image = item.getImage();
+            DrawText drawText = new DrawText();
+            drawText.drawStaticText(batch, player.getItemHolding().getName(), 10, 720, 0.5f);
+        }
         else
-            if (item.getDiscover() && item.getChosenImage()!=null) image = item.getChosenImage();
+            if (item.getDiscover() && item.getChosenImage()!=null){
+                image = item.getChosenImage();
+                drawNoteDynamic(item, batch);
+            }
             else image = item.getImage();
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }

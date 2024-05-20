@@ -3,6 +3,7 @@ package com.mygdx.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -47,6 +48,7 @@ public class MainGameScreen implements Screen {
     GetItem getItem;
 
     private final Player player;
+    private int countImpress = 0;
 
     NewButton newButton;
     public MainGameScreen (SpaceGame game){
@@ -112,18 +114,45 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-            game.setScreen(new MainMenuScreen(game));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            game.setScreen(new MainMenuScreen(game));
-        }
-
         renderer.setView(camera);
         renderer.render();
 
         if(player.getStatusHold() == 4);
         else if(player.getItemHolding()==null){
+            if (player.getContainer()==null || player.getContainer().getNumber()==0)
+                player.setStatusHold(1);
+            else player.setStatusHold(3);
+        }
+        else player.setStatusHold(2);
+        if(!newButton.isPause) {
+            stateTime += delta;
+            PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, stateTime);
+        }
+        if (countImpress<5){
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+            Texture texture = new Texture("mainstory/impression" + (countImpress + 1) + ".png");
+            float ratio = (float)texture.getWidth() / texture.getHeight();
+            float width, height;
+            float t = 720;
+            if (ratio>1) {
+                width = t;
+                height = t / ratio;
+            }
+            else{
+                height = t;
+                width = t * ratio;
+            }
+            int[] a = {110, 110, 110, 500, 680};
+            batch.draw(texture, 80
+                   , a[countImpress], width, height);
+//            batch.draw(texture, 100
+//                    , 100, 700, 650);
+            countImpress = (int)(1 + stateTime*4);
+            batch.end();
+            return;
+        }
+        if (player.getItemHolding()==null){
             if (player.getContainer()==null || player.getContainer().getNumber()==0)
                 player.setStatusHold(1);
             else player.setStatusHold(3);
@@ -162,7 +191,7 @@ public class MainGameScreen implements Screen {
     public void resize(int width, int height) {
         camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
 
-        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2/1.2f, 0);
+        camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
 
         camera.update();
     }

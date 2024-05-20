@@ -8,9 +8,10 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("My GDX Game");
+		config.setTitle("Good Impressions");
 		config.setResizable(false);
 		config.setWindowedMode((int) GameConstant.windowWidth, (int)GameConstant.windowHeight);
+		config.setWindowIcon("logo.png");
 		new Lwjgl3Application(new SpaceGame(), config);
 	}
 }
