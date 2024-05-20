@@ -46,7 +46,7 @@ public class NewButton {
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ buttonHeight){
             batch.draw(buttonPress, x, y, buttonWidth, buttonHeight);
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
-            if (Gdx.input.isTouched()){
+            if (Gdx.input.isTouched()){ 
                 if (choice==1){
                     game.setScreen(new MainStory(game));
                 }
