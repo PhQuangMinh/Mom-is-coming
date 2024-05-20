@@ -1,11 +1,9 @@
-package com.mygdx.game.controller.item;
+package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.item;
+package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +28,7 @@ public class SetStaticItem {
                 y += 1/2.2f * mapSize;
                 break;
             case "box":
+                overlap = patioMedium;
                 x += mapSize - itemSize - tileSize - 5;
                 y += tileSize + 10;
                 break;

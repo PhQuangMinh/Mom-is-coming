@@ -88,18 +88,4 @@ public class CheckCollision {
         || checkDynamicItem(position, dynamicItems)) position.set(oldPosition);
     }
 
-    public boolean checkObscure(Item item, Player player){
-        return player.getX() + player.getWidth() >= item.getX()
-                && player.getX() <= item.getX() + item.getWidth()
-                && player.getY() >= item.getY() + item.getHeight() - item.getOverlap()
-                && player.getY() <= item.getY() + item.getHeight();
-    }
-
-    public boolean checkFull(ArrayList<StaticItem> items, Player player) {
-        for (Item item : items) {
-            if (checkObscure(item, player)) return true;
-        }
-        return false;
-    }
-
 }

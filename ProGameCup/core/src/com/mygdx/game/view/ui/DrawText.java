@@ -1,34 +1,32 @@
-package com.mygdx.game.view.uiingame;
+package com.mygdx.game.view.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
-import com.mygdx.game.view.screens.MainMenuScreen;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class DrawText {
     BitmapFont charFont;
 
-    public DrawText(){
-        setCharFont();
+    public DrawText(String path, Color color){
+        setCharFont(path, color);
     }
 
-    public void setCharFont(){
-        charFont = new BitmapFont(Gdx.files.internal("fonts/char.fnt"));
-        charFont.setColor(Color.ORANGE);
+    public void setCharFont(String path, Color color){
+        charFont = new BitmapFont(Gdx.files.internal(path));
+        charFont.setColor(color);
     }
 
     public void drawStaticText(SpriteBatch batch, String text, float x, float y, float size){
-        setCharFont();
         charFont.getData().setScale(size);
         charFont.draw(batch,text, x, y);
     }
 
 
     public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int minutes, int seconds, float x, float y, float size){
-        charFont.getData().setScale(size);
+        charFont.getData().setScale(size/2);
 
         float countdownTime = minutes * 60 + seconds;
         float timeLeft = countdownTime - stateTime;

@@ -1,4 +1,4 @@
-package com.mygdx.game.view.uiingame;
+package com.mygdx.game.view.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.effect.MakeMusic;
-import com.mygdx.game.view.screens.*;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.awt.*;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class NewButton {
-    Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff, buttonSpace;
     SpriteBatch batch;
     DrawText drawText;
     SpaceGame game;
@@ -26,27 +26,13 @@ public class NewButton {
     public NewButton(SpaceGame game) {
         this.game = game;
         this.batch = game.getBatch();
-        createTexture();
-        drawText = new DrawText();
-
-    }
-
-    public void createTexture(){
-        resume = new Texture("button/resume.png");
-        pause = new Texture("button/pause.png");
-        home = new Texture("button/home.png");
-        homePress = new Texture("button/homePress.png");
-        replay = new Texture("button/replay.png");
-        replayPress = new Texture("button/replayPress.png");
-        musicOn = new Texture("button/musicOn.png");
-        musicOff = new Texture("button/musicOff.png");
-        buttonSpace = new Texture("otherImage/ButtonSpace.png");
+        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
     }
     public void drawButton( Texture button, Texture buttonPress, int x, int y, int buttonWidth, int buttonHeight, int choice){
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ buttonHeight){
             batch.draw(buttonPress, x, y, buttonWidth, buttonHeight);
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
-            if (Gdx.input.isTouched()){ 
+            if (Gdx.input.isTouched()){
                 if (choice==1){
                     game.setScreen(new MainStory(game));
                 }
@@ -128,14 +114,6 @@ public class NewButton {
                 }
             }
             else batch.draw(close, closeButtonX, closeButtonY, GameConstant.iconWidth, GameConstant.iconHeight);
-        }
-    }
-    public void drawMenuBar(){
-        if(isMenuBarOpen) {
-            drawMusicButton(musicOn, musicOff, (int) GameConstant.windowWidth - 70, 740, GameConstant.iconWidth, GameConstant.iconHeight);
-            drawButton(home, homePress, (int) GameConstant.windowWidth - 70, 680, GameConstant.iconWidth, GameConstant.iconHeight, 5);
-            drawButton(replay, replayPress, (int) GameConstant.windowWidth - 70, 620, GameConstant.iconWidth, GameConstant.iconHeight, 1);
-            drawPauseButton(resume, pause, (int) GameConstant.windowWidth - 70, 560, GameConstant.iconWidth, GameConstant.iconHeight);
         }
     }
 }
