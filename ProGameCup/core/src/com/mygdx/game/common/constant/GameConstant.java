@@ -22,4 +22,5 @@ public class GameConstant {
     public static int CHARACTER_HEIGHT = 20;
     public static final int iconWidth = 50;
     public static final int iconHeight = 50;
+    public static final int impressionSize =  720;
 }

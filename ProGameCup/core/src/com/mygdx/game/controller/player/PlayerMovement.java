@@ -1,17 +1,17 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.controller.player;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.controller.constant.CharacterStatus;
-import com.mygdx.game.controller.constant.Direction;
+import com.mygdx.game.controller.CheckCollision;
+import com.mygdx.game.common.constant.CharacterStatus;
+import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.model.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class PlayerMovement {
     private static Direction direction;
     private static CharacterStatus status;
-    private static Animation animation;
-    public static int xCounts;
 
     private static void controlHandle(Player player, float stateTime){
         boolean isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
@@ -168,7 +166,7 @@ public class PlayerMovement {
                 animationName += "_UP";
             else if (direction == Direction.DOWN)
                 animationName += "_DOWN";
-            animation = player.getAnimation(animationName);
+            Animation animation = player.getAnimation(animationName);
 
             float width = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionWidth() / 1.5f;
             float height = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionHeight() / 1.5f;

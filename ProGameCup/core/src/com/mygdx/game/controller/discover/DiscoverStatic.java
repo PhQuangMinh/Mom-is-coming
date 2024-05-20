@@ -1,7 +1,7 @@
 package com.mygdx.game.controller.discover;
 
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.constant.Direction;
+import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.StaticItem;
