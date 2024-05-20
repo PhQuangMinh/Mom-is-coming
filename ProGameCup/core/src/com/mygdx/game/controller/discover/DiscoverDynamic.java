@@ -3,7 +3,10 @@ package com.mygdx.game.controller.discover;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.PlayerMovement;
+import com.mygdx.game.controller.constant.CharacterStatus;
 import com.mygdx.game.controller.constant.Direction;
+import com.mygdx.game.controller.item.MoppingFloor;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
@@ -11,14 +14,27 @@ import com.mygdx.game.model.item.Item;
 import java.util.ArrayList;
 
 public class DiscoverDynamic {
+    MoppingFloor mopping = new MoppingFloor();
     public void discoverDynamic(ArrayList<DynamicItem> items, Player player) {
         resetDynamic(items);
         for (DynamicItem item : items) {
             if (checkDiscover(item, player)){
                 item.setDiscover(true);
+                if(item.getName().equals("puddle")){
+                    if(player.getItemHolding() != null && ((DynamicItem)player.getItemHolding()).isClothes()) {
+                        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                            if(player.getStatus() != CharacterStatus.MOPPING_FLOOR)
+                                player.setFrameIndex(-1);
+                            player.setIsCountingXPress(true);
+                            mopping.moppingFloor(item, items, player, true);
+                        }
+                    }
+                    return;
+                }
                 if (player.getItemHolding() == null && player.getStatusHold()==1) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
                         player.setItemHolding(item);
+
                     }
                 }
                 return;

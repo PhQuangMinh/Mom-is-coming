@@ -7,16 +7,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.PlayerMovement;
+import com.mygdx.game.controller.constant.CharacterStatus;
 import com.mygdx.game.controller.constant.Direction;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 
+import java.awt.image.Kernel;
+import java.security.Key;
 import java.util.ArrayList;
 
 public class ThrowItem {
+    Washing washing;
+
+    public ThrowItem(){
+        washing = new Washing();
+    }
+
     public void updatePosition(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player){
-        if (player.getItemHolding()==null) return;
+        if (player.getItemHolding()==null || player.getStatusHold() == 4) return;
+
         for (DynamicItem item : dynamicItems) {
             if (item.getName().equals(player.getItemHolding().getName())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.X) && player.getStatusHold()==2){
@@ -24,7 +35,7 @@ public class ThrowItem {
                 }
                 else{
                     item.setPosition(player.getX() + (player.getWidth() - item.getWidth()) / 2
-                            , player.getY() + 0.6f * player.getHeight());
+                            , player.getY() + 1.5f * player.getHeight());
                 }
                 return;
             }
@@ -33,14 +44,24 @@ public class ThrowItem {
 
     public void throwStaticItem(DynamicItem dynamicItem, ArrayList<StaticItem> staticItems
             , ArrayList<DynamicItem> dynamicItems, Player player) {
-        if (player.getContainer().getItems().size()<player.getContainer().getNumber()) {
-            for (StaticItem item : staticItems) {
-                if (item.getName().equals(player.getContainer().getName())) {
-                    dynamicItem.setVisible(false);
-                    item.getItems().add(dynamicItem);
-                    player.setValidThrow(true);
-                    player.setItemHolding(null);
-                    dynamicItems.remove(dynamicItem);
+        if(dynamicItem.getName().equals("dish")){
+            for(StaticItem item : staticItems){
+                if(item.getName().equals(player.getContainer().getName())){
+                    player.setValidThrow(false);
+                    player.setPositionThrew(new Vector2(player.getX(), player.getY()));
+                }
+            }
+        }
+        else {
+            if (player.getContainer().getItems().size() < player.getContainer().getNumber()) {
+                for (StaticItem item : staticItems) {
+                    if (item.getName().equals(player.getContainer().getName())) {
+                        dynamicItem.setVisible(false);
+                        item.getItems().add(dynamicItem);
+                        player.setValidThrow(true);
+                        player.setItemHolding(null);
+                        dynamicItems.remove(dynamicItem);
+                    }
                 }
             }
         }
@@ -53,16 +74,17 @@ public class ThrowItem {
 
     public Vector2 throwBottom(DynamicItem dynamicItem, Player player){
         return new Vector2(player.getX() + (player.getWidth() - dynamicItem.getWidth()) / 2
-               , player.getY() - dynamicItem.getHeight());
+                , player.getY() - dynamicItem.getHeight());
     }
 
     public Vector2 throwLeft(DynamicItem dynamicItem, Player player){
         return new Vector2(player.getX() - dynamicItem.getWidth()
-               , player.getY() - dynamicItem.getHeight() / 2);
+                , player.getY() - dynamicItem.getHeight() / 2);
     }
+
     public Vector2 throwRight(DynamicItem dynamicItem, Player player){
         return new Vector2(player.getX() + player.getWidth()
-               , player.getY() - dynamicItem.getHeight() / 2);
+                , player.getY() - dynamicItem.getHeight() / 2);
     }
 
     public Vector2 getPosition(DynamicItem dynamicItem, Player player){
@@ -96,6 +118,7 @@ public class ThrowItem {
         }
         return true;
     }
+
     public void throwFloor(DynamicItem dynamicItem, Player player, ArrayList<StaticItem> staticItems) {
         Vector2 position = getPosition(dynamicItem, player);
         if (player.getDirection() == Direction.RIGHT || player.getDirection() == Direction.LEFT){
@@ -114,8 +137,24 @@ public class ThrowItem {
 
     public void throwItem(DynamicItem dynamicItem, ArrayList<DynamicItem> dynamicItems
             , ArrayList<StaticItem> staticItems, Player player) {
-        if (player.getContainer() != null && player.getContainer().getNumber()>0) {
-            throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
+        if (player.getContainer() != null) {
+            if(player.getContainer().getName().equals("dish-washing")){
+                if(dynamicItem.getName().equals("dish")){
+                    player.setIsCountingXPress(true);
+                    if(player.getStatus() != CharacterStatus.CLEANING_DISH)
+                        player.setFrameIndex(-1);
+                    washing.washingDish(dynamicItem, dynamicItems, player, true);
+                }
+                else{
+                    player.setValidThrow(false);
+                    player.setPositionThrew(new Vector2(player.getX(), player.getY()));
+                }
+            }
+            else if(player.getContainer().getNumber() > 0) throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
+            else{
+                player.setValidThrow(false);
+                player.setPositionThrew(new Vector2(player.getX(), player.getY()));
+            }
         } else {
             throwFloor(dynamicItem, player, staticItems);
         }

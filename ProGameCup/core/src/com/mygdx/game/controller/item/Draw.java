@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.controller.PlayerMovement;
 import com.mygdx.game.controller.discover.DiscoverDynamic;
 import com.mygdx.game.controller.discover.DiscoverStatic;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.DrawText;
+import com.mygdx.game.view.uiingame.DrawText;
 
 import java.util.ArrayList;
 
@@ -45,8 +46,7 @@ public class Draw {
         }
         noteX = (GameConstant.windowWidth-note.getWidth())/2 + 10;
         noteY = GameConstant.posMapY + GameConstant.mapHeight + note.getHeight() - 5;
-        drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f, "fonts/char.fnt"
-                , Color.BLACK);
+        drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
     }
 
     private void drawNoteStatic(StaticItem item, SpriteBatch batch){
@@ -63,8 +63,7 @@ public class Draw {
             noteContains = "It's full.";
         }
         else noteContains = "You can take " + item.getItems().get(item.getItems().size() - 1).getName() + ".";
-        drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f
-                , "fonts/char.fnt", Color.BLACK);
+        drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f);
     }
 
     private void drawContains(StaticItem item, SpriteBatch batch){
@@ -101,8 +100,7 @@ public class Draw {
         if (player.getItemHolding()!=null){
             image = item.getImage();
             DrawText drawText = new DrawText();
-            drawText.drawStaticText(batch, player.getItemHolding().getName(), 10, 720, 0.5f
-                    , "fonts/char.fnt", Color.BROWN);
+            drawText.drawStaticText(batch, player.getItemHolding().getName(), 10, 720, 0.5f);
         }
         else
             if (item.getDiscover() && item.getChosenImage()!=null){
@@ -155,13 +153,14 @@ public class Draw {
         ArrayList<DynamicItem> dynamicBottom = new ArrayList<>();
         filterDynamic(dynamicItems, dynamicTop, dynamicBottom, player, staticItems);
         drawDynamic(dynamicBottom, batch, player);
+
         if (player.getOverlap()){
-            player.draw(batch, stateTime);
+            PlayerMovement.draw(player, batch, stateTime);
             drawStatic(staticItems, batch, player);
         }
         else{
             drawStatic(staticItems, batch, player);
-            player.draw(batch, stateTime);
+            PlayerMovement.draw(player, batch, stateTime);
         }
         drawDynamic(dynamicTop, batch, player);
     }
