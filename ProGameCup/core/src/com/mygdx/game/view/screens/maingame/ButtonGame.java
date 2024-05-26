@@ -34,6 +34,7 @@ public class ButtonGame {
         newButton.drawButton(menuBar, menuBarPress, (int) GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight, 3);
         drawMenuBar();
         drawText.drawClock(game, batch, stateTime, 10, 0, 360, 840, 1.2f);
+        drawText.drawStaticText(batch, "X: Interact", 10, 20, 0.5f);
     }
 
     public void drawMenuBar(){

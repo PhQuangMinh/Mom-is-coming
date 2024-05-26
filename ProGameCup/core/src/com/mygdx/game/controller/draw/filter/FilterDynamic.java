@@ -19,6 +19,7 @@ public class FilterDynamic {
         }
         return 1;
     }
+
     public void filter(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player,
                        ArrayList<DynamicItem> dynamicFloor,
                        ArrayList<DynamicItem> dynamicTable,

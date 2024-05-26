@@ -5,35 +5,42 @@ import com.badlogic.gdx.Input;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.CharacterStatus;
 import com.mygdx.game.common.constant.Direction;
-import com.mygdx.game.controller.item.activity.MoppingFloor;
+import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
+import com.mygdx.game.view.effect.MakeSound;
 
 import java.util.ArrayList;
 
 public class DiscoverDynamic {
-    MoppingFloor mopping = new MoppingFloor();
     public void discoverDynamic(ArrayList<DynamicItem> items, Player player) {
         resetDynamic(items);
         for (DynamicItem item : items) {
             if (checkDiscover(item, player)){
                 item.setDiscover(true);
+
                 if(item.getName().equals("puddle")){
                     if(player.getItemHolding() != null && ((DynamicItem)player.getItemHolding()).isClothes()) {
-                        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                            if(player.getStatus() != CharacterStatus.MOPPING_FLOOR)
-                                player.setFrameIndex(-1);
-                            player.setIsCountingXPress(true);
-                            mopping.moppingFloor(item, items, player, true);
+                        if(player.getStatus() != CharacterStatus.MOPPING_FLOOR){
+                            if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+                                player.setStatusHold(4);
+                                player.setStatus(CharacterStatus.MOPPING_FLOOR);
+                                PlayerMovement.actionCount = 0;
+                                ((DynamicItem)player.getItemHolding()).setVisible(false);
+
+                                // set vũng nước đang trong phạm vi của nhân vật
+                                player.setItemInRange(item);
+                            }
                         }
                     }
                     return;
                 }
+
                 if (player.getItemHolding() == null && player.getStatusHold()==1) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
                         player.setItemHolding(item);
-
+                        MakeSound.makeSound("sounds/soItemPickup.ogg");
                     }
                 }
                 return;

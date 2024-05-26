@@ -4,20 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.CharacterStatus;
-import com.mygdx.game.controller.item.activity.Washing;
+import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.effect.MakeSound;
 
 import java.util.ArrayList;
 
 public class ThrowItem {
-    Washing washing;
-
-    public ThrowItem(){
-        washing = new Washing();
-    }
-
     public void updatePosition(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player){
         if (player.getItemHolding()==null || player.getStatusHold() == 4) return;
         for (DynamicItem item : dynamicItems) {
@@ -39,19 +34,21 @@ public class ThrowItem {
         if (player.getContainer() != null) {
             if(player.getContainer().getName().equals("dish-washing")){
                 if(dynamicItem.getName().equals("dish")){
-                    player.setIsCountingXPress(true);
-                    if(player.getStatus() != CharacterStatus.CLEANING_DISH)
-                        player.setFrameIndex(-1);
-                    washing.washingDish(dynamicItem, dynamicItems, player, true);
+                    if(player.getStatus() != CharacterStatus.CLEANING_DISH){
+                        player.setStatus(CharacterStatus.CLEANING_DISH);
+                        dynamicItem.setVisible(false);
+                        PlayerMovement.actionCount = 0;
+                    }
                 }
                 else{
                     player.setValidThrow(false);
                     player.setPositionThrew(new Vector2(player.getX(), player.getY()));
                 }
             }
-            else if(player.getContainer().getNumber() > 0){
+            else if(player.getContainer().getItems().size() < player.getContainer().getNumber()){
                 ThrowInStatic throwInStatic = new ThrowInStatic();
                 throwInStatic.throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
+                MakeSound.makeSound("sounds/soItemStore.ogg");
             }
             else{
                 player.setValidThrow(false);
@@ -60,6 +57,7 @@ public class ThrowItem {
         } else {
             ThrowFloor throwFloor = new ThrowFloor();
             throwFloor.throwFloor(dynamicItem, player, staticItems);
+            if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg");
         }
     }
 }

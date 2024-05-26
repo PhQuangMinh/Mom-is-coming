@@ -24,7 +24,6 @@ public class DrawText {
         charFont.draw(batch,text, x, y);
     }
 
-
     public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int minutes, int seconds, float x, float y, float size){
         charFont.getData().setScale(size/2);
 

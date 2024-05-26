@@ -13,23 +13,52 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.effect.MakeSound;
 
 import java.util.ArrayList;
 
 public class PlayerMovement {
     private static Direction direction;
     private static CharacterStatus status;
+    private static Animation animation;
+    private static float animationTime = 0;
+    private static int soundIndex = 0;
+    public static int actionCount;
+    private static boolean isAnimationFinished = true;
+    private static int cleanTime = 12;
 
-    private static void controlHandle(Player player, float stateTime){
+    private static void controlHandle(Player player, ArrayList<StaticItem> staticItems, ArrayList<DynamicItem> dynamicItems){
         boolean isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
         boolean isRightKeyPressed = Gdx.input.isKeyPressed(Keys.RIGHT);
         boolean isUpKeyPressed = Gdx.input.isKeyPressed(Keys.UP);
         boolean isDownKeyPressed = Gdx.input.isKeyPressed(Keys.DOWN);
 
-        if(status == CharacterStatus.MOPPING_FLOOR || status == CharacterStatus.CLEANING_DISH){}
-        else if(Gdx.input.isKeyPressed(Keys.C)){
-            direction = Direction.UP;
-            status = CharacterStatus.CLEANING_DISH;
+        if(status == CharacterStatus.CLEANING_DISH || status == CharacterStatus.MOPPING_FLOOR){
+            if(Gdx.input.isKeyJustPressed(Keys.X) && isAnimationFinished){
+                actionCount++;
+
+                MakeSound.makeSound("sounds/soSqueak" + (actionCount % 5 + 1) + ".ogg");
+                if(actionCount == cleanTime){
+                    if(status == CharacterStatus.MOPPING_FLOOR){
+                        player.setStatusHold(1);
+                        ((DynamicItem)player.getItemHolding()).setVisible(true);
+                        // xóa vũng nước
+                        DynamicItem puddle = (DynamicItem)player.getItemInRange();
+                        puddle.setVisible(false);
+                        dynamicItems.remove(puddle);
+                        player.setItemInRange(null);
+                    }
+                    else {
+                        direction = Direction.UP;
+                        // xóa đĩa đã được rửa xong
+                        dynamicItems.remove((DynamicItem) player.getItemHolding());
+                        player.setItemHolding(null);
+                    }
+
+                    status = CharacterStatus.IDLE;
+                    player.setValidThrow(true);
+                }
+            }
         }
         else if(!isLeftKeyPressed && !isRightKeyPressed && !isUpKeyPressed && !isDownKeyPressed) {
             status = CharacterStatus.IDLE;
@@ -112,14 +141,13 @@ public class PlayerMovement {
             , ArrayList<DynamicItem> dynamicItems, float stateTime) {
         direction = player.getDirection();
         status = player.getStatus();
-        controlHandle(player, stateTime);
+        controlHandle(player, staticItems, dynamicItems);
 
         Vector2 oldPosition = new Vector2(player.getX(), player.getY());
         Vector2 newPosition = getNewPosition(player.getX(), player.getY(), player);
 
         CheckCollision checkCollision = new CheckCollision();
         checkCollision.updatePosition(newPosition, oldPosition, mapObjects, staticItems, dynamicItems);
-
 
         if(status == CharacterStatus.WALKING){
             player.setPosition(newPosition.x, newPosition.y);
@@ -128,49 +156,56 @@ public class PlayerMovement {
         setDirection(player);
     }
 
-    public static void draw(Player player, Batch batch, float stateTime){
+    public static void draw(Player player, Batch batch, float delta){
         boolean isHoldingItem = (player.getItemHolding() != null);
         CharacterStatus status = player.getStatus();
         Direction direction = player.getDirection();
+        float soundRepeatTime = animationTime % 0.3f;
+        animationTime += delta;
 
-        if(status == CharacterStatus.CLEANING_DISH || status == CharacterStatus.MOPPING_FLOOR){
-            String animationName = status.name();
-            if(status == CharacterStatus.MOPPING_FLOOR)
-                animationName += "_" + direction.name();
+        String animationName = "";
 
-            TextureRegion texture = player.getAnimationFrame(animationName, player.getFrameIndex());
-
-            float width = (float) texture.getRegionWidth()/1.5f;
-            float height = (float) texture.getRegionHeight()/1.5f;
-            batch.draw(texture, player.getX(), player.getY(), width, height);
-            return;
+        if(status != CharacterStatus.CLEANING_DISH && status != CharacterStatus.MOPPING_FLOOR && isHoldingItem){
+            animationName = "HOLDING_";
+        }
+        animationName += status.name();
+        if(status != CharacterStatus.CLEANING_DISH){
+            animationName += "_" + direction.name();
         }
 
         if(status == CharacterStatus.IDLE){
-            TextureRegion region =  player.getTexture((isHoldingItem ? "HOLDING_" : "") + status.name() + "_" + direction.name());
+            TextureRegion region =  player.getTexture(animationName);
             float width = (float) region.getRegionWidth()/1.5f;
             float height = (float) region.getRegionHeight()/1.5f;
             batch.draw(region, player.getX(), player.getY(), width, height);
         }
         else {
-            String animationName = "";
-            if (status == CharacterStatus.WALKING)
-                animationName = (isHoldingItem ? "HOLDING_" : "");
-            animationName += status.name();
+            animation = player.getAnimation(animationName);
 
-            if (direction == Direction.LEFT || direction == Direction.UPLEFT || direction == Direction.DOWNLEFT)
-                animationName += "_LEFT";
-            else if (direction == Direction.RIGHT || direction == Direction.UPRIGHT || direction == Direction.DOWNRIGHT)
-                animationName += "_RIGHT";
-            else if (direction == Direction.UP)
-                animationName += "_UP";
-            else if (direction == Direction.DOWN)
-                animationName += "_DOWN";
-            Animation animation = player.getAnimation(animationName);
+            float width = (float) ((TextureRegion) animation.getKeyFrame(animationTime)).getRegionWidth() / 1.5f;
+            float height = (float) ((TextureRegion) animation.getKeyFrame(animationTime)).getRegionHeight() / 1.5f;
+            batch.draw((TextureRegion) animation.getKeyFrame(animationTime, false), player.getX(), player.getY(), width, height);
+            isAnimationFinished = animation.isAnimationFinished(animationTime);
 
-            float width = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionWidth() / 1.5f;
-            float height = (float) ((TextureRegion) animation.getKeyFrame(stateTime)).getRegionHeight() / 1.5f;
-            batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), player.getX(), player.getY(), width, height);
+            if(animation.isAnimationFinished(animationTime)){
+                if(status == CharacterStatus.CLEANING_DISH || status == CharacterStatus.MOPPING_FLOOR){
+                    if(Gdx.input.isKeyJustPressed(Keys.X)){
+                        animationTime = 0;
+                    }
+                }
+                else{
+                    animationTime = 0;
+                }
+            }
+
+            if(status == CharacterStatus.WALKING){
+                soundRepeatTime += delta;
+                if(soundRepeatTime > 0.3f) {
+                    soundIndex = soundIndex % 5;
+                    soundIndex++;
+                    MakeSound.makeSound("sounds/soStep" + soundIndex + ".ogg");
+                }
+            }
         }
     }
 }

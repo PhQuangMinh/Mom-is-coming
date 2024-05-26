@@ -25,6 +25,7 @@ public class Draw {
         staticBottom = new ArrayList<>();
         staticTop = new ArrayList<>();
     }
+
     public void filter(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player) {
         init();
         FilterDynamic filterDynamic = new FilterDynamic();
@@ -34,14 +35,14 @@ public class Draw {
     }
 
     public void draw(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player,
-                     SpriteBatch batch, float stateTime, DrawText drawText){
+                     SpriteBatch batch, float delta, DrawText drawText){
         filter(dynamicItems, staticItems, player);
         DrawDynamic drawDynamic = new DrawDynamic();
         DrawStatic drawStatic = new DrawStatic();
         drawDynamic.drawDynamic(dynamicFloor, batch, player, drawText);
         drawStatic.drawStatic(staticBottom, batch, player, drawText);
         drawDynamic.drawDynamic(dynamicTable, batch, player, drawText);
-        PlayerMovement.draw(player, batch, stateTime);
+        PlayerMovement.draw(player, batch, delta);
         drawStatic.drawStatic(staticTop, batch, player, drawText);
         drawDynamic.drawDynamic(dynamicTop, batch, player, drawText);
     }

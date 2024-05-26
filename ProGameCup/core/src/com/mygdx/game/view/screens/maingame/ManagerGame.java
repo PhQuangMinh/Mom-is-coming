@@ -24,6 +24,7 @@ public class ManagerGame {
     DrawText drawText;
     Holding holding;
     Draw draw;
+
     public ManagerGame(SpaceGame spaceGame){
            impression = new Impression();
            buttonGame = new ButtonGame(spaceGame);
@@ -33,16 +34,18 @@ public class ManagerGame {
            draw = new Draw();
 
     }
+
     public void update(Player player, ArrayList<DynamicItem> dynamicItems
-            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime) {
+            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime, float delta) {
         updateItem(player, dynamicItems, staticItems);
         updatePlayer(player);
-        draw(batch, stateTime, player, dynamicItems, staticItems);
+        draw(batch, stateTime, delta, player, dynamicItems, staticItems);
     }
 
     public void updatePlayer(Player player){
         ManagerPlayer managerPlayer = new ManagerPlayer();
         managerPlayer.updateStatus(player);
+        managerPlayer = null;
     }
 
     public void updateItem(Player player, ArrayList<DynamicItem> dynamicItems
@@ -55,11 +58,11 @@ public class ManagerGame {
         getItem.takeItemStatic(player, dynamicItems);
     }
 
-    public void draw(SpriteBatch batch, float stateTime, Player player, ArrayList<DynamicItem>dynamicItems,
+    public void draw(SpriteBatch batch, float stateTime, float delta, Player player, ArrayList<DynamicItem>dynamicItems,
                      ArrayList<StaticItem> staticItems){
         buttonGame.draw(game, batch, stateTime, drawText);
         holding.drawHold(batch, player);
-        draw.draw(dynamicItems, staticItems, player, batch, stateTime, drawText);
-        impression.drawGame(batch, stateTime);
+        draw.draw(dynamicItems, staticItems, player, batch, delta, drawText);
+//        impression.drawGame(batch, stateTime);
     }
 }

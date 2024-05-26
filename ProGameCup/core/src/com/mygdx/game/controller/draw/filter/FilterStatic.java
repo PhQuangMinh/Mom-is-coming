@@ -21,10 +21,12 @@ public class FilterStatic {
         Rectangle rectDynamic = dynamicItem.getBoundingRectangle();
         return rectStatic.contains(rectDynamic);
     }
+
     private int checkStatic(Player player, StaticItem staticItem){
         if (checkObscure(staticItem, player)) return 1;
         return 2;
     }
+
     private void updateDynamic(ArrayList<DynamicItem> dynamicTable, ArrayList<DynamicItem> dynamicTop,
                                StaticItem staticItem){
         ArrayList<DynamicItem> listDynamic = new ArrayList<>();
@@ -36,6 +38,7 @@ public class FilterStatic {
         dynamicTable.removeAll(listDynamic);
         dynamicTop.addAll(listDynamic);
     }
+
     public void filter(Player player, ArrayList<StaticItem> staticItems,
                        ArrayList<StaticItem> staticTop,
                        ArrayList<StaticItem> staticBottom,

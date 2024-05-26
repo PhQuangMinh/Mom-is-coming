@@ -75,6 +75,7 @@ public class DrawStatic {
             firstPos += 80;
         }
     }
+
     private void drawStaticItem(StaticItem item, SpriteBatch batch, DrawText drawText, Player player) {
         Texture image;
         if (item.getDiscover() && item.getChosenImage()!=null){
