@@ -5,7 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.screens.endgame.ResultScreen;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
+
+import java.util.ArrayList;
 
 public class DrawText {
     BitmapFont charFont;
@@ -25,13 +30,13 @@ public class DrawText {
     }
 
 
-    public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int minutes, int seconds, float x, float y, float size){
+    public void drawClock(ArrayList<DynamicItem> dynamicItems, SpaceGame game, SpriteBatch batch, float stateTime, int minutes, int seconds, float x, float y, float size){
         charFont.getData().setScale(size/2);
 
         float countdownTime = minutes * 60 + seconds;
         float timeLeft = countdownTime - stateTime;
         if(timeLeft <= 0){
-            game.setScreen(new MainMenuScreen(game));
+            game.setScreen(new MainEndStory(game, dynamicItems));
         }
 
         int remainMinutes = (int) (timeLeft / 60);

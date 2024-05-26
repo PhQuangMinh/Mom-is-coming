@@ -15,9 +15,11 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.draw.Draw;
 import com.mygdx.game.controller.item.setup.SetItem;
+import com.mygdx.game.controller.item.setup.SetRemainItem;
 import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.*;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.ui.*;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class MainGameScreen implements Screen {
     NewButton newButton;
     ManagerGame managerGame;
     SetItem setItem;
+    SetRemainItem setRemainItem;
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
@@ -59,6 +62,7 @@ public class MainGameScreen implements Screen {
         managerGame = new ManagerGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
+        setRemainItem = new SetRemainItem();
     }
     @Override
     public void show() {
@@ -80,14 +84,18 @@ public class MainGameScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-        batch.begin();
-        managerGame.update(player, dynamicItems, staticItems, batch, stateTime);
         if(!newButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, stateTime);
         }
+        batch.begin();
+        managerGame.update(player, dynamicItems, staticItems, batch, stateTime);
         makeAlert.update(batch, stateTime, player);
+        if(dynamicItems.size() == 0){
+            game.setScreen(new MainEndStory(game, dynamicItems));
+        }
         batch.end();
+
     }
 
 

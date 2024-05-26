@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.effect.MakeMusic;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
@@ -19,14 +20,14 @@ public class NewButton {
     SpriteBatch batch;
     DrawText drawText;
     SpaceGame game;
-    public boolean isPause = false;
-    public boolean isStopMusic = false;
+    public static boolean isPause = false;
+    public static boolean isStopMusic = false;
     public static boolean isHowToPlayOpen = false;
     public static boolean isMenuBarOpen = false;
     public NewButton(SpaceGame game) {
         this.game = game;
         this.batch = game.getBatch();
-        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
+        drawText = new DrawText("fonts/char.fnt", Color.DARK_GRAY);
     }
     public void drawButton( Texture button, Texture buttonPress, int x, int y, int buttonWidth, int buttonHeight, int choice){
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ buttonWidth && GameConstant.windowHeight-Gdx.input.getY()>=y && GameConstant.windowHeight-Gdx.input.getY()<=y+ buttonHeight){
@@ -87,7 +88,7 @@ public class NewButton {
         }
         if(isStopMusic){
             batch.draw(musicOffButton, x, y, buttonWidth, buttonHeight);
-            MakeMusic.stopMusic();
+            MakeMusic.pauseMusic();
         }
         else{
             batch.draw(musicOnButton, x, y, buttonWidth, buttonHeight);
@@ -97,8 +98,8 @@ public class NewButton {
 
     public void drawHowToPlayButton(int x, int y, int width, int height){
         if(isHowToPlayOpen){
-            Texture close = new Texture("button/close.png");
-            Texture closePress = new Texture("button/closePress.png");
+            Texture close = new Texture("button/game/close.png");
+            Texture closePress = new Texture("button/game/closePress.png");
             Texture howToPlay = new Texture("otherImage/HowtoPlay.png");
 
             batch.draw(howToPlay, x, y, width, height);

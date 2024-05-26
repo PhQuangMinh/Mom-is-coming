@@ -4,8 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.ui.DrawText;
 import com.mygdx.game.view.ui.NewButton;
+
+import java.util.ArrayList;
 
 public class ButtonGame {
     NewButton newButton;
@@ -30,10 +33,10 @@ public class ButtonGame {
         menuBarPress = new Texture("button/game/menuBarPress.png");
     }
 
-    public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText){
+    public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText, ArrayList<DynamicItem> dynamicItems){
         newButton.drawButton(menuBar, menuBarPress, (int) GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight, 3);
         drawMenuBar();
-        drawText.drawClock(game, batch, stateTime, 10, 0, 360, 840, 1.2f);
+        drawText.drawClock(dynamicItems,game, batch, stateTime, 1, 30, 650, 840, 1.5f);
     }
 
     public void drawMenuBar(){
