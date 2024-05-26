@@ -1,21 +1,15 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.PlayerMovement;
-import com.mygdx.game.controller.constant.Direction;
-import com.mygdx.game.controller.constant.CharacterStatus;
-import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.common.constant.Direction;
+import com.mygdx.game.common.constant.CharacterStatus;
+import com.mygdx.game.common.constant.FrameStatus;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.lang.Math;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Vector;
 
 public class Player extends Sprite {
     private float STRAIGHT_SPEED = 4;
@@ -25,22 +19,22 @@ public class Player extends Sprite {
 
     private boolean overlap, validThrow;
     private Item itemHolding;
+    private Item itemInRange;
     private StaticItem container;
     private Vector2 positionThrew;
     private int statusHold;
     // statusHold = 4: đang cầm đồ vật bằng vải đứng trên vũng nước, chuẩn bị lau
-    private int frameIndex;
-    private boolean isCountingXPress;
 
     private LinkedHashMap<String, Animation> animations;
     private LinkedHashMap<String, TextureRegion> textures;
 
+    private FrameStatus frameStatus;
+
     public Player(){
-        direction = Direction.DOWN;
+        direction = Direction.LEFT;
         status = CharacterStatus.IDLE;
         setPosition(0, 0);
     }
-
     public Player(TextureAtlas atlas, String[] animationNames, String[] textureNames, float x, float y, float width, float height, float speed){
         this();
         setAnimation(atlas, animationNames);
@@ -48,6 +42,7 @@ public class Player extends Sprite {
         setPosition(x, y);
         setSpeed(speed);
         setSize(width, height);
+        frameStatus = FrameStatus.RIGHT_FRAME;
     }
 
     public void setAnimation(TextureAtlas atlas, String[] animationNames){
@@ -93,6 +88,13 @@ public class Player extends Sprite {
         return null;
     }
 
+    public FrameStatus getFrameStatus() {
+        return frameStatus;
+    }
+
+    public void setFrameStatus(FrameStatus frameStatus) {
+        this.frameStatus = frameStatus;
+    }
     public Vector2 getPositionThrew() {
         return positionThrew;
     }
@@ -169,19 +171,11 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public int getFrameIndex() {
-        return frameIndex;
+    public Item getItemInRange() {
+        return itemInRange;
     }
 
-    public void setFrameIndex(int frameIndex) {
-        this.frameIndex = frameIndex;
-    }
-
-    public boolean getIsCountingXPress() {
-        return isCountingXPress;
-    }
-
-    public void setIsCountingXPress(boolean countingXPress) {
-        isCountingXPress = countingXPress;
+    public void setItemInRange(Item itemInRange) {
+        this.itemInRange = itemInRange;
     }
 }
