@@ -29,11 +29,10 @@ public class Player extends Sprite {
     private LinkedHashMap<String, TextureRegion> textures;
 
     public Player(){
-        direction = Direction.DOWN;
+        direction = Direction.LEFT;
         status = CharacterStatus.IDLE;
         setPosition(0, 0);
     }
-
     public Player(TextureAtlas atlas, String[] animationNames, String[] textureNames, float x, float y, float width, float height, float speed){
         this();
         setAnimation(atlas, animationNames);

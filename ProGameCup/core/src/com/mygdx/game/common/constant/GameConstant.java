@@ -23,4 +23,9 @@ public class GameConstant {
     public static final int iconWidth = 50;
     public static final int iconHeight = 50;
     public static final int impressionSize =  720;
+    public static final int dynamicItemsCount = 22;
+    public static final int posScoreX = 600;
+    public static final int posScoreY = 600;
+    public static final int SCORE_WIDTH = 200;
+
 }

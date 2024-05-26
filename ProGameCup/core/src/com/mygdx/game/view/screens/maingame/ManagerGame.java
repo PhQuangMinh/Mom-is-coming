@@ -57,7 +57,7 @@ public class ManagerGame {
 
     public void draw(SpriteBatch batch, float stateTime, Player player, ArrayList<DynamicItem>dynamicItems,
                      ArrayList<StaticItem> staticItems){
-        buttonGame.draw(game, batch, stateTime, drawText);
+        buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
         holding.drawHold(batch, player);
         draw.draw(dynamicItems, staticItems, player, batch, stateTime, drawText);
         impression.drawGame(batch, stateTime);
