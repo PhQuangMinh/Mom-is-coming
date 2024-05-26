@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 import com.mygdx.game.view.ui.*;
 import com.mygdx.game.view.effect.MakeMusic;
@@ -21,7 +22,7 @@ public class SpaceGame extends Game {
 		batch = new SpriteBatch();
 		newButton = new NewButton(this);
 		MakeMusic.playMusic("music/SmoothSailing.mp3");
-		this.setScreen(new MainGameScreen(this));
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

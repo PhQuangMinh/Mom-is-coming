@@ -60,9 +60,9 @@ public class ManagerGame {
 
     public void draw(SpriteBatch batch, float stateTime, float delta, Player player, ArrayList<DynamicItem>dynamicItems,
                      ArrayList<StaticItem> staticItems){
-        buttonGame.draw(game, batch, stateTime, drawText);
+        buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
         holding.drawHold(batch, player);
         draw.draw(dynamicItems, staticItems, player, batch, delta, drawText);
-//        impression.drawGame(batch, stateTime);
+        impression.drawGame(batch, stateTime);
     }
 }

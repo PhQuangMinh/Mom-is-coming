@@ -1,15 +1,12 @@
 package com.mygdx.game.view.screens.maingame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -18,9 +15,11 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.draw.Draw;
 import com.mygdx.game.controller.item.setup.SetItem;
+import com.mygdx.game.controller.item.setup.SetRemainItem;
 import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.*;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.ui.*;
 
@@ -41,9 +40,7 @@ public class MainGameScreen implements Screen {
     NewButton newButton;
     ManagerGame managerGame;
     SetItem setItem;
-
-    Animation animation;
-    int x = 0;
+    SetRemainItem setRemainItem;
 
     public MainGameScreen (SpaceGame game){
         this.game = game;
@@ -67,6 +64,7 @@ public class MainGameScreen implements Screen {
         managerGame = new ManagerGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
+        setRemainItem = new SetRemainItem();
     }
 
     @Override
@@ -94,21 +92,29 @@ public class MainGameScreen implements Screen {
         batch.begin();
 
         managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta);
-        if(!newButton.isPause) {
+        if(!NewButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, delta);
         }
         makeAlert.update(batch, stateTime, player);
 
+        if(dynamicItems.isEmpty()){
+            game.setScreen(new MainEndStory(game, dynamicItems));
+        }
+
         batch.end();
     }
+
 
     @Override
     public void resize(int width, int height) {
         camera.setToOrtho(false, GameConstant.windowWidth, GameConstant.windowHeight);
+
         camera.position.set(GameConstant.mapWidth/2, GameConstant.mapHeight/2, 0);
+
         camera.update();
     }
+
 
     @Override
     public void pause() {

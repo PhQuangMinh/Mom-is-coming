@@ -19,7 +19,7 @@ public class DrawDynamic {
         Texture image;
         if (player.getItemHolding()!=null){
             image = item.getImage();
-            drawText.drawStaticText(batch, player.getItemHolding().getName(), 10, 720, 0.5f);
+            drawText.drawStaticText(batch, player.getItemHolding().getName(), 130, 780, 0.5f);
         }
         else
         if (item.getDiscover() && item.getChosenImage()!=null){
