@@ -3,9 +3,8 @@ package com.mygdx.game.controller.player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.controller.CheckCollision;
+import com.mygdx.game.controller.collision.Collision;
 import com.mygdx.game.common.constant.CharacterStatus;
 import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.model.Player;
@@ -137,7 +136,7 @@ public class PlayerMovement {
             player.setDirection(Direction.RIGHT);
     }
 
-    public static void move(Player player, MapObjects mapObjects, ArrayList<StaticItem> staticItems
+    public static void move(Player player, ArrayList<StaticItem> staticItems
             , ArrayList<DynamicItem> dynamicItems, float stateTime) {
         direction = player.getDirection();
         status = player.getStatus();
@@ -146,8 +145,8 @@ public class PlayerMovement {
         Vector2 oldPosition = new Vector2(player.getX(), player.getY());
         Vector2 newPosition = getNewPosition(player.getX(), player.getY(), player);
 
-        CheckCollision checkCollision = new CheckCollision();
-        checkCollision.updatePosition(newPosition, oldPosition, mapObjects, staticItems, dynamicItems);
+        Collision collision = new Collision();
+        collision.updatePosition(newPosition, oldPosition, staticItems, dynamicItems, player);
 
         if(status == CharacterStatus.WALKING){
             player.setPosition(newPosition.x, newPosition.y);

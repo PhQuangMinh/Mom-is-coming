@@ -7,7 +7,7 @@ import com.mygdx.game.controller.draw.filter.FilterStatic;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.ui.DrawText;
+import com.mygdx.game.view.draw.text.DrawText;
 
 import java.util.ArrayList;
 

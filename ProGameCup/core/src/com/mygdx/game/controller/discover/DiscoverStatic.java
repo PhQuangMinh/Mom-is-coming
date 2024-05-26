@@ -40,14 +40,14 @@ public class DiscoverStatic {
                 && player.getX() + 0.8f*player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getY() <= item.getY() + item.getHeight() - item.getOverlap()
-                && player.getY() >= item.getY() - 0.5f * GameConstant.playerHeight;
+                && player.getY() >= item.getY() - 0.5f * GameConstant.PLAYER_HEIGHT;
     }
 
     private boolean checkLeft(Item item, Player player) {
         return player.getDirection() == Direction.RIGHT
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getX() + player.getWidth() >= item.getX()
-                && player.getY() + GameConstant.playerHeight*0.2f >= item.getY()
+                && player.getY() + GameConstant.PLAYER_HEIGHT*0.2f >= item.getY()
                 && player.getY() <= item.getY() + item.getHeight()-item.getOverlap();
     }
 
@@ -55,7 +55,7 @@ public class DiscoverStatic {
         return player.getDirection() == Direction.LEFT
                 && player.getX() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth() + 5
-                && player.getY() + GameConstant.playerHeight*0.2f >= item.getY()
+                && player.getY() + GameConstant.PLAYER_HEIGHT*0.2f >= item.getY()
                 && player.getY() <= item.getY() + item.getHeight()-item.getOverlap();
     }
 

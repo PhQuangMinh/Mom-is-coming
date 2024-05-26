@@ -33,7 +33,7 @@ public class Knock extends Sprite {
 
         for (int i = 0 ; i < 3; i++) {
             TextureRegion currentFrame = knocking[i].getKeyFrame(stateTime);
-            batch.draw(currentFrame, 100, GameConstant.windowWidth / 2 + 30 * (i + 1), KNOCK_WIDTH * 3, KNOCK_HEIGHT * 3);
+            batch.draw(currentFrame, 100, GameConstant.WINDOW_WIDTH / 2 + 30 * (i + 1), KNOCK_WIDTH * 3, KNOCK_HEIGHT * 3);
             if (knocking[i].isAnimationFinished(stateTime)) {
                 isNextMapEndGame = true;
             }

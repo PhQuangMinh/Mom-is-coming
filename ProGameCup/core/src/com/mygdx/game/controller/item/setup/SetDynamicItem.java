@@ -2,7 +2,8 @@ package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class SetDynamicItem {
 
     private Vector2 getPosition(String nameImage, float height) {
         overlap = 0;
-        float posX = GameConstant.posMapX;
-        float posY = GameConstant.posMapY;
+        float posX = MapConstant.POS_MAP_RIGHT_X;
+        float posY = MapConstant.POS_MAP_Y;
         switch (nameImage) {
             case "coca1":
                 return new Vector2(posX + 240, posY + 140);
@@ -63,7 +64,7 @@ public class SetDynamicItem {
 
     private Vector2 getSize(String image, Texture imageTexture) {
         float patio = (float) imageTexture.getHeight() /imageTexture.getWidth();
-        float width = GameConstant.dynamicSize, height = GameConstant.dynamicSize;
+        float width = ItemConstant.DYNAMIC_SIZE, height = ItemConstant.DYNAMIC_SIZE;
         if (patio>1) height *= patio;
         else width /= patio;
         if(image.equals("puddle"))

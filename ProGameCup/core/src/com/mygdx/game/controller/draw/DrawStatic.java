@@ -3,11 +3,12 @@ package com.mygdx.game.controller.draw;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.ui.DrawText;
+import com.mygdx.game.view.draw.text.DrawText;
 
 import java.util.ArrayList;
 
@@ -29,8 +30,8 @@ public class DrawStatic {
     }
 
     public void drawNoteName(Item item, SpriteBatch batch, DrawText drawText){
-        batch.draw(note, (GameConstant.windowWidth-note.getWidth())/2
-                , GameConstant.posMapY + GameConstant.mapHeight + 10);
+        batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2
+                , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10);
         String noteText;
         if (item instanceof StaticItem){
             noteText = "It's the " + item.getName() + ".";
@@ -38,8 +39,8 @@ public class DrawStatic {
         else{
             noteText = "It's a " + item.getName() + ".";
         }
-        noteX = (GameConstant.windowWidth-note.getWidth())/2 + 10;
-        noteY = GameConstant.posMapY + GameConstant.mapHeight + note.getHeight() - 5;
+        noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 10;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 5;
         drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
     }
 
@@ -65,7 +66,7 @@ public class DrawStatic {
     }
 
     private void drawContains(StaticItem item, SpriteBatch batch){
-        float containX = (GameConstant.windowWidth-item.getContainItem().getWidth())/2;
+        float containX = (GameConstant.WINDOW_WIDTH-item.getContainItem().getWidth())/2;
         batch.draw(item.getContainItem(), containX, 20);
         float firstPos = containX + getFirstPosition(item.getNumber());
         for (DynamicItem dynamicItem:item.getItems()){

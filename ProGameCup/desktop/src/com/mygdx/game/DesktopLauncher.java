@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("Good Impressions");
 		config.setResizable(false);
-		config.setWindowedMode((int) GameConstant.windowWidth, (int)GameConstant.windowHeight);
+		config.setWindowedMode((int) GameConstant.WINDOW_WIDTH, (int)GameConstant.WINDOW_HEIGHT);
 		config.setWindowIcon("logo.png");
 		new Lwjgl3Application(new SpaceGame(), config);
 	}

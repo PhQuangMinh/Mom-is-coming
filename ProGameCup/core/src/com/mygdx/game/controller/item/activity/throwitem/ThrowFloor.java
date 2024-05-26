@@ -2,8 +2,8 @@ package com.mygdx.game.controller.item.activity.throwitem;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.Direction;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
@@ -41,18 +41,18 @@ public class ThrowFloor {
         return throwRight(dynamicItem, player);
     }
 
-    public boolean checkFrame(DynamicItem dynamic){
-        return dynamic.getX() >= GameConstant.posMapX + GameConstant.tileSize*2
-                && dynamic.getX() + dynamic.getWidth() <= GameConstant.posMapX + GameConstant.mapWidth - 2*GameConstant.tileSize
-                && dynamic.getY() >= GameConstant.posMapY + 2.5f*GameConstant.tileSize
-                && dynamic.getY() + 0.7f*dynamic.getHeight() <= GameConstant.posMapY + 13*GameConstant.tileSize;
+    public boolean checkFrame(Rectangle rectangle){
+        return rectangle.getX() >= MapConstant.LOWER_LIMIT_RIGHT_X
+                && rectangle.getX() + 0.2*rectangle.getWidth() <= MapConstant.UPPER_LIMIT_RIGHT_X
+                && rectangle.getY() >= MapConstant.LOWER_LIMIT_RIGHT_Y
+                && rectangle.getY() + rectangle.getHeight() <= MapConstant.UPPER_LIMIT_RIGHT_Y;
     }
 
     public boolean validPosition(DynamicItem dynamicItem, Vector2 position
             , ArrayList<StaticItem> staticItems){
         Rectangle rectDynamic = new Rectangle(position.x, position.y, dynamicItem.getWidth()
                 , dynamicItem.getHeight());
-        if (!checkFrame(dynamicItem)) return false;
+        if (!checkFrame(rectDynamic)) return false;
         for (StaticItem item: staticItems){
             Rectangle rectStatic = new Rectangle(item.getX(), item.getY(), item.getWidth()
                     , item.getHeight() - item.getOverlap());

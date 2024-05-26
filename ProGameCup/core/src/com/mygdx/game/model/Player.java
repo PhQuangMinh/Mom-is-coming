@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.common.constant.CharacterStatus;
+import com.mygdx.game.common.constant.FrameStatus;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
@@ -27,6 +28,8 @@ public class Player extends Sprite {
     private LinkedHashMap<String, Animation> animations;
     private LinkedHashMap<String, TextureRegion> textures;
 
+    private FrameStatus frameStatus;
+
     public Player(){
         direction = Direction.LEFT;
         status = CharacterStatus.IDLE;
@@ -39,6 +42,7 @@ public class Player extends Sprite {
         setPosition(x, y);
         setSpeed(speed);
         setSize(width, height);
+        frameStatus = FrameStatus.RIGHT_FRAME;
     }
 
     public void setAnimation(TextureAtlas atlas, String[] animationNames){
@@ -84,6 +88,13 @@ public class Player extends Sprite {
         return null;
     }
 
+    public FrameStatus getFrameStatus() {
+        return frameStatus;
+    }
+
+    public void setFrameStatus(FrameStatus frameStatus) {
+        this.frameStatus = frameStatus;
+    }
     public Vector2 getPositionThrew() {
         return positionThrew;
     }

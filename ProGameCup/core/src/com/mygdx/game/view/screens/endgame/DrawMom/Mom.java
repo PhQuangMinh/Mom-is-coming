@@ -8,9 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.screens.endgame.ResultScreen;
-import com.mygdx.game.view.ui.DrawText;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class Mom extends Sprite {
          drawText = new DrawText("fonts/char.fnt", Color.BLACK);
         setAnimation(texture);
         stateTime = 0f;
-        currentX = GameConstant.posMapX + 50;
+        currentX = MapConstant.POS_MAP_Y + 50;
     }
     public void setAnimation(Texture texture){
         mom_walking = new Animation[5];
@@ -47,23 +48,23 @@ public class Mom extends Sprite {
         currentX += stepSize * delta;
         for (int i = 0 ; i < 1; i++) {
             TextureRegion currentFrame = mom_walking[i].getKeyFrame(stateTime, true);
-            if (currentX > GameConstant.posMapX + 50 + stepSize * 2) {
-                currentX = GameConstant.posMapX + 50 + stepSize * 2;
+            if (currentX > MapConstant.POS_MAP_Y + 50 + stepSize * 2) {
+                currentX = MapConstant.POS_MAP_Y + 50 + stepSize * 2;
                 currentFrame = mom_walking[0].getKeyFrame(stateTime);
                 stepCount = 2;
             }
 
-            batch.draw(currentFrame, currentX, GameConstant.posMapY + 220, 32, 58);
+            batch.draw(currentFrame, currentX, MapConstant.POS_MAP_Y + 220, 32, 58);
         }
 
         if(stepCount == 2) drawChat(chat, game, batch, delta);
     }
 
     public void drawChat(Texture chat,SpaceGame game, SpriteBatch batch, float delta){
-        batch.draw(chat, (GameConstant.windowWidth-chat.getWidth())/2
-                , GameConstant.posMapY + GameConstant.mapHeight + 10);
-        noteX = (GameConstant.windowWidth-chat.getWidth())/2 + 10;
-        noteY = GameConstant.posMapY + GameConstant.mapHeight + chat.getHeight() - 5;
+        batch.draw(chat, (GameConstant.WINDOW_WIDTH-chat.getWidth())/2
+                , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10);
+        noteX = (GameConstant.WINDOW_WIDTH-chat.getWidth())/2 + 10;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + chat.getHeight() - 5;
         switch (noteState) {
             case 0:
                 drawText.drawStaticText(batch, "Hello darling! How's your new place ?", noteX, noteY, 0.4f);

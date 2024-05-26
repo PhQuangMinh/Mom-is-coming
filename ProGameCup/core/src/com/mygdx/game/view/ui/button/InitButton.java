@@ -3,15 +3,16 @@ package com.mygdx.game.view.ui.button;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
 
 import java.util.ArrayList;
 
 public class InitButton {
-    int widthButton = GameConstant.buttonWidth;
-    int heightButton = GameConstant.buttonHeight;
-    int widthIcon = GameConstant.iconWidth;
-    int heightIcon = GameConstant.iconHeight;
-    int posX = (int)(GameConstant.windowWidth- GameConstant.buttonWidth)/2;
+    int widthButton = ItemConstant.BUTTON_WIDTH;
+    int heightButton = ItemConstant.BUTTON_HEIGHT;
+    int widthIcon = ItemConstant.ICON_WIDTH;
+    int heightIcon = ItemConstant.ICON_HEIGHT;
+    int posX = (int)(GameConstant.WINDOW_WIDTH- ItemConstant.BUTTON_WIDTH)/2;
     SpriteBatch batch;
     SpaceGame game;
     ArrayList<Button> listButton;
@@ -37,15 +38,15 @@ public class InitButton {
 
     public void initGame() {
         listButton.add(new Button("game/resume", "game/pause",
-                (int) GameConstant.windowWidth - 70, 560, widthIcon, heightIcon, 1));
+                (int) GameConstant.WINDOW_WIDTH - 70, 560, widthIcon, heightIcon, 1));
         listButton.add(new Button("game/home", "game/homePress",
-                (int) GameConstant.windowWidth - 70, 680, widthIcon, heightIcon, 2));
+                (int) GameConstant.WINDOW_WIDTH - 70, 680, widthIcon, heightIcon, 2));
         listButton.add(new Button("game/replay", "game/replayPress",
-                (int) GameConstant.windowWidth - 70, 620, widthIcon, heightIcon, 3));
+                (int) GameConstant.WINDOW_WIDTH - 70, 620, widthIcon, heightIcon, 3));
         listButton.add(new Button("game/menuBar", "game/menuBarPress",
-                (int) GameConstant.windowWidth - 70, 740, widthIcon, heightIcon, 4));
+                (int) GameConstant.WINDOW_WIDTH - 70, 740, widthIcon, heightIcon, 4));
         listButton.add(new Button("game/menuBar", "game/menuBarPress",
-                (int) GameConstant.windowWidth - 70, 740, widthIcon, heightIcon, 5));
+                (int) GameConstant.WINDOW_WIDTH - 70, 740, widthIcon, heightIcon, 5));
     }
 
     public void drawButtonMenu(){

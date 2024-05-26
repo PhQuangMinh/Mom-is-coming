@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
-import com.mygdx.game.view.ui.button.InitButton;
 
 public class MainMenuScreen implements Screen {
     private final SpriteBatch batch;

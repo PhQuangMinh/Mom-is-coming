@@ -1,4 +1,4 @@
-package com.mygdx.game.view.ui;
+package com.mygdx.game.view.draw.text;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
-import com.mygdx.game.view.screens.endgame.ResultScreen;
-import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 import java.util.ArrayList;
 
@@ -38,10 +36,8 @@ public class DrawText {
         if(timeLeft <= 0){
             game.setScreen(new MainEndStory(game, dynamicItems));
         }
-
         int remainMinutes = (int) (timeLeft / 60);
         int remainSeconds = (int) (timeLeft % 60);
-
         charFont.draw(batch, String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds),x, y );
 
     }

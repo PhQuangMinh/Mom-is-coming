@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.view.ui.DrawText;
+import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.ui.NewButton;
 
 import java.util.ArrayList;
@@ -34,18 +35,17 @@ public class ButtonGame {
     }
 
     public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText, ArrayList<DynamicItem> dynamicItems){
-        newButton.drawButton(menuBar, menuBarPress, (int) GameConstant.windowWidth - 70, 800, GameConstant.iconWidth, GameConstant.iconHeight, 3);
+        newButton.drawButton(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70, 900, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3);
         drawMenuBar();
-        drawText.drawClock(dynamicItems,game, batch, stateTime, 1, 30, 650, 840, 1.5f);
-        drawText.drawStaticText(batch, "X: Interact", 10, 20, 0.5f);
+        drawText.drawClock(dynamicItems, game, batch, stateTime, 10, 0, 460, 930, 1.2f);
     }
 
     public void drawMenuBar(){
         if(NewButton.isMenuBarOpen) {
-            newButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.windowWidth - 70, 740, GameConstant.iconWidth, GameConstant.iconHeight);
-            newButton.drawButton(home, homePress, (int) GameConstant.windowWidth - 70, 680, GameConstant.iconWidth, GameConstant.iconHeight, 5);
-            newButton.drawButton(replay, replayPress, (int) GameConstant.windowWidth - 70, 620, GameConstant.iconWidth, GameConstant.iconHeight, 1);
-            newButton.drawPauseButton(resume, pause, (int) GameConstant.windowWidth - 70, 560, GameConstant.iconWidth, GameConstant.iconHeight);
+            newButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.WINDOW_WIDTH - 70, 840, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            newButton.drawButton(home, homePress, (int) GameConstant.WINDOW_WIDTH - 70, 780, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 5);
+            newButton.drawButton(replay, replayPress, (int) GameConstant.WINDOW_WIDTH - 70, 720, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1);
+            newButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
         }
     }
 }

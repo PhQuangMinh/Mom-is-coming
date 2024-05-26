@@ -5,7 +5,6 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.screens.endgame.DrawItems.filter.FilterDynamic;
 import com.mygdx.game.view.screens.endgame.DrawItems.filter.FilterStatic;
-import com.mygdx.game.view.ui.DrawText;
 
 import java.util.ArrayList;
 

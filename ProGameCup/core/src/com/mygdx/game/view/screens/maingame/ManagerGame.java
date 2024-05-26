@@ -4,16 +4,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.controller.discover.Discover;
-import com.mygdx.game.controller.draw.Draw;
+import com.mygdx.game.view.draw.item.Draw;
 import com.mygdx.game.controller.item.activity.GetItem;
 import com.mygdx.game.controller.item.activity.throwitem.ThrowItem;
 import com.mygdx.game.controller.player.ManagerPlayer;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.draw.map.DrawMap;
 import com.mygdx.game.view.screens.Impression;
-import com.mygdx.game.view.ui.DrawText;
-import com.mygdx.game.view.ui.Holding;
+import com.mygdx.game.view.draw.text.DrawText;
+import com.mygdx.game.view.draw.ui.Holding;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class ManagerGame {
     DrawText drawText;
     Holding holding;
     Draw draw;
-
+    DrawMap drawMap;
     public ManagerGame(SpaceGame spaceGame){
            impression = new Impression();
            buttonGame = new ButtonGame(spaceGame);
@@ -32,14 +33,13 @@ public class ManagerGame {
            drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
            holding = new Holding();
            draw = new Draw();
-
+           drawMap = new DrawMap();
     }
-
     public void update(Player player, ArrayList<DynamicItem> dynamicItems
-            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime, float delta) {
+            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime) {
         updateItem(player, dynamicItems, staticItems);
         updatePlayer(player);
-        draw(batch, stateTime, delta, player, dynamicItems, staticItems);
+        draw(batch, stateTime, player, dynamicItems, staticItems);
     }
 
     public void updatePlayer(Player player){
@@ -58,11 +58,15 @@ public class ManagerGame {
         getItem.takeItemStatic(player, dynamicItems);
     }
 
-    public void draw(SpriteBatch batch, float stateTime, float delta, Player player, ArrayList<DynamicItem>dynamicItems,
+    public void draw(SpriteBatch batch, float stateTime, Player player, ArrayList<DynamicItem>dynamicItems,
                      ArrayList<StaticItem> staticItems){
-        buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
-        holding.drawHold(batch, player);
-        draw.draw(dynamicItems, staticItems, player, batch, delta, drawText);
+        drawMap.drawMap(batch);
+        if (impression.getCountImpress()>=5){
+            buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
+            holding.drawHold(batch, player);
+            draw.draw(dynamicItems, staticItems, player, batch, stateTime, drawText);
+        }
+        drawMap.drawBars(batch, player);
         impression.drawGame(batch, stateTime);
     }
 }

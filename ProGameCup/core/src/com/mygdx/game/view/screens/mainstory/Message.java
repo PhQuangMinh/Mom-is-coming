@@ -39,7 +39,7 @@ public class Message {
 
     private void drawPress(SpriteBatch batch, float stateTime){
         if (stateTime >= 3.5 && Math.abs(stateTime - (int) stateTime) <= 0.5 && countMessages<8) {
-            batch.draw(press, (GameConstant.windowWidth - press.getWidth()) / 2, 10);
+            batch.draw(press, (GameConstant.WINDOW_WIDTH - press.getWidth()) / 2, 2);
         }
     }
 
@@ -47,7 +47,7 @@ public class Message {
         if (stateTime < 2) return;
         setColor(batch, stateTime);
         batch.begin();
-        batch.draw(messages[countMessages], (GameConstant.windowWidth - messages[countMessages].getWidth()) / 2, 0);
+        batch.draw(messages[countMessages], (GameConstant.WINDOW_WIDTH - messages[countMessages].getWidth()) / 2, 0);
         drawPress(batch, stateTime);
 
         if (countMessages==8){

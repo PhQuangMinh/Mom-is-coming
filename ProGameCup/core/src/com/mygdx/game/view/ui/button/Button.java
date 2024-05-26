@@ -31,8 +31,8 @@ public class Button extends Sprite {
     }
     private boolean checkHovered(){
         return Gdx.input.getX() >= getX() && Gdx.input.getX() <= getX() + getWidth()
-                && GameConstant.windowHeight-Gdx.input.getY() >= getY()
-                && GameConstant.windowHeight-Gdx.input.getY() <= getY() + getHeight();
+                && GameConstant.WINDOW_HEIGHT-Gdx.input.getY() >= getY()
+                && GameConstant.WINDOW_HEIGHT-Gdx.input.getY() <= getY() + getHeight();
     }
 
     public void update(){

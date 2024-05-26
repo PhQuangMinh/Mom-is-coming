@@ -4,16 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.view.screens.endgame.ResultScreen;
-import com.mygdx.game.view.ui.DrawText;
-import org.w3c.dom.Text;
+import com.mygdx.game.view.draw.text.DrawText;
 
 import java.util.ArrayList;
 
 public class Result {
     int result, totalScore, posX, posY;
     Texture score;
-    public void drawResult(SpriteBatch batch, ArrayList<DynamicItem> dynamicItems, DrawText drawText, Texture A,Texture B,Texture C,Texture D,Texture F){
+    public void drawResult(SpriteBatch batch, ArrayList<DynamicItem> dynamicItems, DrawText drawText, Texture A, Texture B, Texture C, Texture D, Texture F){
         posX = GameConstant.posScoreX;
         posY = GameConstant.posScoreY;
         result = GameConstant.dynamicItemsCount - dynamicItems.size();
@@ -37,7 +35,7 @@ public class Result {
 
         batch.draw(score, posX, posY, GameConstant.SCORE_WIDTH, GameConstant.SCORE_WIDTH);
 
-        drawText.drawStaticText(batch,  "ESC - Restart Game", GameConstant.windowWidth/2 - 80, 80, 0.5f);
+        drawText.drawStaticText(batch,  "ESC - Restart Game", GameConstant.WINDOW_WIDTH/2 - 80, 80, 0.5f);
 
     }
 
