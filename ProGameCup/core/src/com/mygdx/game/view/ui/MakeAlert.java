@@ -25,6 +25,7 @@ public class MakeAlert {
             batch.draw(block, player.getPositionThrew().x, player.getPositionThrew().y
                 , 25, 25);
     }
+
     public void drawAlert(SpriteBatch batch, float stateTime, Player player){
         float alpha = Math.min(2f, stateTime - firstValue);
         if (alpha<=1){

@@ -20,6 +20,7 @@ import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.*;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.ui.*;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class MainGameScreen implements Screen {
     ManagerGame managerGame;
     SetItem setItem;
     SetRemainItem setRemainItem;
+
     public MainGameScreen (SpaceGame game){
         this.game = game;
         batch = game.getBatch();
@@ -64,6 +66,7 @@ public class MainGameScreen implements Screen {
         newButton = new NewButton(game);
         setRemainItem = new SetRemainItem();
     }
+
     @Override
     public void show() {
         TmxMapLoader loader = new TmxMapLoader();
@@ -77,6 +80,7 @@ public class MainGameScreen implements Screen {
         player.setValidThrow(true);
         setItem.set(dynamicItems, staticItems);
     }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
@@ -84,18 +88,21 @@ public class MainGameScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-        if(!newButton.isPause) {
-            stateTime += delta;
-            PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, stateTime);
-        }
+
         batch.begin();
-        managerGame.update(player, dynamicItems, staticItems, batch, stateTime);
+
+        managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta);
+        if(!NewButton.isPause) {
+            stateTime += delta;
+            PlayerMovement.move(player, mapObjects, staticItems, dynamicItems, delta);
+        }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 0){
+
+        if(dynamicItems.isEmpty()){
             game.setScreen(new MainEndStory(game, dynamicItems));
         }
-        batch.end();
 
+        batch.end();
     }
 
 

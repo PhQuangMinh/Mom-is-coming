@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.effect.MakeSound;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class GetItem {
                     , player.getY() + 0.6f * player.getHeight());
             dynamic.remove(dynamicItem);
             dynamicItems.add(dynamicItem);
+            MakeSound.makeSound("sounds/soItemPickup.ogg");
         }
 
     }

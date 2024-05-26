@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 import com.mygdx.game.view.ui.*;
 import com.mygdx.game.view.effect.MakeMusic;
 
@@ -15,7 +16,6 @@ public class SpaceGame extends Game {
 	public SpriteBatch getBatch() {
 		return batch;
 	}
-
 
 	@Override
 	public void create () {

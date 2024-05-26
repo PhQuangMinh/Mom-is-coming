@@ -13,6 +13,7 @@ public class DrawDynamic {
         DrawStatic drawStatic = new DrawStatic();
         drawStatic.drawNoteName(item, batch, drawText);
     }
+
     private void drawDynamicItem(DynamicItem item, SpriteBatch batch, Player player, DrawText drawText){
         if (!item.isVisible()) return;
         Texture image;
@@ -28,7 +29,6 @@ public class DrawDynamic {
         else image = item.getImage();
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
-
 
     public void drawDynamic(ArrayList<DynamicItem> items, SpriteBatch batch, Player player, DrawText drawText){
         for (DynamicItem item : items) {

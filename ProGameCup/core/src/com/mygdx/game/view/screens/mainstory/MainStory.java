@@ -19,6 +19,7 @@ public class MainStory implements Screen {
         this.game = game;
         batch = game.getBatch();
     }
+
     @Override
     public void show() {
         impression = new Impression("story/impression1.png");

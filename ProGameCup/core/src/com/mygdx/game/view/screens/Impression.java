@@ -20,6 +20,7 @@ public class Impression {
             impressions[i] = new Texture("story/impression" + (i + 1) + ".png");
         }
     }
+
     private Vector2 getSize(Texture impression){
         float ratio = (float)impression.getWidth() / impression.getHeight();
         float width, height;
