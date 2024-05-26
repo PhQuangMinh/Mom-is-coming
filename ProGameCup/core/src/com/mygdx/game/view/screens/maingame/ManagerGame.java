@@ -45,6 +45,7 @@ public class ManagerGame {
     public void updatePlayer(Player player){
         ManagerPlayer managerPlayer = new ManagerPlayer();
         managerPlayer.updateStatus(player);
+        managerPlayer = null;
     }
 
     public void updateItem(Player player, ArrayList<DynamicItem> dynamicItems
@@ -61,7 +62,7 @@ public class ManagerGame {
                      ArrayList<StaticItem> staticItems){
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
-            buttonGame.draw(game, batch, stateTime, drawText);
+            buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
             holding.drawHold(batch, player);
             draw.draw(dynamicItems, staticItems, player, batch, stateTime, drawText);
         }

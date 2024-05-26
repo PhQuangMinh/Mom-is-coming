@@ -19,12 +19,11 @@ public class Player extends Sprite {
 
     private boolean overlap, validThrow;
     private Item itemHolding;
+    private Item itemInRange;
     private StaticItem container;
     private Vector2 positionThrew;
     private int statusHold;
     // statusHold = 4: đang cầm đồ vật bằng vải đứng trên vũng nước, chuẩn bị lau
-    private int frameIndex;
-    private boolean isCountingXPress;
 
     private LinkedHashMap<String, Animation> animations;
     private LinkedHashMap<String, TextureRegion> textures;
@@ -32,11 +31,10 @@ public class Player extends Sprite {
     private FrameStatus frameStatus;
 
     public Player(){
-        direction = Direction.DOWN;
+        direction = Direction.LEFT;
         status = CharacterStatus.IDLE;
         setPosition(0, 0);
     }
-
     public Player(TextureAtlas atlas, String[] animationNames, String[] textureNames, float x, float y, float width, float height, float speed){
         this();
         setAnimation(atlas, animationNames);
@@ -173,19 +171,11 @@ public class Player extends Sprite {
         this.DIAGONAL_SPEED = (float) Math.sqrt(speed * speed/2);
     }
 
-    public int getFrameIndex() {
-        return frameIndex;
+    public Item getItemInRange() {
+        return itemInRange;
     }
 
-    public void setFrameIndex(int frameIndex) {
-        this.frameIndex = frameIndex;
-    }
-
-    public boolean getIsCountingXPress() {
-        return isCountingXPress;
-    }
-
-    public void setIsCountingXPress(boolean countingXPress) {
-        isCountingXPress = countingXPress;
+    public void setItemInRange(Item itemInRange) {
+        this.itemInRange = itemInRange;
     }
 }

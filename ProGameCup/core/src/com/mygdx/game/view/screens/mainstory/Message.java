@@ -49,6 +49,7 @@ public class Message {
         batch.begin();
         batch.draw(messages[countMessages], (GameConstant.WINDOW_WIDTH - messages[countMessages].getWidth()) / 2, 0);
         drawPress(batch, stateTime);
+
         if (countMessages==8){
             countDes -= delta;
             if (countDes<=0){

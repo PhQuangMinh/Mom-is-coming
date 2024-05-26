@@ -21,10 +21,11 @@ public class NewButton {
     SpriteBatch batch;
     DrawText drawText;
     SpaceGame game;
-    public boolean isPause = false;
-    public boolean isStopMusic = false;
+    public static boolean isPause = false;
+    public static boolean isStopMusic = false;
     public static boolean isHowToPlayOpen = false;
     public static boolean isMenuBarOpen = false;
+
     public NewButton(SpaceGame game) {
         this.game = game;
         this.batch = game.getBatch();
@@ -88,8 +89,8 @@ public class NewButton {
             }
         }
         if(isStopMusic){
-            batch.draw(musicOffButton, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
-            MakeMusic.stopMusic();
+            batch.draw(musicOffButton, x, y, ItemConstant.BUTTON_WIDTH, ItemConstant.BUTTON_HEIGHT);
+            MakeMusic.pauseMusic();
         }
         else{
             batch.draw(musicOnButton, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -99,8 +100,8 @@ public class NewButton {
 
     public void drawHowToPlayButton(int x, int y, int width, int height){
         if(isHowToPlayOpen){
-            Texture close = new Texture("button/close.png");
-            Texture closePress = new Texture("button/closePress.png");
+            Texture close = new Texture("button/game/close.png");
+            Texture closePress = new Texture("button/game/closePress.png");
             Texture howToPlay = new Texture("otherImage/HowtoPlay.png");
 
             batch.draw(howToPlay, x, y, width, height);

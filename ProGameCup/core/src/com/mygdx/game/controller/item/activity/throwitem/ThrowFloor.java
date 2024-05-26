@@ -2,7 +2,6 @@ package com.mygdx.game.controller.item.activity.throwitem;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.Player;
@@ -74,7 +73,6 @@ public class ThrowFloor {
             dynamicItem.setPosition(position.x, position.y);
             player.setValidThrow(true);
             player.setItemHolding(null);
-
         }
         else{
             player.setValidThrow(false);

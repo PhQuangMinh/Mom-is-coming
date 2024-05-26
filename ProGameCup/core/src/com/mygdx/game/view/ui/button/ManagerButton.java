@@ -54,7 +54,7 @@ public class ManagerButton {
 
     private void music(){
         if (MakeMusic.music.isPlaying()){
-            MakeMusic.stopMusic();
+            MakeMusic.pauseMusic();
         }
         else {
             MakeMusic.resumeMusic();

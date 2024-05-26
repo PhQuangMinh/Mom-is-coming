@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class DynamicItem extends Item {
     private boolean visible;
     private boolean cross;
-    private final boolean isClothes;
-
+    private boolean isClothes;
     public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width
             , float height, float overlap, boolean cross, boolean isClothes) {
         super(name, image, chosenImage, x, y, width, height, overlap);

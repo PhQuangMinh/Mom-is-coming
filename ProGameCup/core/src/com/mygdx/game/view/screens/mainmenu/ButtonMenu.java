@@ -48,11 +48,11 @@ public class ButtonMenu {
 
     public void draw(){
         newButton.drawButton(play, playPress, posX,500, widthButton, heightButton,1);
-        newButton.drawMusicButton(musicOn, musicOff, 740, 800, widthIcon, heightIcon);
+        newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
         newButton.drawButton(leaderboard, leaderboardPress, posX, 400, widthButton, heightButton,4);
         newButton.drawButton(back, backPress, posX,  300, widthButton, heightButton,4);
         newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 6);
-        newButton.drawButton(howToPlay, howToPlayPress, 800, 800, widthIcon, heightIcon, 2);
+        newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 2);
         newButton.drawHowToPlayButton(110, 300, 672,280);
     }
 }

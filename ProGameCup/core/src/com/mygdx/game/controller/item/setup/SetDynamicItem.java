@@ -2,7 +2,6 @@ package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
@@ -42,8 +41,7 @@ public class SetDynamicItem {
             case "pizza2":
                 return new Vector2(posX + 370, posY + 280);
             case "box-pizza":
-                overlap = 1/3f*height;
-                return new Vector2(posX + 100, posY + 200);
+                return new Vector2(posX + 150, posY + 150);
             case "red-shirt":
                 return new Vector2(posX + 400, posY + 200);
             case "red-sock":
@@ -56,6 +54,10 @@ public class SetDynamicItem {
                 return new Vector2(posX + 180, posY + 340);
             case "puddle":
                 return new Vector2(posX + 210, posY + 290);
+            case "box-chicken":
+                return new Vector2(posX + 120, posY + 50);
+            case "tissue":
+                return new Vector2(posX + 320, posY + 380);
         }
         return new Vector2(posX + 300, posY + 300);//shirt
     }
@@ -84,7 +86,7 @@ public class SetDynamicItem {
         Vector2 size = getSize(image, imageItem);
         Vector2 position = getPosition(image, size.y);
         boolean isClothes = false;
-        if(image.equals("blue-sock") || image.equals("red-sock") || image.equals("red-shirt") || image.equals("red-paper") || image.equals("shirt")){
+        if(image.equals("blue-sock") || image.equals("red-sock") || image.equals("red-shirt") || image.equals("tissue") || image.equals("shirt")){
             isClothes = true;
         }
         return new DynamicItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y,overlap, isCross, isClothes);
@@ -111,5 +113,7 @@ public class SetDynamicItem {
         items.add(getItem("underwear", true));
         items.add(getItem("garbage", true));
         items.add(getItem("puddle", true));
+        items.add(getItem("box-chicken", false));
+        items.add(getItem("tissue", true));
     }
 }

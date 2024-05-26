@@ -4,20 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.controller.item.setup.SetItem;
+import com.mygdx.game.controller.item.setup.SetRemainItem;
 import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.*;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.MakeAlert;
-import com.mygdx.game.view.screens.Impression;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.ui.*;
 
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ public class MainGameScreen implements Screen {
     NewButton newButton;
     ManagerGame managerGame;
     SetItem setItem;
+    SetRemainItem setRemainItem;
 
     public MainGameScreen (SpaceGame game){
         this.game = game;
@@ -62,7 +61,10 @@ public class MainGameScreen implements Screen {
     public void show() {
         player.setValidThrow(true);
         setItem.set(dynamicItems, staticItems);
+        setRemainItem = new SetRemainItem();
     }
+
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
@@ -75,6 +77,10 @@ public class MainGameScreen implements Screen {
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
+        if(dynamicItems.size() == 22){
+            game.setScreen(new MainEndStory(game, dynamicItems));
+        }
+
         batch.end();
     }
 
