@@ -10,15 +10,18 @@ import com.mygdx.game.model.Player;
 public class Holding {
     Texture holdingImage;
 
+    Vector2 sizeItem;
+
     public Holding(){
         holdingImage = new Texture("items/static-items/items/holding.png");
+        sizeItem = new Vector2();
     }
 
     public void drawHold(SpriteBatch batch, Player player){
         MakeSize makeSize = new MakeSize();
-        Vector2 sizeHold = makeSize.getSize(holdingImage, 170);
-        batch.draw(holdingImage, 10, GameConstant.WINDOW_HEIGHT - sizeHold.y * 1.1f
-                , sizeHold.x, sizeHold.y);
+        makeSize.getSize(holdingImage, 170, sizeItem);
+        batch.draw(holdingImage, 10, GameConstant.WINDOW_HEIGHT - sizeItem.y * 1.1f
+                , sizeItem.x, sizeItem.y);
         if (player.getItemHolding()!=null){
             batch.draw(player.getItemHolding().getImage(), 65
                     , GameConstant.WINDOW_HEIGHT - 110

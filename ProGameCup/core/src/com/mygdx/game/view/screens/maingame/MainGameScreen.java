@@ -9,14 +9,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.item.setup.SetItem;
-import com.mygdx.game.controller.item.setup.SetRemainItem;
 import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.*;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.MakeAlert;
+import com.mygdx.game.view.draw.ui.NewButton;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
-import com.mygdx.game.view.ui.*;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,14 @@ public class MainGameScreen implements Screen {
     NewButton newButton;
     ManagerGame managerGame;
     SetItem setItem;
-    SetRemainItem setRemainItem;
+    MainMenuScreen mainMenuScreen;
+    MainStory mainStory;
 
-    public MainGameScreen (SpaceGame game){
+    MainEndStory mainEndStory;
+
+    public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, MainStory mainStory){
+        this.mainMenuScreen = mainMenuScreen;
+        this.mainStory = mainStory;
         this.game = game;
         batch = game.getBatch();
         String[] animationNames = new String[]{"WALKING_UP", "WALKING_DOWN", "WALKING_LEFT", "WALKING_RIGHT",
@@ -56,12 +62,15 @@ public class MainGameScreen implements Screen {
         managerGame = new ManagerGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
+        setItem.set(dynamicItems, staticItems);
     }
     @Override
     public void show() {
         player.setValidThrow(true);
-        setItem.set(dynamicItems, staticItems);
-        setRemainItem = new SetRemainItem();
+        for(StaticItem item : staticItems){
+            System.out.println(item.getName() + "  " + item.getX() + " " + item.getY());
+        }
+        mainEndStory = new MainEndStory(game, dynamicItems, mainStory, staticItems);
     }
 
 
@@ -71,14 +80,15 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        managerGame.update(player, dynamicItems, staticItems, batch, stateTime);
+        batch.setColor(1 ,1, 1, 1);
+        managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta, mainMenuScreen, mainStory);
         if(!newButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 22){
-            game.setScreen(new MainEndStory(game, dynamicItems));
+        if(dynamicItems.size() == 21){
+            game.setScreen(mainEndStory);
         }
 
         batch.end();

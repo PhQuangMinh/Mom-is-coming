@@ -1,14 +1,13 @@
-package com.mygdx.game.controller.filter;
+package com.mygdx.game.controller.filter.filteringame;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
-public class FilterStatic {
+public class FilterStaticInGame {
     public boolean checkObscure(StaticItem item, Player player){
         return player.getX() + player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()

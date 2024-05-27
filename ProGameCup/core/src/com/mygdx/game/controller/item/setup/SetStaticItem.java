@@ -16,13 +16,15 @@ public class SetStaticItem {
     private Vector2 getPosition(String nameImage, float width, float height){
         overlap = 0;
         float x = MapConstant.POS_MAP_RIGHT_X, y = MapConstant.POS_MAP_Y;
-        float MAP_SIZE = MapConstant.MAP_HEIGHT;
+        float MAP_SIZE = 576;
         float itemSize = ItemConstant.STATIC_SIZE;
         float TILE_SIZE = MapConstant.TILE_SIZE;
         float patioTop = 2/3f;
         float patioLow = 1/4f*height;
         float patioMedium = 1/3f*height;
         float patioHigh = 1/2f*height;
+        System.out.println(x + " " + y + " " + MAP_SIZE + " " + TILE_SIZE + " " + itemSize);
+        System.out.println();
         switch (nameImage){
             case "bed":
                 overlap = patioMedium;

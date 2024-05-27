@@ -1,4 +1,4 @@
-package com.mygdx.game.view.ui.button;
+package com.mygdx.game.view.draw.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
