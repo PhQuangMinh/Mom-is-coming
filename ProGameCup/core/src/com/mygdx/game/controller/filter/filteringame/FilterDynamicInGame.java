@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.filter;
+package com.mygdx.game.controller.filter.filteringame;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.model.Player;
@@ -7,7 +7,7 @@ import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
-public class FilterDynamic {
+public class FilterDynamicInGame {
     public int checkDynamic(DynamicItem dynamicItem, Player player, ArrayList<StaticItem> staticItems){
         if (player.getItemHolding()!=null && player.getItemHolding().equals(dynamicItem)) return 3;
         for (StaticItem item : staticItems){

@@ -8,6 +8,14 @@ import com.mygdx.game.model.Player;
 
 public class MakeAlert {
     public float firstValue = -1;
+    Texture blackBlock, redBlock;
+
+    Vector2 sizeItem;
+    public MakeAlert(){
+        blackBlock = new Texture("alert/black-block.png");
+        redBlock = new Texture("alert/red-block.png");
+        sizeItem = new Vector2();
+    }
 
     public void update(SpriteBatch batch, float stateTime, Player player){
         if (!player.isValidThrow()){
@@ -20,23 +28,22 @@ public class MakeAlert {
         }
     }
 
-    private void drawBlock(String path, float alpha, SpriteBatch batch, Player player){
+    private void drawBlock(Texture block, float alpha, SpriteBatch batch, Player player){
         batch.setColor(1, 1, 1, alpha*1.5f);
-        Texture block = new Texture(path);
         MakeSize makeSize = new MakeSize();
-        Vector2 size = makeSize.getSize(block, 30);
+        makeSize.getSize(block, 30, sizeItem);
         if (player.getPositionThrew()!=null)
             batch.draw(block, player.getPositionThrew().x, player.getPositionThrew().y
-                , size.x, size.y);
+                , sizeItem.x, sizeItem.y);
     }
     public void drawAlert(SpriteBatch batch, float stateTime, Player player){
         float alpha = Math.min(2f, stateTime - firstValue);
         if (alpha<=1){
-            drawBlock("alert/black-block.png", alpha, batch, player);
+            drawBlock(blackBlock, alpha, batch, player);
         }
         else
             if (alpha<=2){
-                drawBlock("alert/red-block.png", alpha, batch, player);
+                drawBlock(redBlock, alpha, batch, player);
             }
         batch.setColor(1, 1, 1, 1);
     }

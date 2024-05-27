@@ -35,7 +35,7 @@ public class SetDynamicItem {
             case "letter":
                 return new Vector2(posX + 140, posY + 295);
             case "paper":
-                return new Vector2(posX + 140, posY + 265);
+                return new Vector2(posX + 200, posY + 265);
             case "pizza1":
                 return new Vector2(posX + 200, posY + 200);
             case "pizza2":

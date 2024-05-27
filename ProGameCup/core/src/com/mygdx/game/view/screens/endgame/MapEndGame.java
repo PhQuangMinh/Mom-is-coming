@@ -7,46 +7,44 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.MapConstant;
-import com.mygdx.game.controller.item.setup.SetRemainItem;
-import com.mygdx.game.controller.item.setup.SetStaticItem;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
+import com.mygdx.game.view.draw.item.Draw;
 import com.mygdx.game.view.draw.map.DrawMap;
-import com.mygdx.game.view.screens.endgame.DrawItems.Draw;
+
 import com.mygdx.game.view.screens.endgame.DrawMom.Mom;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
 
 import java.util.ArrayList;
 
 public class MapEndGame implements Screen {
     ArrayList<StaticItem> staticItems;
     ArrayList<DynamicItem> dynamicItems;
-    SetRemainItem setRemainItem;
-    SetStaticItem setStaticItem;
+
     SpaceGame game;
     SpriteBatch batch;
     Mom mother;
     Draw draw;
     Texture player, mom, chat;
-    float stateTime;
+    MainGameScreen mainGameScreen;
 
     DrawMap drawMap;
-    public MapEndGame(SpaceGame game, ArrayList<DynamicItem> dynamicItems){
+    public MapEndGame(SpaceGame game, ArrayList<DynamicItem> dynamicItems
+            , MainGameScreen mainGameScreen, ArrayList<StaticItem> staticItems){
+        this.mainGameScreen = mainGameScreen;
         this.game = game;
-        batch = game.getBatch();
         this.dynamicItems = dynamicItems;
-        setStaticItem = new SetStaticItem();
-        staticItems = new ArrayList<>();
-        drawMap = new DrawMap();
-        draw = new Draw();
+        this.staticItems = staticItems;
+        batch = game.getBatch();
     }
     @Override
     public void show() {
         player = new Texture("animations/main-char/idle-endgame.png");
         mom = new Texture("animations/mom/mom-walking.png");
         chat = new Texture("alert/note.png");
-
-        mother = new Mom(mom, dynamicItems);
-        setStaticItem.setStatic(staticItems);
+        drawMap = new DrawMap();
+        draw = new Draw();
+        mother = new Mom(mom, dynamicItems, mainGameScreen);
     }
 
     @Override
@@ -56,7 +54,7 @@ public class MapEndGame implements Screen {
 
         batch.begin();
         drawMap.drawMap(batch);
-        draw.draw(dynamicItems, staticItems, batch);
+        draw.drawEndGame(dynamicItems, staticItems, batch);
         batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 220,
                 32, 58);
         mother.draw(chat,game, batch, delta);

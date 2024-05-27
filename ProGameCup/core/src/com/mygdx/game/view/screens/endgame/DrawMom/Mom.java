@@ -12,6 +12,7 @@ import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.screens.endgame.ResultScreen;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
 
 import java.util.ArrayList;
 
@@ -28,13 +29,16 @@ public class Mom extends Sprite {
     private int noteState = 0;
     private float noteTime = 0;
     DrawText drawText;
-     public Mom(Texture texture, ArrayList<DynamicItem> dynamicItems){
+
+    MainGameScreen mainGameScreen;
+     public Mom(Texture texture, ArrayList<DynamicItem> dynamicItems, MainGameScreen mainGameScreen){
          this.dynamicItems = dynamicItems;
+         this.mainGameScreen = mainGameScreen;
          drawText = new DrawText("fonts/char.fnt", Color.BLACK);
-        setAnimation(texture);
+         setAnimation(texture);
         stateTime = 0f;
         currentX = MapConstant.POS_MAP_Y + 50;
-    }
+     }
     public void setAnimation(Texture texture){
         mom_walking = new Animation[5];
         TextureRegion[][] region = TextureRegion.split(texture, MOM_WIDTH, MOM_HEIGHT);
@@ -81,6 +85,6 @@ public class Mom extends Sprite {
             noteState++;
             noteTime = 0;
         }
-        if(noteState >= 3) game.setScreen(new ResultScreen(game, dynamicItems));
+        if(noteState >= 3) game.setScreen(new ResultScreen(game, dynamicItems, mainGameScreen));
     }
 }
