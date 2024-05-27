@@ -71,13 +71,13 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        managerGame.update(player, dynamicItems, staticItems, batch, stateTime);
+        managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta);
         if(!newButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 22){
+        if(dynamicItems.isEmpty()){
             game.setScreen(new MainEndStory(game, dynamicItems));
         }
 
