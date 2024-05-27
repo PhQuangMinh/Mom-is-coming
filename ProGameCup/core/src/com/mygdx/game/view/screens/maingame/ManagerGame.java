@@ -36,10 +36,10 @@ public class ManagerGame {
            drawMap = new DrawMap();
     }
     public void update(Player player, ArrayList<DynamicItem> dynamicItems
-            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime) {
+            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime, float delta) {
         updateItem(player, dynamicItems, staticItems);
         updatePlayer(player);
-        draw(batch, stateTime, player, dynamicItems, staticItems);
+        draw(batch, stateTime, delta, player, dynamicItems, staticItems);
     }
 
     public void updatePlayer(Player player){
@@ -58,13 +58,13 @@ public class ManagerGame {
         getItem.takeItemStatic(player, dynamicItems);
     }
 
-    public void draw(SpriteBatch batch, float stateTime, Player player, ArrayList<DynamicItem>dynamicItems,
+    public void draw(SpriteBatch batch, float stateTime, float delta, Player player, ArrayList<DynamicItem>dynamicItems,
                      ArrayList<StaticItem> staticItems){
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
             buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
             holding.drawHold(batch, player);
-            draw.draw(dynamicItems, staticItems, player, batch, stateTime, drawText);
+            draw.draw(dynamicItems, staticItems, player, batch, delta, drawText);
         }
         drawMap.drawBars(batch, player);
         impression.drawGame(batch, stateTime);
