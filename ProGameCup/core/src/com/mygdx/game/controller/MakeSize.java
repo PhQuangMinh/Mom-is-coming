@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class MakeSize {
-    public Vector2 getSize(Texture texture, int size){
+    public void getSize(Texture texture, int size, Vector2 sizeItem){
         float ratio = (float)texture.getWidth() / texture.getHeight();
         float width, height;
         if (ratio>1) {
@@ -14,6 +14,7 @@ public class MakeSize {
             width = size * ratio;
             height = size;
         }
-        return new Vector2(width, height);
+        sizeItem.x = width;
+        sizeItem.y = height;
     }
 }

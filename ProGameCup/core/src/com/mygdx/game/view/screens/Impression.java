@@ -11,8 +11,11 @@ public class Impression {
     Texture impression;
     private int countImpress = 0;
 
+    Vector2 sizeItem;
+
     private Texture[] impressions;
     public Impression(String path){
+        sizeItem = new Vector2();
         impression = new Texture(path);
     }
 
@@ -21,6 +24,7 @@ public class Impression {
     }
 
     public Impression(){
+        sizeItem = new Vector2();
         impressions = new Texture[6];
         for (int i = 0; i < 5; i++){
             impressions[i] = new Texture("story/impression" + (i + 1) + ".png");
@@ -31,9 +35,9 @@ public class Impression {
         float alpha = Math.min(1f, stateTime / 2f);
         batch.setColor(1, 1, 1, alpha);
         MakeSize makeSize = new MakeSize();
-        Vector2 size = makeSize.getSize(impression, ItemConstant.IMPRESSION_SIZE);
+        makeSize.getSize(impression, ItemConstant.IMPRESSION_SIZE, sizeItem);
         batch.begin();
-        batch.draw(impression, 150,110, size.x, size.y);
+        batch.draw(impression, 130,110, sizeItem.x, sizeItem.y);
         batch.end();
     }
 
@@ -41,9 +45,9 @@ public class Impression {
         if (countImpress>=5) return;
         batch.setColor(1, 1, 1, 1);
         MakeSize makeSize = new MakeSize();
-        Vector2 size = makeSize.getSize(impressions[countImpress], ItemConstant.IMPRESSION_SIZE);
+        makeSize.getSize(impressions[countImpress], ItemConstant.IMPRESSION_SIZE, sizeItem);
         int[] a = {110, 110, 110, 500, 680};
-        batch.draw(impressions[countImpress], 150, a[countImpress], size.x, size.y);
+        batch.draw(impressions[countImpress], 130, a[countImpress], sizeItem.x, sizeItem.y);
         countImpress = (int) (1 + stateTime * 4);
     }
 }
