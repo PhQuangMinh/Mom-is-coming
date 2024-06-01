@@ -62,15 +62,15 @@ public class MainGameScreen implements Screen {
         managerGame = new ManagerGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
+        setItem.set(dynamicItems, staticItems);
     }
     @Override
     public void show() {
         player.setValidThrow(true);
-        setItem.set(dynamicItems, staticItems);
         for(StaticItem item : staticItems){
             System.out.println(item.getName() + "  " + item.getX() + " " + item.getY());
         }
-        mainEndStory = new MainEndStory(game, dynamicItems, this, staticItems);
+        mainEndStory = new MainEndStory(game, dynamicItems, mainStory, staticItems);
     }
 
 
@@ -80,6 +80,7 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+        batch.setColor(1 ,1, 1, 1);
         managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta, mainMenuScreen, mainStory);
         if(!newButton.isPause) {
             stateTime += delta;

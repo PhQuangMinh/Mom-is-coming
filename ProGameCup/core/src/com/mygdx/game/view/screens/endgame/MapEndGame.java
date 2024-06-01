@@ -14,6 +14,7 @@ import com.mygdx.game.view.draw.map.DrawMap;
 
 import com.mygdx.game.view.screens.endgame.DrawMom.Mom;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
 
@@ -26,12 +27,12 @@ public class MapEndGame implements Screen {
     Mom mother;
     Draw draw;
     Texture player, mom, chat;
-    MainGameScreen mainGameScreen;
+    MainStory mainStory;
 
     DrawMap drawMap;
     public MapEndGame(SpaceGame game, ArrayList<DynamicItem> dynamicItems
-            , MainGameScreen mainGameScreen, ArrayList<StaticItem> staticItems){
-        this.mainGameScreen = mainGameScreen;
+            , MainStory mainStory, ArrayList<StaticItem> staticItems){
+        this.mainStory = mainStory;
         this.game = game;
         this.dynamicItems = dynamicItems;
         this.staticItems = staticItems;
@@ -44,7 +45,7 @@ public class MapEndGame implements Screen {
         chat = new Texture("alert/note.png");
         drawMap = new DrawMap();
         draw = new Draw();
-        mother = new Mom(mom, dynamicItems, mainGameScreen);
+        mother = new Mom(mom, dynamicItems, mainStory);
     }
 
     @Override

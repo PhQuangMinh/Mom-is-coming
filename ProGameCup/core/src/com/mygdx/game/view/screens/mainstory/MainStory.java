@@ -19,10 +19,13 @@ public class MainStory implements Screen {
 
     MainGameScreen mainGameScreen;
 
+    MainMenuScreen mainMenuScreen;
+
     public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen) {
+        this.mainMenuScreen = mainMenuScreen;
         this.game = game;
-        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this);
         batch = game.getBatch();
+        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this);
     }
     @Override
     public void show() {

@@ -37,7 +37,7 @@ public class Impression {
         MakeSize makeSize = new MakeSize();
         makeSize.getSize(impression, ItemConstant.IMPRESSION_SIZE, sizeItem);
         batch.begin();
-        batch.draw(impression, 130,110, sizeItem.x, sizeItem.y);
+        batch.draw(impression, 115,110, sizeItem.x, sizeItem.y);
         batch.end();
     }
 
@@ -47,7 +47,7 @@ public class Impression {
         MakeSize makeSize = new MakeSize();
         makeSize.getSize(impressions[countImpress], ItemConstant.IMPRESSION_SIZE, sizeItem);
         int[] a = {110, 110, 110, 500, 680};
-        batch.draw(impressions[countImpress], 130, a[countImpress], sizeItem.x, sizeItem.y);
+        batch.draw(impressions[countImpress], 115, a[countImpress], sizeItem.x, sizeItem.y);
         countImpress = (int) (1 + stateTime * 4);
     }
 }

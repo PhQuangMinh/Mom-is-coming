@@ -27,7 +27,7 @@ public class DrawMap {
     }
     public void drawMap(SpriteBatch batch){
         MakeSize makeSize = new MakeSize();
-        makeSize.getSize(map, (int) MapConstant.MAP_SIZE, sizeItem);
+        makeSize.getSize(map, MapConstant.MAP_SIZE, sizeItem);
         MapConstant.MAP_WIDTH = sizeItem.x;
         MapConstant.MAP_HEIGHT = sizeItem.y;
         batch.draw(map, MapConstant.POS_MAP_X, MapConstant.POS_MAP_Y,

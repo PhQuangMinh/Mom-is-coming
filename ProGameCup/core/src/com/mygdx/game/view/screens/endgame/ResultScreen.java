@@ -13,6 +13,7 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.screens.endgame.DrawResult.Result;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,10 @@ public class ResultScreen implements Screen {
     Result result;
     DrawText drawText;
 
-    MainGameScreen mainGameScreen;
+    MainStory mainStory;
 
-    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainGameScreen mainGameScreen){
-        this.mainGameScreen = mainGameScreen;
+    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory){
+        this.mainStory = mainStory;
         this.game = game;
         this.batch = game.getBatch();
         this.dynamicItems = dynamicItems;
@@ -49,7 +50,7 @@ public class ResultScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(mainGameScreen);
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(mainStory);
         batch.begin();
         batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100, GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);

@@ -9,6 +9,7 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ public class MainEndStory implements Screen {
     Texture texture;
     ArrayList<DynamicItem> dynamicItems;
     ArrayList<StaticItem> staticItems;
-    MainGameScreen mainGameScreen;
+    MainStory mainStory;
     public MainEndStory(SpaceGame game, ArrayList<DynamicItem> dynamicItems
-            , MainGameScreen mainGameScreen, ArrayList<StaticItem> staticItems){
+            , MainStory mainStory, ArrayList<StaticItem> staticItems){
         this.game = game;
         batch = game.getBatch();
         this.dynamicItems = dynamicItems;
         texture = new Texture("otherImage/knock.png");
         knock = new Knock(texture);
-        this.mainGameScreen = mainGameScreen;
+        this.mainStory = mainStory;
         this.staticItems = staticItems;
     }
 
@@ -45,7 +46,7 @@ public class MainEndStory implements Screen {
         batch.begin();
         knock.draw(batch, delta);
         batch.end();
-        if(knock.isNextMapEndGame) game.setScreen(new MapEndGame(game, dynamicItems, mainGameScreen, staticItems));
+        if(knock.isNextMapEndGame) game.setScreen(new MapEndGame(game, dynamicItems, mainStory, staticItems));
     }
 
     @Override
