@@ -22,4 +22,8 @@ public class MapConstant {
     public static final int LOWER_LIMIT_LEFT_Y = 185;
     public static final int UPPER_LIMIT_ELEVATOR_Y = 368;
     public static final int UPPER_LIMIT_ELEVATOR_X = 124;
+    public static final float VERTICAL_COLUMN_X = 175;
+    public static final float VERTICAL_COLUMN_Y = 209;
+    public static final float VERTICAL_COLUMN_WIDTH = 85;
+    public static final float VERTICAL_COLUMN_HEIGHT = 263;
 }

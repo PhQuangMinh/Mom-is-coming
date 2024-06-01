@@ -34,12 +34,11 @@ public class DrawMap {
                 sizeItem.x, sizeItem.y);
     }
 
-    private void drawOverlapsMap(SpriteBatch batch, Texture texture, int posX, int posY, int sizeMap){
+    public void drawOverlapsMap(SpriteBatch batch, Texture texture, int posX, int posY, int sizeMap){
         MakeSize makeSize = new MakeSize();
         makeSize.getSize(texture, sizeMap, sizeItem);
         batch.draw(texture, posX, posY, sizeItem.x, sizeItem.y);
     }
-
     public void drawBars(SpriteBatch batch, Player player){
         drawOverlapsMap(batch, verticalColumn, 207, 209, 263);
         drawOverlapsMap(batch, leftHorizontal, 29, 185, 179);

@@ -16,16 +16,16 @@ public class Result {
         posY = GameConstant.posScoreY;
         result = GameConstant.dynamicItemsCount - dynamicItems.size();
         totalScore = result * 100 / GameConstant.dynamicItemsCount;
-        drawText.drawStaticText(batch, "Total Score: " + totalScore + "%",550, 520, 0.5f);
+        drawText.drawStaticText(batch, "Total Score: " + totalScore + "%",650, 600, 0.5f);
 
-        if(totalScore == 100) drawText.drawStaticText(batch, "You are the PERFECT SON. I love you, darling !!",160, 490, 0.5f);
-        else drawText.drawStaticText(batch, "How ... how could I raise you this way ...?", 160, 490, 0.5f);
+        if(totalScore == 100) drawText.drawStaticText(batch, "You are the PERFECT SON. I love you, darling !!",190, 520, 0.5f);
+        else drawText.drawStaticText(batch, "How ... how could I raise you this way ...?", 230, 520, 0.5f);
 
-        drawText.drawStaticText(batch, "Hidden Items: " + result + " / " + GameConstant.dynamicItemsCount, 250, 450, 0.8f);
+        drawText.drawStaticText(batch, "Hidden Items: " + result + " / " + GameConstant.dynamicItemsCount, 300, 450, 0.8f);
 
-        if(totalScore == 0) drawText.drawStaticText(batch, "(Did you even try to hide stuff)", 250, 380, 0.5f );
-        else if(totalScore == 100) drawText.drawStaticText(batch, "You have hidden everything", 250, 380, 0.5f );
-        else drawText.drawStaticText(batch, "Some things haven't been hidden yet", 250, 380, 0.5f );
+        if(totalScore == 0)drawText.drawStaticText(batch, "(Did you even try to hide stuff)", 300, 380, 0.5f );
+        else if(totalScore == 100) drawText.drawStaticText(batch, "(You have hidden everything)", 320, 380, 0.5f );
+        else drawText.drawStaticText(batch, "(Some things haven't been hidden yet)", 280, 380, 0.5f );
 
         if(result == GameConstant.dynamicItemsCount) score = A;
         else if(result >= 18) score = B;

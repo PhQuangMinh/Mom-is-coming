@@ -62,14 +62,16 @@ public class MainGameScreen implements Screen {
         managerGame = new ManagerGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
-        setItem.set(dynamicItems, staticItems);
     }
     @Override
     public void show() {
+        dynamicItems.clear();
+        setItem.set(dynamicItems, staticItems);
         player.setValidThrow(true);
         for(StaticItem item : staticItems){
             System.out.println(item.getName() + "  " + item.getX() + " " + item.getY());
         }
+        System.out.println(dynamicItems.size());
         mainEndStory = new MainEndStory(game, dynamicItems, mainStory, staticItems);
     }
 
@@ -87,7 +89,7 @@ public class MainGameScreen implements Screen {
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 21){
+        if(dynamicItems.size() == 20){
             game.setScreen(mainEndStory);
         }
 

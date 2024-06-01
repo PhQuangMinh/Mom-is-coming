@@ -32,7 +32,7 @@ public class DrawText {
         setCharFont(path, color);
         note = new Texture("alert/note.png");
         noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 5;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 50;
     }
 
     public DrawText(String path, Color color, MainEndStory mainEndStory){

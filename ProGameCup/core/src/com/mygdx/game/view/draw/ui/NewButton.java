@@ -42,7 +42,7 @@ public class NewButton {
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(mainStory);
+                    game.setScreen(new MainStory(game, mainMenuScreen));
                 }
                 else if(choice == 2){
                      isHowToPlayOpen = true;
@@ -94,7 +94,7 @@ public class NewButton {
             }
         }
         if(isStopMusic){
-            batch.draw(musicOffButton, x, y, ItemConstant.BUTTON_WIDTH, ItemConstant.BUTTON_HEIGHT);
+            batch.draw(musicOffButton, x, y, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
             MakeMusic.pauseMusic();
         }
         else{
