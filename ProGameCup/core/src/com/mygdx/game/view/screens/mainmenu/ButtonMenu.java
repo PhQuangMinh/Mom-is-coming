@@ -47,12 +47,12 @@ public class ButtonMenu {
     
 
     public void draw(MainMenuScreen mainMenuScreen, MainStory mainStory){
-        newButton.drawButton(play, playPress, posX,500, widthButton, heightButton,1, mainMenuScreen, mainStory);
+        newButton.drawButton(play, playPress, posX,600, widthButton, heightButton,1, mainMenuScreen, mainStory);
         newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
-        newButton.drawButton(leaderboard, leaderboardPress, posX, 400, widthButton, heightButton,4, mainMenuScreen, mainStory);
-        newButton.drawButton(back, backPress, posX,  300, widthButton, heightButton,4, mainMenuScreen, mainStory);
+        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,4, mainMenuScreen, mainStory);
+        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,4, mainMenuScreen, mainStory);
         newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 6, mainMenuScreen, mainStory);
         newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 2, mainMenuScreen, mainStory);
-        newButton.drawHowToPlayButton(110, 300, 672,280);
+        newButton.drawHowToPlayButton(135, 300, 672,280);
     }
 }

@@ -56,7 +56,7 @@ public class MapEndGame implements Screen {
         batch.begin();
         drawMap.drawMap(batch);
         draw.drawEndGame(dynamicItems, staticItems, batch);
-        batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 220,
+        batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 230,
                 32, 58);
         mother.draw(chat,game, batch, delta);
         batch.end();
