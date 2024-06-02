@@ -89,7 +89,7 @@ public class MainGameScreen implements Screen {
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 20){
+        if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
 
