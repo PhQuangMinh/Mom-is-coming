@@ -30,7 +30,7 @@ public class Message {
     public void update(float stateTime){
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && stateTime >= 3.5){
             if (countMessages<8) countMessages++;
-            MakeSound.makeSound("music/press.mp3");
+            MakeSound.makeSound("music/press.mp3", 0.4f);
         }
     }
 

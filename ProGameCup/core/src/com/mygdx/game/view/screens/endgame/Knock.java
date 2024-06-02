@@ -33,7 +33,7 @@ public class Knock extends Sprite {
     public void draw(SpriteBatch batch, float delta){
         stateTime += delta;
         if(!isNextMapEndGame && !soundPlay){
-            MakeSound.makeSound("sounds/soKnock2.ogg");
+            MakeSound.makeSound("sounds/soKnock2.ogg", 0.8f);
             soundPlay = true;
         }
         for (int i = 0 ; i < 3; i++) {

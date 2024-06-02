@@ -48,7 +48,7 @@ public class ThrowItem {
             else if(player.getContainer().getItems().size() < player.getContainer().getNumber()){
                 ThrowInStatic throwInStatic = new ThrowInStatic();
                 throwInStatic.throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
-                MakeSound.makeSound("sounds/soItemStore.ogg");
+                MakeSound.makeSound("sounds/soItemStore.ogg", 0.8f);
             }
             else{
                 player.setValidThrow(false);
@@ -57,7 +57,7 @@ public class ThrowItem {
         } else {
             ThrowFloor throwFloor = new ThrowFloor();
             throwFloor.throwFloor(dynamicItem, player, staticItems);
-            if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg");
+            if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg", 0.8f);
         }
     }
 }
