@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.model.Player;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 
 public class DrawStatic {
     private float noteX, noteY;
-    Texture note = new Texture("alert/note.png");
     private int getFirstPosition(int quantity){
         switch (quantity){
             case 1:
@@ -31,25 +31,10 @@ public class DrawStatic {
         return 10;
     }
 
-    public void drawNoteName(Item item, SpriteBatch batch, DrawText drawText){
-        MakeSize makeSize = new MakeSize();
-        Vector2 sizeNote = makeSize.getSize(note, 550);
-        batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 30
-                , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10, sizeNote.x, sizeNote.y);
-        String noteText;
-        if (item instanceof StaticItem){
-            noteText = "It's the " + item.getName() + ".";
-        }
-        else{
-            noteText = "It's a " + item.getName() + ".";
-        }
-        noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 5;
-        drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
-    }
-
     private void drawNoteStatic(StaticItem item, SpriteBatch batch, DrawText drawText, Player player){
-        drawNoteName(item, batch, drawText);
+        drawText.drawNoteName(item, batch, drawText);
+        noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT;
         if (item.getName().equals("dish-washing")){
             return;
         }
@@ -81,7 +66,7 @@ public class DrawStatic {
             firstPos += 80;
         }
     }
-    private void drawStaticItem(StaticItem item, SpriteBatch batch, DrawText drawText, Player player) {
+    private void drawStaticItemInGame(StaticItem item, SpriteBatch batch, DrawText drawText, Player player) {
         Texture image;
         if (item.getDiscover() && item.getChosenImage()!=null){
             image = item.getChosenImage();
@@ -94,9 +79,21 @@ public class DrawStatic {
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
 
-    public void drawStatic(ArrayList<StaticItem> items, SpriteBatch batch, Player player, DrawText drawText){
+    private void drawStaticItemEndGame(StaticItem item, SpriteBatch batch) {
+        Texture image;
+        image = item.getImage();
+        batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
+    }
+
+    public void drawStaticEndGame(ArrayList<StaticItem> items, SpriteBatch batch){
         for (StaticItem item : items) {
-            drawStaticItem(item, batch, drawText, player);
+            drawStaticItemEndGame(item, batch);
+        }
+    }
+
+    public void drawStaticInGame(ArrayList<StaticItem> items, SpriteBatch batch, Player player, DrawText drawText){
+        for (StaticItem item : items) {
+            drawStaticItemInGame(item, batch, drawText, player);
         }
     }
 

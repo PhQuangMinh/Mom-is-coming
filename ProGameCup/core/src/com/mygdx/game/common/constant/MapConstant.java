@@ -3,8 +3,8 @@ package com.mygdx.game.common.constant;
 public class MapConstant {
     public static final float TILE_SIZE = 16;
     public static float MAP_HEIGHT = 576;
-    public static float MAP_WIDTH = 576;
-    public static final float MAP_SIZE = 800;
+    public static float MAP_WIDTH = 889;
+    public static final int MAP_SIZE = 800;
     public static final float POS_MAP_X = 10;
     public static final float POS_MAP_RIGHT_X = 248;
     public static final float POS_MAP_Y = (GameConstant.WINDOW_WIDTH-MAP_HEIGHT)/2;
@@ -22,4 +22,8 @@ public class MapConstant {
     public static final int LOWER_LIMIT_LEFT_Y = 185;
     public static final int UPPER_LIMIT_ELEVATOR_Y = 368;
     public static final int UPPER_LIMIT_ELEVATOR_X = 124;
+    public static final float VERTICAL_COLUMN_X = 175;
+    public static final float VERTICAL_COLUMN_Y = 209;
+    public static final float VERTICAL_COLUMN_WIDTH = 85;
+    public static final float VERTICAL_COLUMN_HEIGHT = 263;
 }

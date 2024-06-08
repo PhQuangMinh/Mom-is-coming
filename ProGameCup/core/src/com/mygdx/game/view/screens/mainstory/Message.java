@@ -8,6 +8,7 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class Message {
     private int countMessages = 1;
@@ -15,7 +16,10 @@ public class Message {
     private final Texture[] messages;
     private float countDes = 1f;
 
-    Message (String path){
+    MainGameScreen mainGameScreen;
+
+    Message (String path, MainGameScreen mainGameScreen){
+        this.mainGameScreen = mainGameScreen;
         press = new Texture(path);
         messages = new Texture[10];
         for (int i = 1; i <= 8; i++) {
@@ -26,7 +30,7 @@ public class Message {
     public void update(float stateTime){
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && stateTime >= 3.5){
             if (countMessages<8) countMessages++;
-            MakeSound.makeSound("music/press.mp3");
+            MakeSound.makeSound("music/press.mp3", 0.4f);
         }
     }
 
@@ -39,7 +43,7 @@ public class Message {
 
     private void drawPress(SpriteBatch batch, float stateTime){
         if (stateTime >= 3.5 && Math.abs(stateTime - (int) stateTime) <= 0.5 && countMessages<8) {
-            batch.draw(press, (GameConstant.WINDOW_WIDTH - press.getWidth()) / 2, 2);
+            batch.draw(press, (GameConstant.WINDOW_WIDTH - press.getWidth()) / 2, 10);
         }
     }
 
@@ -54,7 +58,7 @@ public class Message {
             countDes -= delta;
             if (countDes<=0){
                 batch.end();
-                game.setScreen(new MainGameScreen(game));
+                game.setScreen(mainGameScreen);
                 return;
             }
         }

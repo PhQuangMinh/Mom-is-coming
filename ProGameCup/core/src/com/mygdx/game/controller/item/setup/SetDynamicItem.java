@@ -30,7 +30,7 @@ public class SetDynamicItem {
                 return new Vector2(posX + 500, posY + 360);
             case "carpet":
                 return new Vector2(posX + 80, posY + 110);
-            case "dish":
+            case "dish1":
                 return new Vector2(posX + 400, posY + 100);
             case "letter":
                 return new Vector2(posX + 140, posY + 295);
@@ -50,7 +50,7 @@ public class SetDynamicItem {
                 return new Vector2(posX + 450, posY + 180);
             case "underwear":
                 return new Vector2(posX + 350, posY + 50);
-            case "garbage":
+            case "garbage1":
                 return new Vector2(posX + 180, posY + 340);
             case "puddle":
                 return new Vector2(posX + 210, posY + 290);
@@ -58,6 +58,14 @@ public class SetDynamicItem {
                 return new Vector2(posX + 120, posY + 50);
             case "tissue":
                 return new Vector2(posX + 320, posY + 380);
+            case "coca3":
+                return new Vector2(posX - 100, posY + 100);
+            case "dish2":
+                return new Vector2(posX - 150, posY + 200);
+            case "garbage2":
+                return new Vector2(posX - 200, posY + 220);
+            case "box4":
+                return new Vector2(posX - 90, posY + 240);
         }
         return new Vector2(posX + 300, posY + 300);//shirt
     }
@@ -101,7 +109,7 @@ public class SetDynamicItem {
         items.add(getItem("carpet", true));
         items.add(getItem("coca2", true));
         items.add(getItem("box-pizza", false));
-        items.add(getItem("dish", true));
+        items.add(getItem("dish1", true));
         items.add(getItem("letter", true));
         items.add(getItem("paper", true));
         items.add(getItem("pizza1", true));
@@ -111,9 +119,13 @@ public class SetDynamicItem {
         items.add(getItem("shirt", true));
         items.add(getItem("trouser", true));
         items.add(getItem("underwear", true));
-        items.add(getItem("garbage", true));
+        items.add(getItem("garbage1", true));
         items.add(getItem("puddle", true));
         items.add(getItem("box-chicken", false));
         items.add(getItem("tissue", true));
+        items.add(getItem("coca3", true));
+        items.add(getItem("dish2", true));
+        items.add(getItem("garbage2", true));
+        items.add(getItem("box4", false));
     }
 }

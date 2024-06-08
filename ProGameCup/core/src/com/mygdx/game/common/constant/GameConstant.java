@@ -6,7 +6,8 @@ public class GameConstant {
     public static final float PLAYER_WIDTH = 40;
     public static final float PLAYER_HEIGHT = 40;
     public static final int dynamicItemsCount = 22;
-    public static final int posScoreX = 600;
-    public static final int posScoreY = 600;
+    public static final int posScoreX = 700;
+    public static final int posScoreY = 700;
     public static final int SCORE_WIDTH = 200;
+    public static final float loading_bar_ratio = 0.3f;
 }

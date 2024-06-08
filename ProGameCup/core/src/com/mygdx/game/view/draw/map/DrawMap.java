@@ -16,28 +16,29 @@ public class DrawMap {
     private final Texture rightHorizontal;
     private final Texture leftHorizontal;
     private final Texture overlapsLeft;
+    public Vector2 sizeItem;
     public DrawMap() {
         map = new Texture("maps/map.png");
         verticalColumn = new Texture("maps/verticalColumn.png");
         rightHorizontal = new Texture("maps/rightHorizontal.png");
         leftHorizontal = new Texture("maps/leftHorizontal.png");
         overlapsLeft = new Texture("maps/overlapsLeft.png");
+        sizeItem = new Vector2();
     }
     public void drawMap(SpriteBatch batch){
         MakeSize makeSize = new MakeSize();
-        Vector2 sizeMap = makeSize.getSize(map, (int) MapConstant.MAP_SIZE);
-        MapConstant.MAP_WIDTH = sizeMap.x;
-        MapConstant.MAP_HEIGHT = sizeMap.y;
+        makeSize.getSize(map, MapConstant.MAP_SIZE, sizeItem);
+        MapConstant.MAP_WIDTH = sizeItem.x;
+        MapConstant.MAP_HEIGHT = sizeItem.y;
         batch.draw(map, MapConstant.POS_MAP_X, MapConstant.POS_MAP_Y,
-                sizeMap.x, sizeMap.y);
+                sizeItem.x, sizeItem.y);
     }
 
-    private void drawOverlapsMap(SpriteBatch batch, Texture texture, int posX, int posY, int sizeMap){
+    public void drawOverlapsMap(SpriteBatch batch, Texture texture, int posX, int posY, int sizeMap){
         MakeSize makeSize = new MakeSize();
-        Vector2 size = makeSize.getSize(texture, sizeMap);
-        batch.draw(texture, posX, posY, size.x, size.y);
+        makeSize.getSize(texture, sizeMap, sizeItem);
+        batch.draw(texture, posX, posY, sizeItem.x, sizeItem.y);
     }
-
     public void drawBars(SpriteBatch batch, Player player){
         drawOverlapsMap(batch, verticalColumn, 207, 209, 263);
         drawOverlapsMap(batch, leftHorizontal, 29, 185, 179);

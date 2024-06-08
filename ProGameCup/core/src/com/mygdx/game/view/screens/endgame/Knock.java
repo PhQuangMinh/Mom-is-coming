@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.view.effect.MakeSound;
 
 public class Knock extends Sprite {
 
     public static boolean isNextMapEndGame = false;
+    private boolean soundPlay = false;
     private Animation<TextureRegion>[] knocking;
 
     private TextureRegion[] knock;
@@ -30,7 +32,10 @@ public class Knock extends Sprite {
 
     public void draw(SpriteBatch batch, float delta){
         stateTime += delta;
-
+        if(!isNextMapEndGame && !soundPlay){
+            MakeSound.makeSound("sounds/soKnock2.ogg", 0.8f);
+            soundPlay = true;
+        }
         for (int i = 0 ; i < 3; i++) {
             TextureRegion currentFrame = knocking[i].getKeyFrame(stateTime);
             batch.draw(currentFrame, 100, GameConstant.WINDOW_WIDTH / 2 + 30 * (i + 1), KNOCK_WIDTH * 3, KNOCK_HEIGHT * 3);

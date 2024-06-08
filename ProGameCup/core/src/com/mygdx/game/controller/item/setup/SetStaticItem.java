@@ -16,13 +16,15 @@ public class SetStaticItem {
     private Vector2 getPosition(String nameImage, float width, float height){
         overlap = 0;
         float x = MapConstant.POS_MAP_RIGHT_X, y = MapConstant.POS_MAP_Y;
-        float MAP_SIZE = MapConstant.MAP_HEIGHT;
+        float MAP_SIZE = 576;
         float itemSize = ItemConstant.STATIC_SIZE;
         float TILE_SIZE = MapConstant.TILE_SIZE;
         float patioTop = 2/3f;
         float patioLow = 1/4f*height;
         float patioMedium = 1/3f*height;
         float patioHigh = 1/2f*height;
+        System.out.println(x + " " + y + " " + MAP_SIZE + " " + TILE_SIZE + " " + itemSize);
+        System.out.println();
         switch (nameImage){
             case "bed":
                 overlap = patioMedium;
@@ -79,9 +81,14 @@ public class SetStaticItem {
                 x += MAP_SIZE/2 - width/2;
                 y += TILE_SIZE;
                 break;
-            case "trash":
+            case "trash1":
                 overlap = patioMedium;
                 x += TILE_SIZE + 5;
+                y += TILE_SIZE + 5;
+                break;
+            case "trash2":
+                overlap = patioMedium;
+                x -= TILE_SIZE + 100;
                 y += TILE_SIZE + 5;
                 break;
             case "washing-machine":
@@ -135,7 +142,8 @@ public class SetStaticItem {
         items.add(getItem("table1", false, 0));
         items.add(getItem("table2", false, 0));
         items.add(getItem("tivi", false, 0));
-        items.add(getItem("trash", true, 6));
+        items.add(getItem("trash1", true, 6));
+        items.add(getItem("trash2", true, 6));
         items.add(getItem("washing-machine", true, 3));
     }
 }

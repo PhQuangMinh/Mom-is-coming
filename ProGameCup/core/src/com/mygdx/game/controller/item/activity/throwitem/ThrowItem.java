@@ -33,7 +33,7 @@ public class ThrowItem {
         System.out.println(player.getContainer());
         if (player.getContainer() != null) {
             if(player.getContainer().getName().equals("dish-washing")){
-                if(dynamicItem.getName().equals("dish")){
+                if(dynamicItem.getName().equals("dish1") || dynamicItem.getName().equals("dish2")){
                     if(player.getStatus() != CharacterStatus.CLEANING_DISH){
                         player.setStatus(CharacterStatus.CLEANING_DISH);
                         dynamicItem.setVisible(false);
@@ -48,7 +48,7 @@ public class ThrowItem {
             else if(player.getContainer().getItems().size() < player.getContainer().getNumber()){
                 ThrowInStatic throwInStatic = new ThrowInStatic();
                 throwInStatic.throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
-                MakeSound.makeSound("sounds/soItemStore.ogg");
+                MakeSound.makeSound("sounds/soItemStore.ogg", 0.8f);
             }
             else{
                 player.setValidThrow(false);
@@ -57,7 +57,7 @@ public class ThrowItem {
         } else {
             ThrowFloor throwFloor = new ThrowFloor();
             throwFloor.throwFloor(dynamicItem, player, staticItems);
-            if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg");
+            if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg", 0.8f);
         }
     }
 }

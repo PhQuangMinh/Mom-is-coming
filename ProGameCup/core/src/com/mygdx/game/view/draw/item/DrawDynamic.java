@@ -9,30 +9,36 @@ import com.mygdx.game.view.draw.text.DrawText;
 import java.util.ArrayList;
 
 public class DrawDynamic {
-    private void drawNoteDynamic(DynamicItem item, SpriteBatch batch, DrawText drawText) {
-        DrawStatic drawStatic = new DrawStatic();
-        drawStatic.drawNoteName(item, batch, drawText);
-    }
-    private void drawDynamicItem(DynamicItem item, SpriteBatch batch, Player player, DrawText drawText){
+    private void drawDynamicItemInGame(DynamicItem item, SpriteBatch batch, Player player, DrawText drawText){
         if (!item.isVisible()) return;
         Texture image;
         if (player.getItemHolding()!=null){
             image = item.getImage();
-            drawText.drawStaticText(batch, player.getItemHolding().getName(), 10, 720, 0.5f);
+            drawText.drawStaticText(batch, player.getItemHolding().getName(), 180, 870, 0.5f);
         }
         else
         if (item.getDiscover() && item.getChosenImage()!=null){
             image = item.getChosenImage();
-            drawNoteDynamic(item, batch, drawText);
+            drawText.drawNoteName(item, batch, drawText);
         }
         else image = item.getImage();
         batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
 
-
-    public void drawDynamic(ArrayList<DynamicItem> items, SpriteBatch batch, Player player, DrawText drawText){
+    private void drawDynamicItemEndGame(DynamicItem item, SpriteBatch batch){
+        Texture image;
+        image = item.getImage();
+        batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
+    }
+    public void drawDynamicEndGame(ArrayList<DynamicItem> items, SpriteBatch batch){
         for (DynamicItem item : items) {
-            drawDynamicItem(item, batch, player, drawText);
+            drawDynamicItemEndGame(item, batch);
+        }
+    }
+
+    public void drawDynamicInGame(ArrayList<DynamicItem> items, SpriteBatch batch, Player player, DrawText drawText){
+        for (DynamicItem item : items) {
+            drawDynamicItemInGame(item, batch, player, drawText);
         }
     }
 }

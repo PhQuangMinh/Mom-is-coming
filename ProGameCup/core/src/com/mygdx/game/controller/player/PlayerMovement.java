@@ -1,9 +1,11 @@
 package com.mygdx.game.controller.player;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.collision.Collision;
 import com.mygdx.game.common.constant.CharacterStatus;
 import com.mygdx.game.common.constant.Direction;
@@ -25,6 +27,11 @@ public class PlayerMovement {
     public static int actionCount;
     private static boolean isAnimationFinished = true;
     private static int cleanTime = 12;
+    private static final Texture loading_bar_background = new Texture("otherImage/loading_bar_background.png");
+    private static final Texture loading_bar_progress = new Texture("otherImage/loading_bar_progress.png");
+    private static final TextureRegion loading_bar_start = new TextureRegion(loading_bar_progress, 0, 0, 15, 32);
+    private static final TextureRegion loading_bar_body = new TextureRegion(loading_bar_progress, 15, 0, 226, 32);
+    private static final TextureRegion loading_bar_end = new TextureRegion(loading_bar_progress, 241, 0, 15, 32);
 
     private static void controlHandle(Player player, ArrayList<StaticItem> staticItems, ArrayList<DynamicItem> dynamicItems){
         boolean isLeftKeyPressed = Gdx.input.isKeyPressed(Keys.LEFT);
@@ -36,7 +43,7 @@ public class PlayerMovement {
             if(Gdx.input.isKeyJustPressed(Keys.X) && isAnimationFinished){
                 actionCount++;
 
-                MakeSound.makeSound("sounds/soSqueak" + (actionCount % 5 + 1) + ".ogg");
+                MakeSound.makeSound("sounds/soSqueak" + (actionCount % 5 + 1) + ".ogg", 1f);
                 if(actionCount == cleanTime){
                     if(status == CharacterStatus.MOPPING_FLOOR){
                         player.setStatusHold(1);
@@ -164,6 +171,31 @@ public class PlayerMovement {
 
         String animationName = "";
 
+        if(status == CharacterStatus.MOPPING_FLOOR || status == CharacterStatus.CLEANING_DISH){
+            float x, y;
+            if(status == CharacterStatus.MOPPING_FLOOR){
+                x = player.getItemInRange().getX() + (player.getItemInRange().getWidth() - loading_bar_background.getWidth() * GameConstant.loading_bar_ratio)/2;
+                y = player.getItemInRange().getY() + 70;
+            }
+            else{
+                x = player.getContainer().getX() + (player.getContainer().getWidth() - loading_bar_background.getWidth() * GameConstant.loading_bar_ratio)/2;
+                y = player.getContainer().getY() + 70;
+            }
+            batch.draw(loading_bar_background, x, y,
+                    loading_bar_background.getWidth() * GameConstant.loading_bar_ratio, loading_bar_background.getHeight() * GameConstant.loading_bar_ratio);
+
+            batch.draw(loading_bar_start, x, y,
+                    loading_bar_start.getRegionWidth() * GameConstant.loading_bar_ratio, loading_bar_start.getRegionHeight() * GameConstant.loading_bar_ratio);
+
+            x += loading_bar_start.getRegionWidth() * GameConstant.loading_bar_ratio;
+            batch.draw(loading_bar_body, x, y,
+                    loading_bar_body.getRegionWidth() * GameConstant.loading_bar_ratio * actionCount / 12, loading_bar_start.getRegionHeight() * GameConstant.loading_bar_ratio);
+
+            x += loading_bar_body.getRegionWidth() * GameConstant.loading_bar_ratio * actionCount / 12;
+            batch.draw(loading_bar_end, x, y,
+                    loading_bar_end.getRegionWidth() * GameConstant.loading_bar_ratio, loading_bar_end.getRegionHeight() * GameConstant.loading_bar_ratio);
+        }
+
         if(status != CharacterStatus.CLEANING_DISH && status != CharacterStatus.MOPPING_FLOOR && isHoldingItem){
             animationName = "HOLDING_";
         }
@@ -202,7 +234,7 @@ public class PlayerMovement {
                 if(soundRepeatTime > 0.3f) {
                     soundIndex = soundIndex % 5;
                     soundIndex++;
-                    MakeSound.makeSound("sounds/soStep" + soundIndex + ".ogg");
+                    MakeSound.makeSound("sounds/soStep" + soundIndex + ".ogg", 0.6f);
                 }
             }
         }

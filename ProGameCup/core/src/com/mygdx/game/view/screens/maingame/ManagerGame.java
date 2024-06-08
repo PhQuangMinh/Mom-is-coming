@@ -15,6 +15,9 @@ import com.mygdx.game.view.draw.map.DrawMap;
 import com.mygdx.game.view.screens.Impression;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.Holding;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
+import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,6 @@ public class ManagerGame {
     Impression impression;
     ButtonGame buttonGame;
     SpaceGame game;
-    DrawText drawText;
     Holding holding;
     Draw draw;
     DrawMap drawMap;
@@ -30,16 +32,15 @@ public class ManagerGame {
            impression = new Impression();
            buttonGame = new ButtonGame(spaceGame);
            this.game = spaceGame;
-           drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
            holding = new Holding();
            draw = new Draw();
            drawMap = new DrawMap();
     }
-    public void update(Player player, ArrayList<DynamicItem> dynamicItems
-            , ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime, float delta) {
+    public void update(Player player, ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems
+            , SpriteBatch batch, float stateTime, float delta, MainMenuScreen mainMenuScreen,MainStory mainStory, MainEndStory mainEndStory, DrawText drawText, int initTime) {
         updateItem(player, dynamicItems, staticItems);
         updatePlayer(player);
-        draw(batch, stateTime, delta, player, dynamicItems, staticItems);
+        draw(batch, stateTime, delta, player, dynamicItems, staticItems, mainMenuScreen, mainStory, mainEndStory, drawText, initTime);
     }
 
     public void updatePlayer(Player player){
@@ -59,12 +60,12 @@ public class ManagerGame {
     }
 
     public void draw(SpriteBatch batch, float stateTime, float delta, Player player, ArrayList<DynamicItem>dynamicItems,
-                     ArrayList<StaticItem> staticItems){
+                     ArrayList<StaticItem> staticItems, MainMenuScreen mainMenuScreen, MainStory mainStory, MainEndStory mainEndStory, DrawText drawText, int initTime){
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
-            buttonGame.draw(game, batch, stateTime, drawText, dynamicItems);
+            buttonGame.draw(game, batch, stateTime, drawText, dynamicItems, mainMenuScreen, mainStory, mainEndStory, initTime);
             holding.drawHold(batch, player);
-            draw.draw(dynamicItems, staticItems, player, batch, delta, drawText);
+            draw.drawInGame(dynamicItems, staticItems, player, batch, delta, drawText);
         }
         drawMap.drawBars(batch, player);
         impression.drawGame(batch, stateTime);

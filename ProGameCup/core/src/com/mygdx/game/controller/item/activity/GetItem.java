@@ -23,7 +23,7 @@ public class GetItem {
                     , player.getY() + 0.6f * player.getHeight());
             dynamic.remove(dynamicItem);
             dynamicItems.add(dynamicItem);
-            MakeSound.makeSound("sounds/soItemPickup.ogg");
+            MakeSound.makeSound("sounds/soItemPickup.ogg", 0.8f);
         }
 
     }

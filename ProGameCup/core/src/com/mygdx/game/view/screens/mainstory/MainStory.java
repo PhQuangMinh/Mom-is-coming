@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.view.screens.Impression;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class MainStory implements Screen {
     private final SpaceGame game;
@@ -15,14 +17,21 @@ public class MainStory implements Screen {
     private float stateTime = 0;
     Message message;
 
-    public MainStory(SpaceGame game) {
+    MainGameScreen mainGameScreen;
+
+    MainMenuScreen mainMenuScreen;
+    int initTime;
+
+    public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen) {
+        this.mainMenuScreen = mainMenuScreen;
         this.game = game;
         batch = game.getBatch();
     }
     @Override
     public void show() {
+        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this, 180);
         impression = new Impression("story/impression1.png");
-        message = new Message("story/press.png");
+        message = new Message("story/press.png", mainGameScreen);
     }
 
     @Override
