@@ -33,7 +33,7 @@ public class ThrowItem {
         System.out.println(player.getContainer());
         if (player.getContainer() != null) {
             if(player.getContainer().getName().equals("dish-washing")){
-                if(dynamicItem.getName().equals("dish")){
+                if(dynamicItem.getName().equals("dish1") || dynamicItem.getName().equals("dish2")){
                     if(player.getStatus() != CharacterStatus.CLEANING_DISH){
                         player.setStatus(CharacterStatus.CLEANING_DISH);
                         dynamicItem.setVisible(false);

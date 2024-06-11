@@ -27,18 +27,16 @@ public class ResultScreen implements Screen {
     DrawText drawText;
 
     MainStory mainStory;
+    MainEndStory mainEndStory;
+    MainMenuScreen mainMenuScreen;
 
-    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory){
+    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory, MainEndStory mainEndStory){
         this.mainStory = mainStory;
         this.game = game;
         this.batch = game.getBatch();
         this.dynamicItems = dynamicItems;
         result = new Result();
-        drawText = new DrawText("fonts/char.fnt", Color.BLACK);
-    }
-
-    @Override
-    public void show() {
+        drawText = new DrawText("fonts/char.fnt", Color.BLACK, mainEndStory);
         endGame = new Texture("endgame/endgame.png");
         A = new Texture("endgame/score/A.png");
         B = new Texture("endgame/score/B.png");
@@ -48,10 +46,14 @@ public class ResultScreen implements Screen {
     }
 
     @Override
+    public void show() {
+    }
+
+    @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(new MainMenuScreen(game));
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(mainStory);
         batch.begin();
         batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100, GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);

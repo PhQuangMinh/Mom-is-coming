@@ -30,19 +30,18 @@ public class NewButton {
     public NewButton(SpaceGame game) {
         this.game = game;
         this.batch = game.getBatch();
-        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         close = new Texture("button/game/close.png");
         closePress = new Texture("button/game/closePress.png");
         howToPlay = new Texture("otherImage/HowtoPlay.png");
     }
     public void drawButton( Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
-            , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory){
+            , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()>=y && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()<=y+ BUTTON_HEIGHT){
             batch.draw(buttonPress, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
             if (Gdx.input.isTouched()){
                 if (choice==1){
-                    game.setScreen(new MainStory(game, mainMenuScreen));
+                    game.setScreen(mainStory);
                 }
                 else if(choice == 2){
                      isHowToPlayOpen = true;
@@ -56,7 +55,7 @@ public class NewButton {
                 else if(choice == 5){
                     game.setScreen(mainMenuScreen);
                 }
-                else{
+                else if(choice == 6){
                     openLink("https://github.com/Hecker-Chuoi/BTCK2");
                 }
             }

@@ -15,6 +15,7 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.draw.map.DrawMap;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.effect.MakeSound;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.screens.endgame.ResultScreen;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
@@ -40,20 +41,21 @@ public class Mom extends Sprite {
     DrawMap drawMap;
     MakeSize makeSize;
     MainStory mainStory;
-     public Mom(Texture texture, ArrayList<DynamicItem> dynamicItems, MainStory mainStory){
+    ResultScreen resultScreen;
+    Vector2 sizeItem;
+     public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory, ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
          this.dynamicItems = dynamicItems;
          this.mainStory = mainStory;
-         drawText = new DrawText("fonts/char.fnt", Color.BLACK);
+         this.resultScreen = resultScreen;
+         this.drawText = drawText;
          verticalColumn = new Texture("maps/verticalColumn.png");
          setAnimation(texture);
         stateTime = 0f;
         currentX = 130;
-        drawMap = new DrawMap();
+        this.drawMap = drawMap;
         makeSize = new MakeSize();
 
-         Vector2 sizeItem = new Vector2();
-         makeSize.getSize(verticalColumn, 263, sizeItem);
-         columnWidth = sizeItem.x;
+        sizeItem = new Vector2();
      }
     public void setAnimation(Texture texture){
         mom_walking = new Animation[10];
@@ -67,7 +69,9 @@ public class Mom extends Sprite {
         return false;
     }
 
-    public void draw(Texture chat, SpaceGame game, SpriteBatch batch, float delta){
+    public void draw(Texture chat, SpaceGame game, SpriteBatch batch, float delta, MainStory mainStory){
+        makeSize.getSize(verticalColumn, 263, sizeItem);
+        columnWidth = sizeItem.x;
         stateTime += delta;
         for (int i = 0 ; i < 1; i++) {
             currentX += stepSize * delta;
@@ -111,6 +115,6 @@ public class Mom extends Sprite {
             noteState++;
             noteTime = 0;
         }
-        if(noteState >= 3) game.setScreen(new ResultScreen(game, dynamicItems, mainStory));
+        if(noteState >= 3) game.setScreen(resultScreen);
     }
 }

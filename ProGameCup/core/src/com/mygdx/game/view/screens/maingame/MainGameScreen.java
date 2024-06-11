@@ -16,6 +16,7 @@ import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.MakeAlert;
 import com.mygdx.game.view.draw.ui.NewButton;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.screens.endgame.MapEndGame;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
@@ -37,11 +38,14 @@ public class MainGameScreen implements Screen {
     MainStory mainStory;
 
     MainEndStory mainEndStory;
+    MapEndGame mapEndGame;
+    int initTime;
 
-    public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, MainStory mainStory){
+    public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, MainStory mainStory, int initTime){
         this.mainMenuScreen = mainMenuScreen;
         this.mainStory = mainStory;
         this.game = game;
+        this.initTime = initTime;
         batch = game.getBatch();
         String[] animationNames = new String[]{"WALKING_UP", "WALKING_DOWN", "WALKING_LEFT", "WALKING_RIGHT",
                 "HOLDING_WALKING_UP", "HOLDING_WALKING_DOWN", "HOLDING_WALKING_LEFT", "HOLDING_WALKING_RIGHT",
@@ -55,23 +59,19 @@ public class MainGameScreen implements Screen {
                 500, 380,
                 GameConstant.PLAYER_WIDTH, GameConstant.PLAYER_HEIGHT, 120);
 
-        staticItems = new ArrayList<>();
-        dynamicItems = new ArrayList<>();;
         makeAlert = new MakeAlert();
         setItem = new SetItem();
-        managerGame = new ManagerGame(game);
-        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
+        managerGame = new ManagerGame(game);
     }
     @Override
     public void show() {
-        dynamicItems.clear();
+        staticItems = new ArrayList<>();
+        dynamicItems = new ArrayList<>();
         setItem.set(dynamicItems, staticItems);
         player.setValidThrow(true);
-        for(StaticItem item : staticItems){
-            System.out.println(item.getName() + "  " + item.getX() + " " + item.getY());
-        }
-        System.out.println(dynamicItems.size());
+        drawText = new DrawText("fonts/char.fnt", Color.ORANGE, mainEndStory);
+        mapEndGame = new MapEndGame(game, dynamicItems, mainStory, staticItems, mainEndStory);
         mainEndStory = new MainEndStory(game, dynamicItems, mainStory, staticItems);
     }
 
@@ -83,7 +83,7 @@ public class MainGameScreen implements Screen {
 
         batch.begin();
         batch.setColor(1 ,1, 1, 1);
-        managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta, mainMenuScreen, mainStory);
+        managerGame.update(player, dynamicItems, staticItems, batch, stateTime, delta, mainMenuScreen, mainStory, mainEndStory, drawText, initTime);
         if(!newButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
@@ -92,7 +92,6 @@ public class MainGameScreen implements Screen {
         if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
-
         batch.end();
     }
 
