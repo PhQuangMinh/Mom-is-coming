@@ -20,11 +20,10 @@ public class MainStory implements Screen {
     MainGameScreen mainGameScreen;
 
     MainMenuScreen mainMenuScreen;
-    int initTime;
-
     public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen) {
         this.mainMenuScreen = mainMenuScreen;
         this.game = game;
+
         batch = game.getBatch();
     }
     @Override

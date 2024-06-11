@@ -37,7 +37,6 @@ public class ResultScreen implements Screen {
         this.dynamicItems = dynamicItems;
         result = new Result();
         drawText = new DrawText("fonts/char.fnt", Color.BLACK, mainEndStory);
-
         endGame = new Texture("endgame/endgame.png");
         A = new Texture("endgame/score/A.png");
         B = new Texture("endgame/score/B.png");

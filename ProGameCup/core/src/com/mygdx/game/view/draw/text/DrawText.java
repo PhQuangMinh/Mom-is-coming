@@ -27,7 +27,6 @@ public class DrawText {
     float noteY;
 
     Vector2 sizeItem;
-
     public DrawText(String path, Color color, MainEndStory mainEndStory){
         sizeItem = new Vector2();
         setCharFont(path, color);
@@ -38,8 +37,13 @@ public class DrawText {
     }
 
     public DrawText(String path, Color color){
+        sizeItem = new Vector2();
         setCharFont(path, color);
+        note = new Texture("alert/note.png");
+        noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 40;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 50;
     }
+
     public void setCharFont(String path, Color color){
         charFont = new BitmapFont(Gdx.files.internal(path));
         charFont.setColor(color);

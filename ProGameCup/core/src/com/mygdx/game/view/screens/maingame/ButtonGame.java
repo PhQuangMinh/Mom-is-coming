@@ -46,7 +46,6 @@ public class ButtonGame {
         drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
 
     }
-
     public void drawMenuBar(MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
         if(NewButton.isMenuBarOpen) {
             newButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.WINDOW_WIDTH - 70, 840, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);

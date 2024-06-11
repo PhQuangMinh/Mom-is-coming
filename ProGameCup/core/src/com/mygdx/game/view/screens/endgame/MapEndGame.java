@@ -13,7 +13,6 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.draw.item.Draw;
 import com.mygdx.game.view.draw.map.DrawMap;
-
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.screens.endgame.DrawMom.Mom;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
@@ -46,7 +45,6 @@ public class MapEndGame implements Screen {
         this.staticItems = staticItems;
         this.mainEndStory = mainEndStory;
         batch = game.getBatch();
-
         player = new Texture("animations/main-char/idle-endgame.png");
         mom = new Texture("animations/mom/mom-walking.png");
         chat = new Texture("alert/note.png");
