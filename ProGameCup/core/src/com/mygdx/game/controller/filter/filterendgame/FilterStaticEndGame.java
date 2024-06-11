@@ -1,28 +1,20 @@
 package com.mygdx.game.controller.filter.filterendgame;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.controller.filter.FilterStatic;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
-public class FilterStaticEndGame {
+public class FilterStaticEndGame extends FilterStatic {
 
     public boolean dynamicInStatic(StaticItem staticItem, DynamicItem dynamicItem){
-        Rectangle rectStatic = staticItem.getBoundingRectangle();
-        Rectangle rectDynamic = dynamicItem.getBoundingRectangle();
-        return rectStatic.contains(rectDynamic);
+        return super.dynamicInStatic(staticItem, dynamicItem);
     }
-    private void updateDynamic(ArrayList<DynamicItem> dynamicTable, ArrayList<DynamicItem> dynamicTop,
+    public void updateDynamic(ArrayList<DynamicItem> dynamicTable, ArrayList<DynamicItem> dynamicTop,
                                StaticItem staticItem){
-        ArrayList<DynamicItem> listDynamic = new ArrayList<>();
-        for (DynamicItem dynamicItem : dynamicTable){
-            if (dynamicInStatic(staticItem, dynamicItem)){
-                listDynamic.add(dynamicItem);
-            }
-        }
-        dynamicTable.removeAll(listDynamic);
-        dynamicTop.addAll(listDynamic);
+        super.updateDynamic(dynamicTable, dynamicTop, staticItem);
     }
     public void filter( ArrayList<StaticItem> staticItems,
                        ArrayList<StaticItem> staticTop,

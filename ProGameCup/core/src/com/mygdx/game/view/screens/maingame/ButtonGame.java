@@ -19,7 +19,7 @@ public class ButtonGame {
     Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff
             , buttonSpace, menuBar, menuBarPress;
 
-    ButtonGame(SpaceGame game){
+    public ButtonGame(SpaceGame game){
         newButton = new NewButton(game);
         init();
     }

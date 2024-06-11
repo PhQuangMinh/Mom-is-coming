@@ -1,4 +1,4 @@
-main-char/walking-down.png
+main-char2/walking-down.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -46,7 +46,7 @@ WALKING_DOWN
   index: -1
 
 
-main-char/walking-up.png
+main-char2/walking-up.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -94,7 +94,7 @@ WALKING_UP
   index: -1
 
 
-main-char/walking-left.png
+main-char2/walking-left.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -142,7 +142,7 @@ WALKING_LEFT
   index: -1
 
 
-main-char/walking-right.png
+main-char2/walking-right.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -190,7 +190,7 @@ WALKING_RIGHT
   index: -1
 
 
-main-char/idle.png
+main-char2/idle.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -224,7 +224,7 @@ IDLE_RIGHT
   index: -1
 
 
-main-char/holding-walking-down.png
+main-char2/holding-walking-down.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -272,7 +272,7 @@ HOLDING_WALKING_DOWN
   index: -1
 
 
-main-char/holding-walking-up.png
+main-char2/holding-walking-up.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -320,7 +320,7 @@ HOLDING_WALKING_UP
   index: -1
 
 
-main-char/holding-walking-left.png
+main-char2/holding-walking-left.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -368,7 +368,7 @@ HOLDING_WALKING_LEFT
   index: -1
 
 
-main-char/holding-walking-right.png
+main-char2/holding-walking-right.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -416,7 +416,7 @@ HOLDING_WALKING_RIGHT
   index: -1
 
 
-main-char/holding-idle.png
+main-char2/holding-idle.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -450,7 +450,7 @@ HOLDING_IDLE_UP
   index: -1
 
 
-main-char/mopping-floor-down.png
+main-char2/mopping-floor-down.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -498,7 +498,7 @@ MOPPING_FLOOR_DOWN
   index: -1
 
 
-main-char/mopping-floor-up.png
+main-char2/mopping-floor-up.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -546,7 +546,7 @@ MOPPING_FLOOR_UP
   index: -1
 
 
-main-char/mopping-floor-left.png
+main-char2/mopping-floor-left.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -594,7 +594,7 @@ MOPPING_FLOOR_LEFT
   index: -1
 
 
-main-char/mopping-floor-right.png
+main-char2/mopping-floor-right.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -642,7 +642,7 @@ MOPPING_FLOOR_RIGHT
   index: -1
 
 
-main-char/washing-dish.png
+main-char2/washing-dish.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none

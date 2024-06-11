@@ -1,34 +1,16 @@
 package com.mygdx.game.controller.discover;
 
-import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.Direction;
-import com.mygdx.game.model.item.Item;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
 public class DiscoverStatic {
-    public void discoverStatic(ArrayList<StaticItem> items, Player player) {
-        resetStatic(items);
-        for (StaticItem item : items) {
-            if (checkDiscover(item, player)){
-                item.setDiscover(true);
-                player.setContainer(item);
-                return;
-            }
-        }
-        player.setContainer(null);
-    }
-
-    public void resetStatic(ArrayList<StaticItem> items) {
-        for (Item item : items) {
-            item.setDiscover(false);
-        }
-    }
-
     private boolean checkTop(Item item, Player player) {
-        return player.getDirection() == Direction.DOWN
+        return player.getMovement().getDirection() == Direction.DOWN
                 && player.getY() <= item.getY() + item.getHeight()-5
                 && player.getY() >= item.getY()
                 && player.getX() + 0.8f*player.getWidth()>= item.getX()
@@ -36,7 +18,7 @@ public class DiscoverStatic {
     }
 
     private boolean checkBottom(Item item, Player player) {
-        return player.getDirection() == Direction.UP
+        return player.getMovement().getDirection() == Direction.UP
                 && player.getX() + 0.8f*player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getY() <= item.getY() + item.getHeight() - item.getOverlap()
@@ -44,7 +26,7 @@ public class DiscoverStatic {
     }
 
     private boolean checkLeft(Item item, Player player) {
-        return player.getDirection() == Direction.RIGHT
+        return player.getMovement().getDirection() == Direction.RIGHT
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getX() + player.getWidth() >= item.getX()
                 && player.getY() + GameConstant.PLAYER_HEIGHT*0.2f >= item.getY()
@@ -52,7 +34,7 @@ public class DiscoverStatic {
     }
 
     private boolean checkRight(Item item, Player player) {
-        return player.getDirection() == Direction.LEFT
+        return player.getMovement().getDirection() == Direction.LEFT
                 && player.getX() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth() + 5
                 && player.getY() + GameConstant.PLAYER_HEIGHT*0.2f >= item.getY()
@@ -64,5 +46,11 @@ public class DiscoverStatic {
                 || checkBottom(item, player)
                 || checkLeft(item, player)
                 || checkRight(item, player);
+    }
+
+    public void resetStatic(ArrayList<StaticItem> items) {
+        for (Item item : items) {
+            item.setDiscover(false);
+        }
     }
 }

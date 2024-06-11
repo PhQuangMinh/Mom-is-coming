@@ -1,10 +1,7 @@
 package com.mygdx.game.controller.item.activity.throwitem;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.CharacterStatus;
-import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
@@ -13,51 +10,55 @@ import com.mygdx.game.view.effect.MakeSound;
 import java.util.ArrayList;
 
 public class ThrowItem {
-    public void updatePosition(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player){
+    ThrowInStatic throwInStatic;
+    ThrowFloor throwFloor;
+
+    public ThrowItem(){
+        throwInStatic = new ThrowInStatic();
+        throwFloor = new ThrowFloor();
+    }
+    public void throwDynamicItem(Player player, ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems){
         if (player.getItemHolding()==null || player.getStatusHold() == 4) return;
         for (DynamicItem item : dynamicItems) {
             if (item.getName().equals(player.getItemHolding().getName())) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.X) && player.getStatusHold()==2){
-                    throwItem(item, dynamicItems, staticItems, player);
-                }
-                else{
-                    item.setPosition(player.getX() + (player.getWidth() - item.getWidth()) / 2
-                            , player.getY() + 1.5f * player.getHeight());
-                }
+                throwItem(item, dynamicItems, staticItems, player);
                 return;
             }
         }
     }
     public void throwItem(DynamicItem dynamicItem, ArrayList<DynamicItem> dynamicItems
             , ArrayList<StaticItem> staticItems, Player player) {
-        System.out.println(player.getContainer());
+        System.out.println("Throw");
         if (player.getContainer() != null) {
             if(player.getContainer().getName().equals("dish-washing")){
-                if(dynamicItem.getName().equals("dish")){
-                    if(player.getStatus() != CharacterStatus.CLEANING_DISH){
-                        player.setStatus(CharacterStatus.CLEANING_DISH);
-                        dynamicItem.setVisible(false);
-                        PlayerMovement.actionCount = 0;
-                    }
+                throwDishWashing(player, dynamicItem);
+            }
+            else
+                if(player.getContainer().getItems().size() < player.getContainer().getNumber()){
+                    throwInStatic.throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
+                    MakeSound.makeSound("sounds/soItemStore.ogg", 0.8f);
                 }
                 else{
                     player.setValidThrow(false);
                     player.setPositionThrew(new Vector2(player.getX(), player.getY()));
                 }
-            }
-            else if(player.getContainer().getItems().size() < player.getContainer().getNumber()){
-                ThrowInStatic throwInStatic = new ThrowInStatic();
-                throwInStatic.throwStaticItem(dynamicItem, staticItems, dynamicItems, player);
-                MakeSound.makeSound("sounds/soItemStore.ogg", 0.8f);
-            }
-            else{
-                player.setValidThrow(false);
-                player.setPositionThrew(new Vector2(player.getX(), player.getY()));
-            }
-        } else {
-            ThrowFloor throwFloor = new ThrowFloor();
+        }
+        else {
             throwFloor.throwFloor(dynamicItem, player, staticItems);
             if(player.isValidThrow()) MakeSound.makeSound("sounds/soItemDrop.ogg", 0.8f);
+        }
+    }
+    public void throwDishWashing(Player player, DynamicItem dynamicItem){
+        if(dynamicItem.getName().equals("dish")){
+            if(player.getMovement().getStatus() != CharacterStatus.CLEANING_DISH){
+                player.getMovement().setStatus(CharacterStatus.CLEANING_DISH);
+                dynamicItem.setVisible(false);
+                player.getMovement().setActionCount(0);
+            }
+        }
+        else{
+            player.setValidThrow(false);
+            player.setPositionThrew(new Vector2(player.getX(), player.getY()));
         }
     }
 }

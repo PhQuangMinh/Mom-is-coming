@@ -9,11 +9,10 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.draw.item.Draw;
+import com.mygdx.game.view.draw.screengame.DrawEndGame;
 import com.mygdx.game.view.draw.map.DrawMap;
 
 import com.mygdx.game.view.screens.endgame.DrawMom.Mom;
-import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class MapEndGame implements Screen {
     SpaceGame game;
     SpriteBatch batch;
     Mom mother;
-    Draw draw;
+    DrawEndGame drawEndGame;
     Texture player, mom, chat;
     MainStory mainStory;
 
@@ -44,7 +43,7 @@ public class MapEndGame implements Screen {
         mom = new Texture("animations/mom/mom-walking.png");
         chat = new Texture("alert/note.png");
         drawMap = new DrawMap();
-        draw = new Draw();
+        drawEndGame = new DrawEndGame(game);
         mother = new Mom(mom, dynamicItems, mainStory);
     }
 
@@ -55,7 +54,7 @@ public class MapEndGame implements Screen {
 
         batch.begin();
         drawMap.drawMap(batch);
-        draw.drawEndGame(dynamicItems, staticItems, batch);
+        drawEndGame.drawEndGame(dynamicItems, staticItems, batch);
         batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 230,
                 32, 58);
         mother.draw(chat,game, batch, delta);

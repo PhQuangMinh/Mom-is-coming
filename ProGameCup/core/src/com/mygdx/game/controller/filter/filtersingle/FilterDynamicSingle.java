@@ -1,23 +1,17 @@
-package com.mygdx.game.controller.filter.filteringame;
+package com.mygdx.game.controller.filter.filtersingle;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.controller.filter.FilterDynamic;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.util.ArrayList;
 
-public class FilterDynamicInGame {
+public class FilterDynamicSingle extends FilterDynamic {
     public int checkDynamic(DynamicItem dynamicItem, Player player, ArrayList<StaticItem> staticItems){
         if (player.getItemHolding()!=null && player.getItemHolding().equals(dynamicItem)) return 3;
-        for (StaticItem item : staticItems){
-            Rectangle rectStatic = item.getBoundingRectangle();
-            Rectangle rectDynamic = dynamicItem.getBoundingRectangle();
-            if (rectStatic.contains(rectDynamic)) {
-                return 2;
-            }
-        }
-        return 1;
+        return super.checkDynamic(dynamicItem, staticItems);
     }
     public void filter(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems, Player player,
                        ArrayList<DynamicItem> dynamicFloor,
