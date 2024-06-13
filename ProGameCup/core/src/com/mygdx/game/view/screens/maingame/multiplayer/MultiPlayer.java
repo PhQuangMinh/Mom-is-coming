@@ -6,7 +6,7 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.view.draw.screengame.DrawMulti;
-import com.mygdx.game.view.draw.ui.NewButton;
+import com.mygdx.game.view.draw.ui.DrawButton;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
@@ -28,13 +28,11 @@ public class MultiPlayer extends MainGameScreen {
     @Override
     public void show() {
         super.show();
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("animations/Main_char_animations1.atlas"));
-        firstPlayer = new Player(textureAtlas, animationNames, textureNames,
-                500, 380,
+        TextureAtlas textureAtlasFirst = new TextureAtlas(Gdx.files.internal("animations/Main_char_animations1.atlas"));
+        firstPlayer = new Player(textureAtlasFirst, animationNames, textureNames, 500, 380,
                 GameConstant.PLAYER_WIDTH, GameConstant.PLAYER_HEIGHT, 120);
-        textureAtlas = new TextureAtlas("animations/Main_char_animations2.atlas");
-        secondPlayer = new Player(textureAtlas, animationNames, textureNames,
-                500, 380,
+        TextureAtlas textureAtlasSecond = new TextureAtlas("animations/Main_char_animations2.atlas");
+        secondPlayer = new Player(textureAtlasSecond, animationNames, textureNames, 500, 380,
                 GameConstant.PLAYER_WIDTH, GameConstant.PLAYER_HEIGHT, 120);
         managerMulti = new ManagerMulti();
         drawMulti = new DrawMulti(game);
@@ -45,16 +43,17 @@ public class MultiPlayer extends MainGameScreen {
         super.render(delta);
         batch.begin();
         managerMulti.update(firstPlayer, secondPlayer, dynamicItems, staticItems);
-        handleInput.firstPlayer(firstPlayer, dynamicItems, staticItems);
-        handleInput.secondPlayer(secondPlayer, dynamicItems, staticItems);
-        drawMulti.draw(firstPlayer, secondPlayer, dynamicItems, staticItems, mainMenuScreen, mainStory,
+        handleInput.handleMove(firstPlayer, secondPlayer);
+        handleInput.handleActivity(firstPlayer, secondPlayer, dynamicItems, staticItems);
+        drawMulti.draw(firstPlayer, secondPlayer, dynamicItems, staticItems, mainMenuScreen, this,
                 batch, stateTime, delta);
-        if(!NewButton.isPause) {
+        if(!DrawButton.isPause) {
             stateTime += delta;
-            managerMovement.statusFirstPlayer(firstPlayer, dynamicItems, staticItems);
-            managerMovement.statusSecondPlayer(secondPlayer, dynamicItems, staticItems);
+            managerMovement.statusFirstPlayer(firstPlayer, dynamicItems, staticItems, batch);
+            managerMovement.statusSecondPlayer(secondPlayer, dynamicItems, staticItems, batch);
         }
         makeAlert.update(batch, stateTime, firstPlayer);
+        makeAlert.update(batch, stateTime, secondPlayer);
         batch.end();
     }
 

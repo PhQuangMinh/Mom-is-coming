@@ -12,6 +12,6 @@ public class ManagerItem {
     public void updatePosition(Player player){
         if (player.getItemHolding()==null || player.getStatusHold() == 4) return;
         player.getItemHolding().setPosition(player.getX() + (player.getWidth() - player.getItemHolding().getWidth()) / 2
-                , player.getY() + 1.5f * player.getHeight());
+                , player.getY() + player.getHeight());
     }
 }

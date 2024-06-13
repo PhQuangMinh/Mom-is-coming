@@ -91,6 +91,7 @@ public class DrawStatic {
     }
 
     public void drawStaticInGame(ArrayList<StaticItem> items, SpriteBatch batch, Player player, DrawText drawText){
+        if (items.isEmpty()) return;
         for (StaticItem item : items) {
             drawStaticItemInGame(item, batch, drawText, player);
         }

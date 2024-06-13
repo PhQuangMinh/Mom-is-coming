@@ -8,6 +8,8 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
+import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class Message {
@@ -16,10 +18,13 @@ public class Message {
     private final Texture[] messages;
     private float countDes = 1f;
 
-    MainGameScreen mainGameScreen;
+    SinglePlayer singlePlayer;
 
-    Message (String path, MainGameScreen mainGameScreen){
-        this.mainGameScreen = mainGameScreen;
+    MultiPlayer multiPlayer;
+
+    Message (String path, SinglePlayer singlePlayer, MultiPlayer multiPlayer) {
+        this.singlePlayer = singlePlayer;
+        this.multiPlayer = multiPlayer;
         press = new Texture(path);
         messages = new Texture[10];
         for (int i = 1; i <= 8; i++) {
@@ -53,15 +58,14 @@ public class Message {
         batch.begin();
         batch.draw(messages[countMessages], (GameConstant.WINDOW_WIDTH - messages[countMessages].getWidth()) / 2, 0);
         drawPress(batch, stateTime);
+        batch.end();
 
         if (countMessages==8){
             countDes -= delta;
             if (countDes<=0){
-                batch.end();
-                game.setScreen(mainGameScreen);
-                return;
+                if (GameConstant.FORMAT_PLAYER == 1) game.setScreen(singlePlayer);
+                else game.setScreen(multiPlayer);
             }
         }
-        batch.end();
     }
 }

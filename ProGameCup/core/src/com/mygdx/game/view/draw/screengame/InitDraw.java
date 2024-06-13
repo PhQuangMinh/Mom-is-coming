@@ -49,11 +49,11 @@ public class InitDraw {
         dynamicTable = new ArrayList<>();
         dynamicTop = new ArrayList<>();
         staticBottom = new ArrayList<>();
+        staticMiddle = new ArrayList<>();
         staticTop = new ArrayList<>();
         drawDynamic = new DrawDynamic();
         drawStatic = new DrawStatic();
         drawPlayer = new DrawPlayer();
-        staticMiddle = new ArrayList<>();
     }
 
     public boolean checkObscure(StaticItem item, Player player){

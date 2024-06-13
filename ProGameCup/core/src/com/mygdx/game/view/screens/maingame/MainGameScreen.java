@@ -12,9 +12,8 @@ import com.mygdx.game.controller.player.ManagerMovement;
 import com.mygdx.game.model.item.*;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.MakeAlert;
-import com.mygdx.game.view.draw.ui.NewButton;
+import com.mygdx.game.view.draw.ui.DrawButton;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
-import com.mygdx.game.view.screens.maingame.singleplayer.ManagerSingle;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
@@ -28,7 +27,7 @@ public class MainGameScreen implements Screen {
     protected ArrayList<StaticItem> staticItems;
     protected ArrayList<DynamicItem> dynamicItems;
     protected MakeAlert makeAlert;
-    protected NewButton newButton;
+    protected DrawButton drawButton;
     protected SetItem setItem;
     protected MainMenuScreen mainMenuScreen;
     protected MainStory mainStory;
@@ -57,7 +56,7 @@ public class MainGameScreen implements Screen {
         makeAlert = new MakeAlert();
         setItem = new SetItem();
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
-        newButton = new NewButton(game);
+        drawButton = new DrawButton(game);
     }
     @Override
     public void show() {
@@ -77,7 +76,7 @@ public class MainGameScreen implements Screen {
 
         batch.begin();
         batch.setColor(1 ,1, 1, 1);
-        if(dynamicItems.isEmpty()){
+        if(dynamicItems.size() == 22){
             game.setScreen(mainEndStory);
         }
         batch.end();

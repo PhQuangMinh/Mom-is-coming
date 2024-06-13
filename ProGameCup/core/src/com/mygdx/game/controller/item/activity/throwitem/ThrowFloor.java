@@ -65,6 +65,7 @@ public class ThrowFloor {
 
     public void throwFloor(DynamicItem dynamicItem, Player player, ArrayList<StaticItem> staticItems) {
         Vector2 position = getPosition(dynamicItem, player);
+        if (player.getItemHolding() == null) return;
         if (player.getDirection() == Direction.RIGHT || player.getDirection() == Direction.LEFT){
             player.setPositionThrew(new Vector2(position.x, player.getY()));
         }

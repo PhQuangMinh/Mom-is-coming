@@ -17,12 +17,19 @@ public class FilterStaticSingle extends FilterStatic{
                        ArrayList<StaticItem> staticMiddle, ArrayList<StaticItem> staticBottom,
                        ArrayList<DynamicItem> dynamicTable, ArrayList<DynamicItem> dynamicTop) {
         for (StaticItem staticItem : staticItems){
+            if (staticItem.getName().equals("night-stand")){
+                nightStand = staticItem;
+                continue;
+            }
+            if (staticItem.getName().equals("bed")){
+                bed = staticItem;
+            }
             if (checkStatic(player, staticItem)==1) {
                 staticTop.add(staticItem);
                 updateDynamic(dynamicTable, dynamicTop, staticItem);
             }
             else staticBottom.add(staticItem);
         }
-        super.updateNightStand(staticBottom, staticMiddle, staticTop);
+        updateNightStand(staticBottom, staticMiddle, staticTop);
     }
 }

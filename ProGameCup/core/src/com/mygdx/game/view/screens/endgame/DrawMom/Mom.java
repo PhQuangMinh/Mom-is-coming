@@ -81,7 +81,7 @@ public class Mom extends Sprite {
             if (!isBehindVerticalColumn()) {
                 batch.draw(currentFrame, currentX, MapConstant.POS_MAP_Y + 230, 32, 58);
             }
-            drawMap.drawOverlapsMap(batch, verticalColumn, 207, 209, 263);
+            drawMap.drawOverlap(batch, verticalColumn, 207, 209, 263);
             if (isBehindVerticalColumn()) {
                 batch.draw(currentFrame, currentX, MapConstant.POS_MAP_Y + 230, 32, 58);
             }

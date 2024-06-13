@@ -12,51 +12,10 @@ import com.mygdx.game.model.Player;
 import com.mygdx.game.view.effect.MakeSound;
 
 public class DrawPlayer {
-    private static final Texture loading_bar_background = new Texture("otherImage/loading_bar_background.png");
-    private static final Texture loading_bar_progress = new Texture("otherImage/loading_bar_progress.png");
-    private static final TextureRegion loading_bar_start = new TextureRegion(loading_bar_progress, 0, 0, 15, 32);
-    private static final TextureRegion loading_bar_body = new TextureRegion(loading_bar_progress, 15, 0, 226, 32);
-    private static final TextureRegion loading_bar_end = new TextureRegion(loading_bar_progress, 241, 0, 15, 32);
-
-    float x, y;
-
     float animationTime;
-    float ratio = GameConstant.LOADING_BAR_RATIO;
 
-    private void updateXY(Player player, CharacterStatus status){
-        if(status == CharacterStatus.MOPPING_FLOOR){
-            x = player.getItemInRange().getX() + (player.getItemInRange().getWidth() - loading_bar_background.getWidth() * ratio)/2;
-            y = player.getItemInRange().getY() + 70;
-        }
-        else{
-            x = player.getContainer().getX() + (player.getContainer().getWidth() - loading_bar_background.getWidth() * ratio)/2;
-            y = player.getContainer().getY() + 70;
-        }
-    }
-
-    public void drawBars(Player player, CharacterStatus status, Batch batch){
-        updateXY(player, status);
-        batch.draw(loading_bar_background, x, y, loading_bar_background.getWidth() * ratio
-                , loading_bar_background.getHeight() * ratio);
-
-        batch.draw(loading_bar_start, x, y, loading_bar_start.getRegionWidth() * ratio
-                , loading_bar_start.getRegionHeight() * ratio);
-
-        x += loading_bar_start.getRegionWidth() * ratio;
-        batch.draw(loading_bar_body, x, y, loading_bar_body.getRegionWidth() * ratio * player.getMovement().getActionCount() / 12
-                , loading_bar_start.getRegionHeight() * ratio);
-
-        x += loading_bar_body.getRegionWidth() * ratio * player.getMovement().getActionCount() / 12;
-        batch.draw(loading_bar_end, x, y,
-                loading_bar_end.getRegionWidth() * ratio, loading_bar_end.getRegionHeight() * ratio);
-    }
-
-    public String getAnimationName(Player player, CharacterStatus status, Batch batch) {
+    public String getAnimationName(Player player, CharacterStatus status) {
         String animationName = "";
-
-        if(status == CharacterStatus.MOPPING_FLOOR || status == CharacterStatus.CLEANING_DISH){
-            drawBars(player, status, batch);
-        }
 
         if(status != CharacterStatus.CLEANING_DISH && status != CharacterStatus.MOPPING_FLOOR
                 && player.getItemHolding()!=null){
@@ -77,10 +36,10 @@ public class DrawPlayer {
         batch.draw(region, player.getX(), player.getY(), width, height);
     }
 
-    private void updateAnimationTime(Animation animation, CharacterStatus status){
+    private void updateAnimationTime(Animation animation, CharacterStatus status, boolean pressed) {
         if(animation.isAnimationFinished(animationTime)){
             if(status == CharacterStatus.CLEANING_DISH || status == CharacterStatus.MOPPING_FLOOR){
-                if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+                if(pressed){
                     animationTime = 0;
                 }
             }
@@ -91,7 +50,8 @@ public class DrawPlayer {
     }
 
 
-    private void drawMove(Player player, Batch batch, String animationName, CharacterStatus status, float delta){
+    private void drawMove(Player player, Batch batch, String animationName, CharacterStatus status,
+                          float delta, boolean keyPressed){
         Animation animation = player.getAnimation(animationName);
 
         float width = (float) ((TextureRegion) animation.getKeyFrame(animationTime)).getRegionWidth() / 1.5f;
@@ -100,25 +60,25 @@ public class DrawPlayer {
         batch.draw((TextureRegion) animation.getKeyFrame(animationTime, false), player.getX(), player.getY(), width, height);
         player.getMovement().setAnimationFinished(animation.isAnimationFinished(animationTime));
 
-        updateAnimationTime(animation, status);
+        updateAnimationTime(animation, status, keyPressed);
 
         player.getMovement().setAnimationTime(animationTime);
 
         MakeSound.makeSoundWalk(player, status, delta);
     }
 
-    public void draw(Player player, Batch batch, float delta){
+    public void draw(Player player, Batch batch, float delta, boolean keyPressed){
         CharacterStatus status = player.getMovement().getStatus();
         animationTime = player.getMovement().getAnimationTime();
         animationTime += delta;
 
-        String animationName = getAnimationName(player, status, batch);
+        String animationName = getAnimationName(player, status);
 
         if(status == CharacterStatus.IDLE){
             drawIDLE(player, batch, animationName);
         }
         else {
-            drawMove(player, batch, animationName, status, delta);
+            drawMove(player, batch, animationName, status, delta, keyPressed);
         }
     }
 }

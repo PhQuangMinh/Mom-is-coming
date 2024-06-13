@@ -9,7 +9,7 @@ import com.mygdx.game.view.draw.text.DrawText;
 import java.util.ArrayList;
 
 public class DrawDynamic {
-    private void drawDynamicItemInGame(DynamicItem item, SpriteBatch batch, Player player, DrawText drawText){
+    private void drawDynamicItemSingle(DynamicItem item, SpriteBatch batch, Player player, DrawText drawText){
         if (!item.isVisible()) return;
         Texture image;
         if (player.getItemHolding()!=null){
@@ -36,9 +36,34 @@ public class DrawDynamic {
         }
     }
 
-    public void drawDynamicInGame(ArrayList<DynamicItem> items, SpriteBatch batch, Player player, DrawText drawText){
+    public void drawDynamicSingle(ArrayList<DynamicItem> items, SpriteBatch batch, Player player, DrawText drawText){
         for (DynamicItem item : items) {
-            drawDynamicItemInGame(item, batch, player, drawText);
+            drawDynamicItemSingle(item, batch, player, drawText);
+        }
+    }
+
+    public void drawDynamicItemMulti(Player firstPlayer, Player secondPlayer, DynamicItem item,
+                                 DrawText drawText, SpriteBatch batch){
+        if (!item.isVisible()) return;
+        Texture image;
+        if (firstPlayer.getItemHolding() != null && firstPlayer.getItemHolding().equals(item)
+                || secondPlayer.getItemHolding() != null && secondPlayer.getItemHolding().equals(item)){
+            image = item.getImage();
+//            drawText.drawStaticText(batch, player.getItemHolding().getName(), 180, 870, 0.5f);
+        }
+        else
+        if (item.getDiscover() && item.getChosenImage()!=null){
+            image = item.getChosenImage();
+            drawText.drawNoteName(item, batch, drawText);
+        }
+        else image = item.getImage();
+        batch.draw(image, item.getX(), item.getY(), item.getWidth(), item.getHeight());
+    }
+
+    public void drawDynamicMulti(Player firstPlayer, Player secondPlayer, DrawText drawText,
+                                 ArrayList<DynamicItem> items, SpriteBatch batch){
+        for (DynamicItem item : items) {
+            drawDynamicItemMulti(firstPlayer, secondPlayer, item, drawText, batch);
         }
     }
 }

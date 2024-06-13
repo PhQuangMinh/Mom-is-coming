@@ -51,6 +51,7 @@ public class DiscoverDynamic {
     public void resetDynamic(ArrayList<DynamicItem> items) {
         for (Item item : items) {
             item.setDiscover(false);
+            item.setPlayerDiscover(null);
         }
     }
 }

@@ -56,6 +56,6 @@ public class FilterStaticMulti extends FilterStatic {
             }
             else staticBottom.add(staticItem);
         }
-        super.updateNightStand(staticBottom, staticMiddle, staticTop);
+        updateNightStand(staticBottom, staticMiddle, staticTop);
     }
 }

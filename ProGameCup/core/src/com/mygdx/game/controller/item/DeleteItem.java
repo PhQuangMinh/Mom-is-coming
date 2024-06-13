@@ -17,12 +17,10 @@ public class DeleteItem {
         }
 
         player.getMovement().setStatus(CharacterStatus.IDLE);
-        player.setValidThrow(true);
     }
 
     private void deletePuddle(Player player, ArrayList<DynamicItem> dynamicItems){
-        player.setStatusHold(1);
-        ((DynamicItem)player.getItemHolding()).setVisible(true);
+        player.getItemHolding().setVisible(true);
         DynamicItem puddle = (DynamicItem)player.getItemInRange();// xóa vũng nước
         puddle.setVisible(false);
         dynamicItems.remove(puddle);
@@ -31,7 +29,7 @@ public class DeleteItem {
 
     private void deleteDish(Player player, ArrayList<DynamicItem> dynamicItems){
         player.getMovement().setDirection(Direction.UP);
-        dynamicItems.remove((DynamicItem) player.getItemHolding());// xóa đĩa đã được rửa xong
+        dynamicItems.remove( player.getItemHolding());// xóa đĩa đã được rửa xong
         player.setItemHolding(null);
     }
 }

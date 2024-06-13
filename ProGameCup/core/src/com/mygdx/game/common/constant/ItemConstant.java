@@ -8,4 +8,5 @@ public class ItemConstant {
     public static final int IMPRESSION_SIZE =  735;
     public static final int BUTTON_WIDTH = 200;
     public static final int BUTTON_HEIGHT = 80;
+
 }

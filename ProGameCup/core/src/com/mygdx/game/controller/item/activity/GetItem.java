@@ -26,7 +26,8 @@ public class GetItem {
 
     public void pickItemFloor(ArrayList<DynamicItem> dynamicItems, Player player){
         for (DynamicItem item : dynamicItems){
-            if (item.getDiscover() && player.getItemHolding() == null && !item.getName().equals("puddle")) {
+            if (item.getDiscover() && player.getItemHolding() == null &&
+                    !item.getName().equals("puddle") && item.getPlayerDiscover().equals(player)) {
                 player.setItemHolding(item);
                 MakeSound.makeSound("sounds/soItemPickup.ogg", 0.8f);
             }

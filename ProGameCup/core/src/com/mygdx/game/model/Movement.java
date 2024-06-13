@@ -12,9 +12,7 @@ public class Movement {
     private Animation animation;
     private float animationTime = 0;
     private int soundIndex = 0;
-    private int actionCount;
     private boolean isAnimationFinished = true;
-    private int cleanTime = 12;
 
     public Movement() {
         direction = Direction.LEFT;
@@ -61,13 +59,6 @@ public class Movement {
         this.soundIndex = soundIndex;
     }
 
-    public int getActionCount() {
-        return actionCount;
-    }
-
-    public void setActionCount(int actionCount) {
-        this.actionCount = actionCount;
-    }
 
     public boolean isAnimationFinished() {
         return isAnimationFinished;
@@ -77,11 +68,4 @@ public class Movement {
         isAnimationFinished = animationFinished;
     }
 
-    public int getCleanTime() {
-        return cleanTime;
-    }
-
-    public void setCleanTime(int cleanTime) {
-        this.cleanTime = cleanTime;
-    }
 }

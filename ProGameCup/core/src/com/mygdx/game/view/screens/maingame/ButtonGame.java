@@ -7,20 +7,21 @@ import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.draw.text.DrawText;
-import com.mygdx.game.view.draw.ui.NewButton;
-import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.draw.ui.DrawButton;
+import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
+import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
 
 public class ButtonGame {
-    NewButton newButton;
+    DrawButton drawButton;
     Texture resume, pause, home, homePress, replay, replayPress, musicOn, musicOff
             , buttonSpace, menuBar, menuBarPress;
 
     public ButtonGame(SpaceGame game){
-        newButton = new NewButton(game);
+        drawButton = new DrawButton(game);
         init();
     }
     public void init(){
@@ -37,22 +38,48 @@ public class ButtonGame {
         menuBarPress = new Texture("button/game/menuBarPress.png");
     }
 
-    public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
-            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, MainStory mainStory){
-        newButton.drawButton(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70, 900
-                , ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, mainStory);
-        drawMenuBar(mainMenuScreen, mainStory);
+    public void drawSingle(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
+            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){
+        drawButton.drawButtonGameSingle(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70,
+                900, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3,
+                mainMenuScreen, singlePlayer);
+        drawMenuBarSingle(mainMenuScreen, singlePlayer);
         drawText.drawClock(dynamicItems, game, batch, stateTime, 10, 0, 460, 930, 2f);
         drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
 
     }
 
-    public void drawMenuBar(MainMenuScreen mainMenuScreen, MainStory mainStory){
-        if(NewButton.isMenuBarOpen) {
-            newButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.WINDOW_WIDTH - 70, 840, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-            newButton.drawButton(home, homePress, (int) GameConstant.WINDOW_WIDTH - 70, 780, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 5, mainMenuScreen, mainStory);
-            newButton.drawButton(replay, replayPress, (int) GameConstant.WINDOW_WIDTH - 70, 720, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, mainStory);
-            newButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-        }
+    public void drawMulti(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
+            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, MultiPlayer multiPlayer){
+        drawButton.drawButtonGameMulti(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70, 900
+                , ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, multiPlayer);
+        drawMenuBarMulti(mainMenuScreen, multiPlayer);
+        drawText.drawClock(dynamicItems, game, batch, stateTime, 10, 0, 460, 930, 2f);
+        drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
+
+    }
+
+    public void drawMenuBarSingle(MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){
+        if (!DrawButton.isMenuBarOpen) return;
+        drawButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.WINDOW_WIDTH - 70, 840);
+        drawButton.drawButtonGameSingle(home, homePress, (int)GameConstant.WINDOW_WIDTH - 70,
+                780, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 2, mainMenuScreen,
+                singlePlayer);
+        drawButton.drawButtonGameSingle(replay, replayPress, (int)GameConstant.WINDOW_WIDTH - 70, 720,
+                ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, singlePlayer);
+        drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660);
+    }
+
+    public void drawMenuBarMulti(MainMenuScreen mainMenuScreen, MultiPlayer multiPlayer){
+        if(!DrawButton.isMenuBarOpen) return;
+        drawButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.WINDOW_WIDTH - 70, 840);
+
+        drawButton.drawButtonGameMulti(home, homePress, (int) GameConstant.WINDOW_WIDTH - 70, 780,
+                ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 2, mainMenuScreen, multiPlayer);
+
+        drawButton.drawButtonGameMulti(replay, replayPress, (int) GameConstant.WINDOW_WIDTH - 70, 720,
+                ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, multiPlayer);
+
+        drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660);
     }
 }

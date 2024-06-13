@@ -22,8 +22,8 @@ public class PositionPlayer {
     }
 
     private void setNewPosition(Player player) {
-        float straight = player.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime();
-        float diagonal = player.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime();
+        float straight = player.getSTRAIGHT_SPEED() * Gdx.graphics.getDeltaTime()*2;
+        float diagonal = player.getDIAGONAL_SPEED() * Gdx.graphics.getDeltaTime()*2;
 
         if(player.getDirection() == Direction.UP){
             newPosition.y += straight;

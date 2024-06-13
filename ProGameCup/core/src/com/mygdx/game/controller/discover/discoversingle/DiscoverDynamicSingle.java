@@ -18,20 +18,21 @@ public class DiscoverDynamicSingle extends DiscoverDynamic {
         for (DynamicItem item : items) {
             if (checkDiscover(item, player)){
                 item.setDiscover(true);
-                if(item.getName().equals("puddle")){
-                    if(player.getItemHolding() != null && ((DynamicItem)player.getItemHolding()).isClothes()) {
-                        if(player.getMovement().getStatus() != CharacterStatus.MOPPING_FLOOR){
-                            if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                                player.setStatusHold(4);
-                                player.getMovement().setStatus(CharacterStatus.MOPPING_FLOOR);
-                                player.getMovement().setActionCount(0);
-                                ((DynamicItem)player.getItemHolding()).setVisible(false);
-                                player.setItemInRange(item);
-                            }
-                        }
-                    }
-                    return;
-                }
+                item.setPlayerDiscover(player);
+//                if(item.getName().equals("puddle")){
+//                    if(player.getItemHolding() != null && ((DynamicItem)player.getItemHolding()).isClothes()) {
+//                        if(player.getMovement().getStatus() != CharacterStatus.MOPPING_FLOOR){
+//                            if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+//                                player.setStatusHold(4);
+//                                player.getMovement().setStatus(CharacterStatus.MOPPING_FLOOR);
+//                                player.getMovement().setActionCount(0);
+//                                ((DynamicItem)player.getItemHolding()).setVisible(false);
+//                                player.setItemInRange(item);
+//                            }
+//                        }
+//                    }
+//                    return;
+//                }
                 return;
             }
         }

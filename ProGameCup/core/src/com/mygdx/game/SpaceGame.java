@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.effect.MakeMusic;
 import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
 import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class SpaceGame extends Game {
 
@@ -21,7 +22,7 @@ public class SpaceGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		MakeMusic.playMusic("music/SmoothSailing.mp3");
-		this.setScreen(new MultiPlayer(this, null, null));
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

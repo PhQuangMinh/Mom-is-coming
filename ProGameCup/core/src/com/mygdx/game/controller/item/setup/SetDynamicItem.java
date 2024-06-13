@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class SetDynamicItem {
     private float overlap;
+    boolean ok = true;
 
     private Vector2 getPosition(String nameImage, float height) {
         overlap = 0;
@@ -41,6 +42,7 @@ public class SetDynamicItem {
             case "pizza2":
                 return new Vector2(posX + 370, posY + 280);
             case "box-pizza":
+                overlap = 1/2f*height;
                 return new Vector2(posX + 150, posY + 150);
             case "red-shirt":
                 return new Vector2(posX + 400, posY + 200);
@@ -53,13 +55,17 @@ public class SetDynamicItem {
             case "garbage":
                 return new Vector2(posX + 180, posY + 340);
             case "puddle":
-                return new Vector2(posX + 210, posY + 290);
+                if (ok){
+                    ok = false;
+                    return new Vector2(posX + 210, posY + 290);
+                }
+                else return new Vector2(posX + 300, posY + 290);
             case "box-chicken":
                 return new Vector2(posX + 120, posY + 50);
             case "tissue":
                 return new Vector2(posX + 320, posY + 380);
         }
-        return new Vector2(posX + 300, posY + 300);//shirt
+        return new Vector2(posX + 300, posY + 250);//shirt
     }
 
     private Vector2 getSize(String image, Texture imageTexture) {
@@ -85,10 +91,7 @@ public class SetDynamicItem {
         Texture chosenImageItem = new Texture("items/dynamic-items/pick-items/" + image + ".png");
         Vector2 size = getSize(image, imageItem);
         Vector2 position = getPosition(image, size.y);
-        boolean isClothes = false;
-        if(image.equals("blue-sock") || image.equals("red-sock") || image.equals("red-shirt") || image.equals("tissue") || image.equals("shirt")){
-            isClothes = true;
-        }
+        boolean isClothes = image.equals("blue-sock") || image.equals("red-sock") || image.equals("red-shirt") || image.equals("tissue") || image.equals("shirt");
         return new DynamicItem(image, imageItem, chosenImageItem, position.x, position.y, size.x, size.y,overlap, isCross, isClothes);
     }
 
@@ -102,6 +105,7 @@ public class SetDynamicItem {
         items.add(getItem("coca2", true));
         items.add(getItem("box-pizza", false));
         items.add(getItem("dish", true));
+        items.add(getItem("dish", true));
         items.add(getItem("letter", true));
         items.add(getItem("paper", true));
         items.add(getItem("pizza1", true));
@@ -112,6 +116,7 @@ public class SetDynamicItem {
         items.add(getItem("trouser", true));
         items.add(getItem("underwear", true));
         items.add(getItem("garbage", true));
+        items.add(getItem("puddle", true));
         items.add(getItem("puddle", true));
         items.add(getItem("box-chicken", false));
         items.add(getItem("tissue", true));

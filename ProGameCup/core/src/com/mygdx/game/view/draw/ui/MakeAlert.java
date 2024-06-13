@@ -11,10 +11,13 @@ public class MakeAlert {
     Texture blackBlock, redBlock;
 
     Vector2 sizeItem;
+
+    MakeSize makeSize;
     public MakeAlert(){
         blackBlock = new Texture("alert/black-block.png");
         redBlock = new Texture("alert/red-block.png");
         sizeItem = new Vector2();
+        makeSize = new MakeSize();
     }
 
     public void update(SpriteBatch batch, float stateTime, Player player){
@@ -30,7 +33,6 @@ public class MakeAlert {
 
     private void drawBlock(Texture block, float alpha, SpriteBatch batch, Player player){
         batch.setColor(1, 1, 1, alpha*1.5f);
-        MakeSize makeSize = new MakeSize();
         makeSize.getSize(block, 30, sizeItem);
         if (player.getPositionThrew()!=null)
             batch.draw(block, player.getPositionThrew().x, player.getPositionThrew().y
