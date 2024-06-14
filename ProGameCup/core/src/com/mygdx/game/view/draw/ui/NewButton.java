@@ -38,24 +38,23 @@ public class NewButton {
             , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()>=y && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()<=y+ BUTTON_HEIGHT){
             batch.draw(buttonPress, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
+            if(choice == 5) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
             if (Gdx.input.isTouched()){
                 if (choice==1){
+                    isPause = false;
                     game.setScreen(mainStory);
                 }
                 else if(choice == 2){
                      isHowToPlayOpen = true;
                 }
                 else if(choice == 3){
-                    isMenuBarOpen = true;
-                }
-                else if(choice == 4){
                     Gdx.app.exit();
                 }
-                else if(choice == 5){
+                else if(choice == 4){
+                    isPause = false;
                     game.setScreen(mainMenuScreen);
                 }
-                else if(choice == 6){
+                else if(choice == 5){
                     openLink("https://github.com/Hecker-Chuoi/BTCK2");
                 }
             }

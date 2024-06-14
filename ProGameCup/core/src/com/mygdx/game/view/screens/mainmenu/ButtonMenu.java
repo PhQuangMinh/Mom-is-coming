@@ -53,9 +53,9 @@ public class ButtonMenu {
     public void draw(MainMenuScreen mainMenuScreen, MainStory mainStory){
         newButton.drawButton(play, playPress, posX,600, widthButton, heightButton,1, mainMenuScreen, mainStory, drawText);
         newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
-        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,4, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,4, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 6, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory, drawText);
         newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 2, mainMenuScreen, mainStory, drawText);
         newButton.drawHowToPlayButton(135, 300, 672,280);
     }

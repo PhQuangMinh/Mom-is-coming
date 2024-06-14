@@ -16,29 +16,29 @@ public class SetDynamicItem {
         float posX = MapConstant.POS_MAP_RIGHT_X;
         float posY = MapConstant.POS_MAP_Y;
         switch (nameImage) {
-            case "coca1":
+            case "coca":
                 return new Vector2(posX + 240, posY + 140);
-            case "coca2":
+            case "coca_with_no_sugar":
                 return new Vector2(posX + 300 , posY + 180);
             case "blue-sock":
                 return new Vector2(posX + 150, posY + 100);
-            case "box1":
+            case "box_potato":
                 return new Vector2(posX + 350, posY + 350);
-            case "box2":
+            case "box_snack":
                 return new Vector2(posX + 70, posY + 300);
-            case "box3":
+            case "box_apple":
                 return new Vector2(posX + 500, posY + 360);
             case "carpet":
                 return new Vector2(posX + 80, posY + 110);
-            case "dish1":
+            case "dish_fish":
                 return new Vector2(posX + 400, posY + 100);
             case "letter":
                 return new Vector2(posX + 140, posY + 295);
             case "paper":
                 return new Vector2(posX + 200, posY + 265);
-            case "pizza1":
+            case "pizza":
                 return new Vector2(posX + 200, posY + 200);
-            case "pizza2":
+            case "pizza_with_meat":
                 return new Vector2(posX + 370, posY + 280);
             case "box-pizza":
                 return new Vector2(posX + 150, posY + 150);
@@ -50,7 +50,7 @@ public class SetDynamicItem {
                 return new Vector2(posX + 450, posY + 180);
             case "underwear":
                 return new Vector2(posX + 350, posY + 50);
-            case "garbage1":
+            case "garbage_small":
                 return new Vector2(posX + 180, posY + 340);
             case "puddle":
                 return new Vector2(posX + 210, posY + 290);
@@ -58,13 +58,13 @@ public class SetDynamicItem {
                 return new Vector2(posX + 120, posY + 50);
             case "tissue":
                 return new Vector2(posX + 320, posY + 380);
-            case "coca3":
+            case "new_coca":
                 return new Vector2(posX - 100, posY + 100);
-            case "dish2":
+            case "dish_meat":
                 return new Vector2(posX - 150, posY + 200);
-            case "garbage2":
+            case "garbage_big":
                 return new Vector2(posX - 200, posY + 220);
-            case "box4":
+            case "box_salad":
                 return new Vector2(posX - 90, posY + 240);
         }
         return new Vector2(posX + 300, posY + 300);//shirt
@@ -101,31 +101,31 @@ public class SetDynamicItem {
     }
 
     public void setDynamic(ArrayList<DynamicItem> items) {
-        items.add(getItem("coca1", true));
+        items.add(getItem("coca", true));
         items.add(getItem("blue-sock", true));
-        items.add(getItem("box1", false));
-        items.add(getItem("box2", false));
-        items.add(getItem("box3", false));
+        items.add(getItem("box_apple", false));
+        items.add(getItem("box_snack", false));
+        items.add(getItem("box_potato", false));
         items.add(getItem("carpet", true));
-        items.add(getItem("coca2", true));
+        items.add(getItem("coca_with_no_sugar", true));
         items.add(getItem("box-pizza", false));
-        items.add(getItem("dish1", true));
+        items.add(getItem("dish_fish", true));
         items.add(getItem("letter", true));
         items.add(getItem("paper", true));
-        items.add(getItem("pizza1", true));
-        items.add(getItem("pizza2", true));
+        items.add(getItem("pizza", true));
+        items.add(getItem("pizza_with_meat", true));
         items.add(getItem("red-shirt", true));
         items.add(getItem("red-sock", true));
         items.add(getItem("shirt", true));
         items.add(getItem("trouser", true));
         items.add(getItem("underwear", true));
-        items.add(getItem("garbage1", true));
+        items.add(getItem("garbage_small", true));
         items.add(getItem("puddle", true));
         items.add(getItem("box-chicken", false));
         items.add(getItem("tissue", true));
-        items.add(getItem("coca3", true));
-        items.add(getItem("dish2", true));
-        items.add(getItem("garbage2", true));
-        items.add(getItem("box4", false));
+        items.add(getItem("new_coca", true));
+        items.add(getItem("dish_meat", true));
+        items.add(getItem("garbage_big", true));
+        items.add(getItem("box_salad", false));
     }
 }

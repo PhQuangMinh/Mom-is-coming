@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.item.setup.SetItem;
 import com.mygdx.game.controller.player.PlayerMovement;
 import com.mygdx.game.model.Player;
@@ -40,6 +42,8 @@ public class MainGameScreen implements Screen {
     MainEndStory mainEndStory;
     MapEndGame mapEndGame;
     int initTime;
+    Texture pauseBg, blurBg;
+    ButtonGame buttonGame;
 
     public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, MainStory mainStory, int initTime){
         this.mainMenuScreen = mainMenuScreen;
@@ -63,6 +67,9 @@ public class MainGameScreen implements Screen {
         setItem = new SetItem();
         newButton = new NewButton(game);
         managerGame = new ManagerGame(game);
+        pauseBg = new Texture("otherImage/pauseBg.png");
+        blurBg = new Texture("otherImage/blurBg.jpg");
+        buttonGame = new ButtonGame(game);
     }
     @Override
     public void show() {
@@ -87,6 +94,14 @@ public class MainGameScreen implements Screen {
         if(!newButton.isPause) {
             stateTime += delta;
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
+        }
+        if(newButton.isPause){
+            batch.setColor(1 ,1, 1, 0.6f);
+            batch.draw(blurBg, MapConstant.POS_MAP_X + 239, MapConstant.POS_MAP_Y, 561, 519);
+
+            batch.setColor(1,1,1,1);
+            batch.draw(pauseBg, 300, 400, 444, 224);
+            buttonGame.drawMenuBar(mainMenuScreen, mainStory, drawText);
         }
         makeAlert.update(batch, stateTime, player);
         if(dynamicItems.isEmpty()){
