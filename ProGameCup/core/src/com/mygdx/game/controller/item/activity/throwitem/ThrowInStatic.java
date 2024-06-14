@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ThrowInStatic {
     public void throwStaticItem(DynamicItem dynamicItem, ArrayList<StaticItem> staticItems
             , ArrayList<DynamicItem> dynamicItems, Player player) {
-        if(dynamicItem.getName().equals("dish1") || dynamicItem.getName().equals("dish2")){
+        if(dynamicItem.getName().equals("dish_fish") || dynamicItem.getName().equals("dish_meat")){
             for(StaticItem item : staticItems){
                 if(item.getName().equals(player.getContainer().getName())){
                     player.setValidThrow(false);

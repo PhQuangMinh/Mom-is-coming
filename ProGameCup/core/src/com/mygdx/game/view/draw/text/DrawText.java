@@ -32,16 +32,12 @@ public class DrawText {
         setCharFont(path, color);
         note = new Texture("alert/note.png");
         this.mainEndStory = mainEndStory;
-        noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT - 50;
     }
 
     public DrawText(String path, Color color){
         sizeItem = new Vector2();
         setCharFont(path, color);
         note = new Texture("alert/note.png");
-        noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight() - 50;
     }
 
     public void setCharFont(String path, Color color){
@@ -57,6 +53,8 @@ public class DrawText {
     public void drawNoteName(Item item, SpriteBatch batch, DrawText drawText){
         MakeSize makeSize = new MakeSize();
         makeSize.getSize(note, 550, sizeItem);
+        noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT + 5;
         batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 30
                 , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10, sizeItem.x, sizeItem.y);
         String noteText;
@@ -66,6 +64,7 @@ public class DrawText {
         else{
             noteText = "It's a " + item.getName() + ".";
         }
+        System.out.println(noteY);
         drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
     }
 
