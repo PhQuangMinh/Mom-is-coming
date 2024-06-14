@@ -25,6 +25,7 @@ public class NewButton {
     public static boolean isStopMusic = false;
     public static boolean isHowToPlayOpen = false;
     public static boolean isMenuBarOpen = false;
+    public static boolean isLeaderboardOpen = false;
     Texture close, closePress, howToPlay;
 
     public NewButton(SpaceGame game) {
@@ -35,28 +36,26 @@ public class NewButton {
         closePress = new Texture("button/game/closePress.png");
         howToPlay = new Texture("otherImage/HowtoPlay.png");
     }
-    public void drawButton( Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
+
+    public void drawButton(Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
             , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory){
         if (Gdx.input.getX()>=x && Gdx.input.getX()<=x+ BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()>=y && GameConstant.WINDOW_HEIGHT-Gdx.input.getY()<=y+ BUTTON_HEIGHT){
             batch.draw(buttonPress, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
+            if(choice == 5) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
             if (Gdx.input.isTouched()){
-                if (choice==1){
+                if (choice == 1){
                     game.setScreen(new MainStory(game, mainMenuScreen));
                 }
                 else if(choice == 2){
-                     isHowToPlayOpen = true;
+                    isLeaderboardOpen = true;
                 }
                 else if(choice == 3){
-                    isMenuBarOpen = true;
-                }
-                else if(choice == 4){
                     Gdx.app.exit();
                 }
-                else if(choice == 5){
-                    game.setScreen(mainMenuScreen);
+                else if(choice == 4){
+                    isHowToPlayOpen = true;
                 }
-                else{
+                else if(choice == 5){
                     openLink("https://github.com/Hecker-Chuoi/BTCK2");
                 }
             }
@@ -65,6 +64,7 @@ public class NewButton {
             batch.draw(button, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
     }
+
     private void openLink(String link) {
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
@@ -86,6 +86,7 @@ public class NewButton {
         }
         else batch.draw(resumeButton, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
+
     public void drawMusicButton(Texture musicOnButton, Texture musicOffButton, int x, int y, int BUTTON_WIDTH, int BUTTON_HEIGHT) {
         boolean isTouched = Gdx.input.justTouched();
         if (Gdx.input.getX() >= x && Gdx.input.getX() <= x + BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() >= y && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() <= y + BUTTON_HEIGHT) {
