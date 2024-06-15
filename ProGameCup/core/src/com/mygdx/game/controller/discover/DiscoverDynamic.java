@@ -39,7 +39,7 @@ public class DiscoverDynamic {
                 if (player.getItemHolding() == null && player.getStatusHold()==1) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
                         player.setItemHolding(item);
-                        MakeSound.makeSound("sounds/soItemPickup.ogg");
+                        MakeSound.makeSound("sounds/soItemPickup.ogg", 0.8f);
                     }
                 }
                 return;

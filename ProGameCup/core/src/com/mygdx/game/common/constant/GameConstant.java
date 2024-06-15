@@ -11,4 +11,5 @@ public class GameConstant {
     public static final int SCORE_WIDTH = 200;
     public static final int gameTimeInMinute = 10;
     public static final int gameTimeInSecond = 0;
+    public static final float loading_bar_ratio = 0.3f;
 }

@@ -81,9 +81,14 @@ public class SetStaticItem {
                 x += MAP_SIZE/2 - width/2;
                 y += TILE_SIZE;
                 break;
-            case "trash":
+            case "trash1":
                 overlap = patioMedium;
                 x += TILE_SIZE + 5;
+                y += TILE_SIZE + 5;
+                break;
+            case "trash2":
+                overlap = patioMedium;
+                x -= TILE_SIZE + 100;
                 y += TILE_SIZE + 5;
                 break;
             case "washing-machine":
@@ -137,7 +142,8 @@ public class SetStaticItem {
         items.add(getItem("table1", false, 0));
         items.add(getItem("table2", false, 0));
         items.add(getItem("tivi", false, 0));
-        items.add(getItem("trash", true, 6));
+        items.add(getItem("trash1", true, 6));
+        items.add(getItem("trash2", true, 6));
         items.add(getItem("washing-machine", true, 3));
     }
 }

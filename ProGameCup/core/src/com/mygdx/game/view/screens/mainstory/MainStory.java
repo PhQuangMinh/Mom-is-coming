@@ -20,15 +20,15 @@ public class MainStory implements Screen {
     MainGameScreen mainGameScreen;
 
     MainMenuScreen mainMenuScreen;
-
     public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen) {
         this.mainMenuScreen = mainMenuScreen;
         this.game = game;
+
         batch = game.getBatch();
-        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this);
     }
     @Override
     public void show() {
+        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this, 180);
         impression = new Impression("story/impression1.png");
         message = new Message("story/press.png", mainGameScreen);
     }

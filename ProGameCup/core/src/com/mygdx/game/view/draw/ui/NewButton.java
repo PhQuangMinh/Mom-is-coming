@@ -9,6 +9,7 @@ import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.effect.MakeMusic;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.ButtonMenu;
 import com.mygdx.game.view.screens.mainmenu.Leaderboard;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
@@ -39,8 +40,7 @@ public class NewButton {
         closePress = new Texture("button/game/closePress.png");
         howToPlay = new Texture("otherImage/HowtoPlay.png");
     }
-
-    public void drawButton(Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
+    public void drawButton( Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
             , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory){
         if(!ButtonMenu.isLeaderboardOpen && !isHowToPlayOpen) {
             if (Gdx.input.getX() >= x && Gdx.input.getX() <= x + BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() >= y && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() <= y + BUTTON_HEIGHT) {
@@ -48,6 +48,7 @@ public class NewButton {
                 if (choice == 5) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
                 if (Gdx.input.isTouched()) {
                     if (choice == 1) {
+                        MainGameScreen.stateTime = 0f;
                         game.setScreen(new MainStory(game, mainMenuScreen));
                     } else if (choice == 2) {
                         ButtonMenu.isLeaderboardOpen = true;

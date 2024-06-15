@@ -24,6 +24,7 @@ public class MainEndStory implements Screen {
     ArrayList<DynamicItem> dynamicItems;
     ArrayList<StaticItem> staticItems;
     MainStory mainStory;
+    MapEndGame mapEndGame;
     Leaderboard leaderboard;
 
     public MainEndStory(SpaceGame game, ArrayList<DynamicItem> dynamicItems
@@ -35,6 +36,7 @@ public class MainEndStory implements Screen {
         knock = new Knock(texture);
         this.mainStory = mainStory;
         this.staticItems = staticItems;
+        mapEndGame = new MapEndGame(game, dynamicItems, mainStory, staticItems, this);
         leaderboard = new Leaderboard();
     }
 
@@ -58,7 +60,7 @@ public class MainEndStory implements Screen {
             int remainSec = (int) (timeLeft % 60);
             if(leaderboard.isANewRecord(remainMin, remainSec))
                 NameInputRequest.nameInputDialogOpen = true;
-            game.setScreen(new MapEndGame(game, dynamicItems, mainStory, staticItems));
+            game.setScreen(mapEndGame);
         }
     }
 

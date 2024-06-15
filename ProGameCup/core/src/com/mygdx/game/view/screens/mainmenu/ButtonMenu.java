@@ -1,10 +1,12 @@
 package com.mygdx.game.view.screens.mainmenu;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
+import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.NewButton;
 import com.mygdx.game.view.draw.ui.Button;
 import com.mygdx.game.view.screens.mainstory.MainStory;
@@ -25,11 +27,13 @@ public class ButtonMenu {
     Leaderboard ldb;
 
     NewButton newButton;
+    DrawText drawText;
     public ButtonMenu(SpaceGame game) {
         this.game = game;
         batch = game.getBatch();
         listButton = new ArrayList<>();
         newButton = new NewButton(game);
+        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         initMenu();
         isLeaderboardOpen = false;
         ldb = new Leaderboard();

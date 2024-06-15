@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.model.Player;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 
 public class DrawStatic {
     private float noteX, noteY;
-    Texture note = new Texture("alert/note.png");
     private int getFirstPosition(int quantity){
         switch (quantity){
             case 1:
@@ -33,8 +33,8 @@ public class DrawStatic {
 
     private void drawNoteStatic(StaticItem item, SpriteBatch batch, DrawText drawText, Player player){
         drawText.drawNoteName(item, batch, drawText);
-        noteX = (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight();
+        noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT;
         if (item.getName().equals("dish-washing")){
             return;
         }
