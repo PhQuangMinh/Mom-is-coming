@@ -27,8 +27,8 @@ public class OptionPlayer implements Screen {
         this.game = game;
         this.batch = game.getBatch();
         this.mainMenuScreen = mainMenuScreen;
-        singlePlayer = new SinglePlayer(game, mainMenuScreen, null);
-        multiPlayer = new MultiPlayer(game, mainMenuScreen, null);
+        singlePlayer = new SinglePlayer(game, mainMenuScreen);
+        multiPlayer = new MultiPlayer(game, mainMenuScreen);
         buttonOption = new ButtonOption(game, mainMenuScreen, singlePlayer, multiPlayer);
     }
     @Override

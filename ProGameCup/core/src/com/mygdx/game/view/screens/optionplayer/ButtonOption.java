@@ -42,8 +42,8 @@ public class ButtonOption {
 
     public void initTexture() {
         instruction = new Texture("instruction/instruction.png");
-        onePlayer = new Texture("instruction/onePlayer.png");
-        twoPlayer = new Texture("instruction/twoPlayer.png");
+        onePlayer = new Texture("instruction/one.png");
+        twoPlayer = new Texture("instruction/two.png");
         onePress = new Texture("instruction/onePress.png");
         twoPress = new Texture("instruction/twoPress.png");
     }

@@ -8,6 +8,7 @@ import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.DrawButton;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
 import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
@@ -33,53 +34,52 @@ public class ButtonGame {
         replayPress = new Texture("button/game/replayPress.png");
         musicOn = new Texture("button/menu/musicOn.png");
         musicOff = new Texture("button/menu/musicOff.png");
-        buttonSpace = new Texture("otherImage/ButtonSpace.png");
-        menuBar = new Texture("button/game/menuBar.png");
-        menuBarPress = new Texture("button/game/menuBarPress.png");
+        buttonSpace = new Texture("otherImage/ButtonSpace.png");    }
+
+    public void drawPauseGame(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
+            , MainEndStory mainEndStory){
+        if (!drawButton.isPause)
+            drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 900);
+        drawText.drawClock(game, batch, stateTime, 180, mainEndStory);
     }
 
-    public void drawSingle(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
-            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){
-        drawButton.drawButtonGameSingle(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70,
-                900, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3,
-                mainMenuScreen, singlePlayer);
-        drawMenuBarSingle(mainMenuScreen, singlePlayer);
-        drawText.drawClock(dynamicItems, game, batch, stateTime, 10, 0, 460, 930, 2f);
-        drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
-
-    }
-
-    public void drawMulti(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
-            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, MultiPlayer multiPlayer){
-        drawButton.drawButtonGameMulti(menuBar, menuBarPress, (int) GameConstant.WINDOW_WIDTH - 70, 900
-                , ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, multiPlayer);
-        drawMenuBarMulti(mainMenuScreen, multiPlayer);
-        drawText.drawClock(dynamicItems, game, batch, stateTime, 10, 0, 460, 930, 2f);
-        drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
-
-    }
 
     public void drawMenuBarSingle(MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){
-        if (!DrawButton.isMenuBarOpen) return;
-        drawButton.drawMusicButton(musicOn, musicOff, (int)GameConstant.WINDOW_WIDTH - 70, 840);
-        drawButton.drawButtonGameSingle(home, homePress, (int)GameConstant.WINDOW_WIDTH - 70,
-                780, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 2, mainMenuScreen,
-                singlePlayer);
-        drawButton.drawButtonGameSingle(replay, replayPress, (int)GameConstant.WINDOW_WIDTH - 70, 720,
+        drawButton.drawMusicButton(musicOn, musicOff, 610, 470);
+
+        drawButton.drawButtonGameSingle(home, homePress, 470, 470, ItemConstant.ICON_WIDTH,
+                ItemConstant.ICON_HEIGHT, 2, mainMenuScreen, singlePlayer);
+
+        drawButton.drawButtonGameSingle(replay, replayPress, 540, 470,
                 ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, singlePlayer);
-        drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660);
+        drawButton.drawPauseButton(resume, pause, 400, 470);
     }
 
     public void drawMenuBarMulti(MainMenuScreen mainMenuScreen, MultiPlayer multiPlayer){
-        if(!DrawButton.isMenuBarOpen) return;
-        drawButton.drawMusicButton(musicOn, musicOff, (int) GameConstant.WINDOW_WIDTH - 70, 840);
+        drawButton.drawMusicButton(musicOn, musicOff, 610, 470);
 
-        drawButton.drawButtonGameMulti(home, homePress, (int) GameConstant.WINDOW_WIDTH - 70, 780,
-                ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 2, mainMenuScreen, multiPlayer);
+        drawButton.drawButtonGameMulti(home, homePress, 470, 470, ItemConstant.ICON_WIDTH,
+                ItemConstant.ICON_HEIGHT, 2, mainMenuScreen, multiPlayer);
 
-        drawButton.drawButtonGameMulti(replay, replayPress, (int) GameConstant.WINDOW_WIDTH - 70, 720,
+        drawButton.drawButtonGameMulti(replay, replayPress, 540, 470,
                 ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, multiPlayer);
 
-        drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 660);
+        drawButton.drawPauseButton(resume, pause, 400, 470);
+
+//=======
+//    public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
+//            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, MainStory mainStory, MainEndStory mainEndStory, int initTime){
+//        newButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 900
+//                , ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+//        drawText.drawClock(dynamicItems, game, batch, stateTime, initTime, 460, 930, 2f, mainEndStory);
+//        drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
+//
+//    }
+//    public void drawMenuBar(MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
+//        newButton.drawMusicButton(musicOn, musicOff, 610, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+//        newButton.drawButton(home, homePress, 470, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 4, mainMenuScreen, mainStory, drawText);
+//        newButton.drawButton(replay, replayPress, 540, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, mainStory, drawText);
+//        newButton.drawPauseButton(resume, pause, 400, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+//>>>>>>> develop
     }
 }

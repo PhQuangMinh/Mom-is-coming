@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.model.Player;

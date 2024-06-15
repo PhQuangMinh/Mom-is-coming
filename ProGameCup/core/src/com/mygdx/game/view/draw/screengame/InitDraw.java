@@ -13,6 +13,7 @@ import com.mygdx.game.view.draw.player.DrawPlayer;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.Holding;
 import com.mygdx.game.view.screens.Impression;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.screens.maingame.ButtonGame;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
@@ -55,6 +56,7 @@ public class InitDraw {
         drawStatic = new DrawStatic();
         drawPlayer = new DrawPlayer();
     }
+
 
     public boolean checkObscure(StaticItem item, Player player){
         return player.getX() + player.getWidth() >= item.getX()

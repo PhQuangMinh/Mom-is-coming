@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.controller.handleinput.HandleInput;
+import com.mygdx.game.common.constant.GameConstant;
+import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.item.setup.SetItem;
 import com.mygdx.game.controller.player.ManagerMovement;
 import com.mygdx.game.model.item.*;
@@ -14,6 +17,7 @@ import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.draw.ui.MakeAlert;
 import com.mygdx.game.view.draw.ui.DrawButton;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.screens.endgame.MapEndGame;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
@@ -30,7 +34,6 @@ public class MainGameScreen implements Screen {
     protected DrawButton drawButton;
     protected SetItem setItem;
     protected MainMenuScreen mainMenuScreen;
-    protected MainStory mainStory;
 
     protected MainEndStory mainEndStory;
 
@@ -44,26 +47,33 @@ public class MainGameScreen implements Screen {
             "CLEANING_DISH"};
     protected String[] textureNames = new String[]{"IDLE_UP", "IDLE_DOWN", "IDLE_LEFT", "IDLE_RIGHT",
             "HOLDING_IDLE_UP", "HOLDING_IDLE_DOWN", "HOLDING_IDLE_LEFT", "HOLDING_IDLE_RIGHT"};
+    MapEndGame mapEndGame;
+    int initTime;
+    protected Texture pauseBg, blurBg;
+    protected ButtonGame buttonGame;
 
-
-    public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, MainStory mainStory){
+    public MainGameScreen (SpaceGame game, MainMenuScreen mainMenuScreen, int initTime){
         this.mainMenuScreen = mainMenuScreen;
-        this.mainStory = mainStory;
         this.game = game;
+        this.initTime = initTime;
         batch = game.getBatch();
         staticItems = new ArrayList<>();
         dynamicItems = new ArrayList<>();;
         makeAlert = new MakeAlert();
         setItem = new SetItem();
-        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         drawButton = new DrawButton(game);
+        pauseBg = new Texture("otherImage/pauseBg.png");
+        blurBg = new Texture("otherImage/blurBg.jpg");
+        drawText = new DrawText("fonts/char.fnt", Color.ORANGE, mainEndStory);
     }
     @Override
     public void show() {
+        buttonGame = new ButtonGame(game);
         dynamicItems.clear();
         staticItems.clear();
         setItem.set(dynamicItems, staticItems);
-        mainEndStory = new MainEndStory(game, dynamicItems, mainStory, staticItems);
+        mapEndGame = new MapEndGame(game, dynamicItems, staticItems, mainEndStory, mainMenuScreen);
+        mainEndStory = new MainEndStory(game, dynamicItems, staticItems, mainMenuScreen);
         managerMovement = new ManagerMovement();
         handleInput = new HandleInput();
     }
@@ -75,8 +85,7 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.setColor(1 ,1, 1, 1);
-        if(dynamicItems.size() == 22){
+        if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
         batch.end();

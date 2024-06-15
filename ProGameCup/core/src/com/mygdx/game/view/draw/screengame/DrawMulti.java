@@ -10,6 +10,7 @@ import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.draw.text.DrawText;
+import com.mygdx.game.view.screens.endgame.MainEndStory;
 import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
@@ -83,11 +84,12 @@ public class DrawMulti extends InitDraw{
     }
 
     public void draw(Player firstPlayer, Player secondPlayer, ArrayList<DynamicItem> dynamicItems,
-                     ArrayList<StaticItem> staticItems, MainMenuScreen mainMenuScreen, MultiPlayer multiPlayer,
-                     SpriteBatch batch, float stateTime, float delta){
+                     ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime,
+                     float delta, MainEndStory mainEndStory){
         drawMap.drawMap(batch);
+        System.out.println("HIHI" + impression.getCountImpress());
         if (impression.getCountImpress()>=5){
-            buttonGame.drawMulti(game, batch, stateTime, drawText, dynamicItems, mainMenuScreen, multiPlayer);
+            buttonGame.drawPauseGame(game, batch, stateTime, drawText, mainEndStory);
             holding.drawHoldMulti(firstPlayer, secondPlayer, batch);
             drawMultiPlayer(dynamicItems, staticItems, firstPlayer, batch, delta, drawText, secondPlayer);
         }

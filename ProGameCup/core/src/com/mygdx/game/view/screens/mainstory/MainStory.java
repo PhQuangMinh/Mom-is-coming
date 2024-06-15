@@ -33,12 +33,15 @@ public class MainStory implements Screen {
         batch = game.getBatch();
         this.singlePlayer = singlePlayer;
         this.multiPlayer = multiPlayer;
-        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this);
+        mainGameScreen = new MainGameScreen(game, mainMenuScreen, 180);
+        impression = new Impression("story/impression1.png");
     }
     @Override
     public void show() {
-        impression = new Impression("story/impression1.png");
         message = new Message("story/press.png", singlePlayer, multiPlayer);
+        stateTime = 0;
+//        impression.setCountImpress(0);
+
     }
 
     @Override
