@@ -23,6 +23,8 @@ public class ButtonMenu {
     SpriteBatch batch;
     SpaceGame game;
     ArrayList<Button> listButton;
+    public static boolean isLeaderboardOpen;
+    Leaderboard ldb;
 
     NewButton newButton;
     DrawText drawText;
@@ -33,7 +35,10 @@ public class ButtonMenu {
         newButton = new NewButton(game);
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         initMenu();
+        isLeaderboardOpen = false;
+        ldb = new Leaderboard();
     }
+
     public void initMenu() {
         play = new Texture("button/menu/play.png");
         playPress = new Texture("button/menu/playPress.png");
@@ -48,15 +53,15 @@ public class ButtonMenu {
         howToPlay = new Texture("button/menu/howToPlay.png");
         howToPlayPress = new Texture("button/menu/howToPlayPress.png");
     }
-    
 
     public void draw(MainMenuScreen mainMenuScreen, MainStory mainStory){
-        newButton.drawButton(play, playPress, posX,600, widthButton, heightButton,1, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(play, playPress, posX,600, widthButton, heightButton,1, mainMenuScreen, mainStory);
+        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,2, mainMenuScreen, mainStory);
+        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,3, mainMenuScreen, mainStory);
         newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
-        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 2, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 4, mainMenuScreen, mainStory);
+        newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory);
         newButton.drawHowToPlayButton(135, 300, 672,280);
+        ldb.draw(batch, isLeaderboardOpen);
     }
 }

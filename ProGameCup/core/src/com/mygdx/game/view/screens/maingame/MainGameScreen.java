@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class MainGameScreen implements Screen {
     SpaceGame game;
     DrawText drawText;
-    float stateTime;
+    public static float stateTime;
     SpriteBatch batch;
     ArrayList<StaticItem> staticItems;
     ArrayList<DynamicItem> dynamicItems;
@@ -71,6 +71,7 @@ public class MainGameScreen implements Screen {
         blurBg = new Texture("otherImage/blurBg.jpg");
         buttonGame = new ButtonGame(game);
     }
+
     @Override
     public void show() {
         staticItems = new ArrayList<>();

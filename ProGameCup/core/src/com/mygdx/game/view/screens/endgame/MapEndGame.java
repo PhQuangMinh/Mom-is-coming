@@ -37,6 +37,7 @@ public class MapEndGame implements Screen {
     ResultScreen resultScreen;
     DrawText drawText;
     MakeSize makeSize;
+
     public MapEndGame(SpaceGame game, ArrayList<DynamicItem> dynamicItems
             , MainStory mainStory, ArrayList<StaticItem> staticItems, MainEndStory mainEndStory){
         this.mainStory = mainStory;
@@ -45,6 +46,10 @@ public class MapEndGame implements Screen {
         this.staticItems = staticItems;
         this.mainEndStory = mainEndStory;
         batch = game.getBatch();
+    }
+
+    @Override
+    public void show() {
         player = new Texture("animations/main-char/idle-endgame.png");
         mom = new Texture("animations/mom/mom-walking.png");
         chat = new Texture("alert/note.png");
@@ -53,9 +58,6 @@ public class MapEndGame implements Screen {
         drawText = new DrawText("fonts/char.fnt", Color.BLACK, mainEndStory);
         resultScreen = new ResultScreen(game, dynamicItems, mainStory, mainEndStory);
         mother = new Mom(mom, game, dynamicItems, mainStory, resultScreen, drawText, drawMap);
-    }
-    @Override
-    public void show() {
     }
 
     @Override
@@ -68,7 +70,7 @@ public class MapEndGame implements Screen {
         draw.drawEndGame(dynamicItems, staticItems, batch);
         batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 230,
                 32, 58);
-        mother.draw(chat,game, batch, delta, mainStory);
+        mother.draw(chat, game, batch, delta, mainStory);
         batch.end();
     }
 

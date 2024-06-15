@@ -23,6 +23,7 @@ public class ButtonGame {
         newButton = new NewButton(game);
         init();
     }
+
     public void init(){
         resume = new Texture("button/game/resume.png");
         pause = new Texture("button/game/pause.png");
@@ -44,8 +45,8 @@ public class ButtonGame {
     }
     public void drawMenuBar(MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
         newButton.drawMusicButton(musicOn, musicOff, 610, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-        newButton.drawButton(home, homePress, 470, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 4, mainMenuScreen, mainStory, drawText);
-        newButton.drawButton(replay, replayPress, 540, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, mainStory, drawText);
+        newButton.drawButton(home, homePress, 470, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 4, mainMenuScreen, mainStory);
+        newButton.drawButton(replay, replayPress, 540, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, mainStory);
         newButton.drawPauseButton(resume, pause, 400, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
     }
 }
