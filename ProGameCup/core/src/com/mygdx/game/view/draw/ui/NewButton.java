@@ -27,7 +27,6 @@ public class NewButton {
     SpaceGame game;
     public static boolean isPause = false;
     public static boolean isStopMusic = false;
-    public static boolean isHowToPlayOpen = false;
     public static boolean isMenuBarOpen = false;
     Texture close, closePress, howToPlay;
 
@@ -42,7 +41,7 @@ public class NewButton {
     }
     public void drawButton( Texture button, Texture buttonPress, int x, int y, int BUTTON_WIDTH
             , int BUTTON_HEIGHT, int choice, MainMenuScreen mainMenuScreen, MainStory mainStory){
-        if(!ButtonMenu.isLeaderboardOpen && !isHowToPlayOpen) {
+        if(!ButtonMenu.isLeaderboardOpen && !ButtonMenu.isHowToPlayOpen) {
             if (Gdx.input.getX() >= x && Gdx.input.getX() <= x + BUTTON_WIDTH && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() >= y && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() <= y + BUTTON_HEIGHT) {
                 batch.draw(buttonPress, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
                 if (choice == 5) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
@@ -55,7 +54,7 @@ public class NewButton {
                     } else if (choice == 3) {
                         Gdx.app.exit();
                     } else if (choice == 4) {
-                        isHowToPlayOpen = true;
+                        ButtonMenu.isHowToPlayOpen = true;
                     } else if (choice == 5) {
                         openLink("https://github.com/Hecker-Chuoi/BTCK2");
                     }
@@ -109,21 +108,21 @@ public class NewButton {
         }
     }
 
-    public void drawHowToPlayButton(int x, int y, int width, int height){
-        if(isHowToPlayOpen){
-            batch.draw(howToPlay, x, y, width, height);
-            int closeButtonX = x + width - 50;
-            int closeButtonY = y + height - 50;
+    public void drawHowToPlay(){
+        if(ButtonMenu.isHowToPlayOpen){
+            batch.draw(howToPlay, 0, 0, 960, 960);
+            float x = Gdx.input.getX();
+            float y = 960 - Gdx.input.getY();
 
-            if (Gdx.input.getX() >= closeButtonX && Gdx.input.getX() <= closeButtonX + ItemConstant.ICON_WIDTH
-                    && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() >= closeButtonY
-                    && GameConstant.WINDOW_HEIGHT - Gdx.input.getY() <= closeButtonY + ItemConstant.ICON_HEIGHT) {
-                batch.draw(closePress, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-                if (Gdx.input.justTouched()) {
-                    isHowToPlayOpen = false;
+            if((x >= 784 && x <= 784 + ItemConstant.ICON_WIDTH) && (y >= 816 && y <= 816 + ItemConstant.ICON_HEIGHT)){
+                batch.draw(closePress, 784, 816, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+                if(Gdx.input.isTouched()){
+                    ButtonMenu.isHowToPlayOpen = false;
                 }
             }
-            else batch.draw(close, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            else {
+                batch.draw(close, 784, 816, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            }
         }
     }
 }
