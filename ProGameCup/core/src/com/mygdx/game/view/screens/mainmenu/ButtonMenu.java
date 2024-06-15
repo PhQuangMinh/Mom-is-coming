@@ -24,6 +24,7 @@ public class ButtonMenu {
     SpaceGame game;
     ArrayList<Button> listButton;
     public static boolean isLeaderboardOpen;
+    public static boolean isHowToPlayOpen;
     Leaderboard ldb;
 
     NewButton newButton;
@@ -36,6 +37,7 @@ public class ButtonMenu {
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         initMenu();
         isLeaderboardOpen = false;
+        isHowToPlayOpen = false;
         ldb = new Leaderboard();
     }
 
@@ -61,7 +63,7 @@ public class ButtonMenu {
         newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
         newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 4, mainMenuScreen, mainStory);
         newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory);
-        newButton.drawHowToPlayButton(135, 300, 672,280);
+        newButton.drawHowToPlay();
         ldb.draw(batch, isLeaderboardOpen);
     }
 }

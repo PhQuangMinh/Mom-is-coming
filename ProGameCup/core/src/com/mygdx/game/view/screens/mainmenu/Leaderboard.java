@@ -77,7 +77,6 @@ public class Leaderboard {
 
     public void print(Batch batch) throws IOException {
         read();
-        System.out.println(list.size());
 
         int nameX = originNameX, scoreX = originScoreX, y = originY;
         for(Map.Entry<String, String> entry : list) {
