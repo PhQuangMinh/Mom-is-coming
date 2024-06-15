@@ -9,4 +9,6 @@ public class GameConstant {
     public static final int posScoreX = 700;
     public static final int posScoreY = 700;
     public static final int SCORE_WIDTH = 200;
+    public static final int gameTimeInMinute = 10;
+    public static final int gameTimeInSecond = 0;
 }

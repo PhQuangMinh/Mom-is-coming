@@ -21,6 +21,8 @@ public class ButtonMenu {
     SpriteBatch batch;
     SpaceGame game;
     ArrayList<Button> listButton;
+    public static boolean isLeaderboardOpen;
+    Leaderboard ldb;
 
     NewButton newButton;
     public ButtonMenu(SpaceGame game) {
@@ -29,6 +31,8 @@ public class ButtonMenu {
         listButton = new ArrayList<>();
         newButton = new NewButton(game);
         initMenu();
+        isLeaderboardOpen = false;
+        ldb = new Leaderboard();
     }
 
     public void initMenu() {
@@ -54,5 +58,6 @@ public class ButtonMenu {
         newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 4, mainMenuScreen, mainStory);
         newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory);
         newButton.drawHowToPlayButton(135, 300, 672,280);
+        ldb.draw(batch, isLeaderboardOpen);
     }
 }

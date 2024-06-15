@@ -38,6 +38,7 @@ public class MapEndGame implements Screen {
         this.staticItems = staticItems;
         batch = game.getBatch();
     }
+
     @Override
     public void show() {
         player = new Texture("animations/main-char/idle-endgame.png");

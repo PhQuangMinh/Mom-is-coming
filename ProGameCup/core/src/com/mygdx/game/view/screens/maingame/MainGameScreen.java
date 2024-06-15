@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class MainGameScreen implements Screen {
     SpaceGame game;
     DrawText drawText;
-    float stateTime;
+    public static float stateTime;
     SpriteBatch batch;
     ArrayList<StaticItem> staticItems;
     ArrayList<DynamicItem> dynamicItems;
@@ -63,6 +63,7 @@ public class MainGameScreen implements Screen {
         drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
         newButton = new NewButton(game);
     }
+
     @Override
     public void show() {
         dynamicItems.clear();
@@ -89,10 +90,9 @@ public class MainGameScreen implements Screen {
             PlayerMovement.move(player, staticItems, dynamicItems, stateTime);
         }
         makeAlert.update(batch, stateTime, player);
-        if(dynamicItems.size() == 20){
+        if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
-
         batch.end();
     }
 

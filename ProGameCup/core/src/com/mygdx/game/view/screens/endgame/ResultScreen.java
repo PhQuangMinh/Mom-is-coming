@@ -25,8 +25,8 @@ public class ResultScreen implements Screen {
     Texture endGame, A, B, C, D, F;
     Result result;
     DrawText drawText;
-
     MainStory mainStory;
+    NameInputRequest dialog;
 
     public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory){
         this.mainStory = mainStory;
@@ -35,6 +35,7 @@ public class ResultScreen implements Screen {
         this.dynamicItems = dynamicItems;
         result = new Result();
         drawText = new DrawText("fonts/char.fnt", Color.BLACK);
+        dialog = new NameInputRequest();
     }
 
     @Override
@@ -55,6 +56,9 @@ public class ResultScreen implements Screen {
         batch.begin();
         batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100, GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);
+        if(NameInputRequest.nameInputDialogOpen){
+            dialog.render(batch, delta);
+        }
         batch.end();
 
     }
