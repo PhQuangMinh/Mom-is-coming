@@ -60,7 +60,7 @@ public class DrawSingle extends InitDraw{
                      ArrayList<StaticItem> staticItems, MainEndStory mainEndStory){
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
-            buttonGame.drawPauseGame(game, batch, stateTime, drawText, mainEndStory);
+            buttonGame.drawPauseGame(game, batch, stateTime, GameConstant.onePlayerModeTime, drawText, mainEndStory);
             holding.drawHoldSingle(batch, player, 10, 65);
             drawSinglePlayer(dynamicItems, staticItems, player, batch, delta, drawText);
         }

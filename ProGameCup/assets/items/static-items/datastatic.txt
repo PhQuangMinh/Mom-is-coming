@@ -118,9 +118,9 @@ null
 25.0
 null
 0
-trash
-items/static-items/items/trash.png
-items/static-items/pick-items/trash.png
+dustbin in home
+items/static-items/items/trash1.png
+items/static-items/pick-items/trash1.png
 269.0
 213.0
 76.25
@@ -128,9 +128,9 @@ items/static-items/pick-items/trash.png
 16.666668
 items/static-items/storage/trash.png
 6
-trash
-items/static-items/items/trash.png
-items/static-items/pick-items/trash.png
+dustbin in lobby
+items/static-items/items/trash2.png
+items/static-items/pick-items/trash2.png
 132.0
 213.0
 76.25

@@ -30,6 +30,7 @@ public class ManagerSingle {
            moppingFloor = new MoppingFloor();
            washingDish = new WashingDish();
     }
+
     public void update(Player player, ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems) {
         updateItem(player, dynamicItems, staticItems);
         updatePlayer(player);

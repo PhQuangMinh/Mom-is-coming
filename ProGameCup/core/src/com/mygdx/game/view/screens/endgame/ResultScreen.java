@@ -28,6 +28,7 @@ public class ResultScreen implements Screen {
     NameInputRequest dialog;
     MainEndStory mainEndStory;
     MainMenuScreen mainMenuScreen;
+    public static float stateTime = 0f;
 
     public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainEndStory mainEndStory,
                         MainMenuScreen mainMenuScreen){
@@ -38,7 +39,6 @@ public class ResultScreen implements Screen {
         result = new Result();
         drawText = new DrawText("fonts/char.fnt", Color.BLACK);
         dialog = new NameInputRequest();
-        mainMenuScreen = new MainMenuScreen(game);
     }
 
     @Override
@@ -54,15 +54,19 @@ public class ResultScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        stateTime += delta;
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+
+        if(!NameInputRequest.nameInputDialogOpen && Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             game.setScreen(mainMenuScreen);
+
         batch.begin();
         batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100,
                 GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);
-        if(NameInputRequest.nameInputDialogOpen){
+
+        if(stateTime >= 3f && NameInputRequest.nameInputDialogOpen){
             dialog.render(batch, delta);
         }
         batch.end();

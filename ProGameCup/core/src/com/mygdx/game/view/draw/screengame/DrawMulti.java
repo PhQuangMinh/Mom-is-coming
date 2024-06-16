@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.controller.filter.filtermulti.FilterDynamicMulti;
 import com.mygdx.game.controller.filter.filtermulti.FilterStaticMulti;
 import com.mygdx.game.model.Player;
@@ -115,7 +116,7 @@ public class DrawMulti extends InitDraw{
                      float delta, MainEndStory mainEndStory){
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
-            buttonGame.drawPauseGame(game, batch, stateTime, drawText, mainEndStory);
+            buttonGame.drawPauseGame(game, batch, stateTime, GameConstant.twoPlayerModeTime, drawText, mainEndStory);
             holding.drawHoldMulti(firstPlayer, secondPlayer, batch);
             drawMultiPlayer(dynamicItems, staticItems, firstPlayer, batch, delta, drawText, secondPlayer);
         }

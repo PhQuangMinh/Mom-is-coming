@@ -13,7 +13,6 @@ import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.Leaderboard;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
-import jdk.tools.jmod.Main;
 
 import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
@@ -54,12 +53,6 @@ public class MainEndStory implements Screen {
         knock.draw(batch, delta);
         batch.end();
         if(knock.isNextMapEndGame){
-            float countdownTime = GameConstant.gameTimeInMinute * 60 + GameConstant.gameTimeInSecond;
-            float timeLeft = countdownTime - MainGameScreen.stateTime;
-            int remainMin = (int) (timeLeft / 60);
-            int remainSec = (int) (timeLeft % 60);
-            if(leaderboard.isANewRecord(remainMin, remainSec))
-                NameInputRequest.nameInputDialogOpen = true;
             game.setScreen(mapEndGame);
         }
     }

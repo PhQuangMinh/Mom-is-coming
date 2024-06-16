@@ -37,11 +37,11 @@ public class ButtonGame {
         musicOff = new Texture("button/menu/musicOff.png");
         buttonSpace = new Texture("otherImage/ButtonSpace.png");    }
 
-    public void drawPauseGame(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
+    public void drawPauseGame(SpaceGame game, SpriteBatch batch, float stateTime, int time, DrawText drawText
             , MainEndStory mainEndStory){
         if (!drawButton.isPause)
             drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 900);
-        drawText.drawClock(game, batch, stateTime, 180, mainEndStory);
+        drawText.drawClock(game, batch, stateTime, time, mainEndStory);
     }
 
     public void drawMenuBarSingle(MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){

@@ -15,6 +15,7 @@ import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
 import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.ButtonMenu;
+import com.mygdx.game.view.screens.mainmenu.Leaderboard;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 import com.mygdx.game.view.screens.optionplayer.OptionPlayer;
@@ -94,23 +95,19 @@ public class DrawButton {
 
     public void drawHowToPlayButton(){
         if(ButtonMenu.isHowToPlayOpen){
-            makeSize.getSize(howToPlay, 850, size);
-            float posX = (GameConstant.WINDOW_WIDTH - size.x)/2;
-            float posY = (GameConstant.WINDOW_HEIGHT - size.y)/2;
-            batch.draw(howToPlay, posX, posY, size.x, size.y);
-            float closeButtonX = posX + size.x - 50;
-            float closeButtonY = posY + size.y - 50;
+            batch.draw(howToPlay, 0, 0, 960, 960);
+            float x = Gdx.input.getX();
+            float y = 960 - Gdx.input.getY();
 
-            if (checkPress((int)closeButtonX, (int)closeButtonY, ItemConstant.ICON_WIDTH,
-                    ItemConstant.ICON_HEIGHT)) {
-                batch.draw(closePress, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH,
-                        ItemConstant.ICON_HEIGHT);
-                if (Gdx.input.justTouched()) {
+            if((x >= 784 && x <= 784 + ItemConstant.ICON_WIDTH) && (y >= 816 && y <= 816 + ItemConstant.ICON_HEIGHT)){
+                batch.draw(closePress, 784, 816, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+                if(Gdx.input.isTouched()){
                     ButtonMenu.isHowToPlayOpen = false;
                 }
             }
-            else batch.draw(close, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH,
-                    ItemConstant.ICON_HEIGHT);
+            else {
+                batch.draw(close, 784, 816, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            }
         }
     }
 
@@ -167,7 +164,7 @@ public class DrawButton {
     }
 
     public void drawButtonMenu(Texture button, Texture buttonPress, int x, int y, int width, int height
-            , int choice, OptionPlayer optionPlayer){
+            , int choice, OptionPlayer optionPlayer, Leaderboard ldb){
         if (ButtonMenu.isHowToPlayOpen || ButtonMenu.isLeaderboardOpen ||
                 !checkPress(x, y, width, height)){
             batch.draw(button, x, y, width, height);
@@ -186,6 +183,7 @@ public class DrawButton {
                     break;
                 case 3:
                     ButtonMenu.isLeaderboardOpen = true;
+                    ldb.initPrint();
                     break;
                 case 4:
                     Gdx.app.exit();
@@ -205,9 +203,13 @@ public class DrawButton {
                 switch (choice){
                     case 1:
                         GameConstant.FORMAT_PLAYER = 1;
+                        GameConstant.gameType = 1;
+                        ItemConstant.dynamicItemsCount = 31;
                         break;
                     case 2:
                         GameConstant.FORMAT_PLAYER = 2;
+                        GameConstant.gameType = 2;
+                        ItemConstant.dynamicItemsCount = 39;
                         break;
                 }
                 game.setScreen(mainStory);

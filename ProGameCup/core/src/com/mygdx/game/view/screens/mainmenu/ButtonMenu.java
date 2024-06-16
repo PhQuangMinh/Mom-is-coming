@@ -51,22 +51,21 @@ public class ButtonMenu {
 
     public void drawBigButton(OptionPlayer optionPlayer){
         drawButton.drawButtonMenu(play, playPress, posX,600, widthButton, heightButton,1,
-                optionPlayer);
+                optionPlayer, ldb);
         drawButton.drawButtonMenu(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon,
-                2, optionPlayer);
+                2, optionPlayer, ldb);
         drawButton.drawButtonMenu(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,
-                3, optionPlayer);
+                3, optionPlayer, ldb);
         drawButton.drawButtonMenu(back, backPress, posX,  400, widthButton, heightButton,4,
-                optionPlayer);
+                optionPlayer, ldb);
     }
 
     public void drawIconButton(OptionPlayer optionPlayer){
         drawButton.drawButtonMenu(github, githubPress, 15,15, widthIcon, heightIcon, 6,
-                optionPlayer);
+                optionPlayer, ldb);
         drawButton.drawMusicButton(musicOn, musicOff, 840, 900);
         drawButton.drawHowToPlayButton();
     }
-
 
     public void draw(OptionPlayer optionPlayer){
         drawBigButton(optionPlayer);

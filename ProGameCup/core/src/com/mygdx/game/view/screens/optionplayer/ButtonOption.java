@@ -47,6 +47,7 @@ public class ButtonOption {
         onePress = new Texture("instruction/onePress.png");
         twoPress = new Texture("instruction/twoPress.png");
     }
+
     public void draw(){
         batch.draw(instruction, (GameConstant.WINDOW_WIDTH - instruction.getWidth())/2,
                 GameConstant.WINDOW_HEIGHT - instruction.getHeight()*1.1f);
