@@ -90,8 +90,6 @@ public class MainGameScreen implements Screen {
         if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
-//        game.setScreen(mainEndStory);
-        System.out.println(dynamicItems.size());
         batch.end();
     }
 
