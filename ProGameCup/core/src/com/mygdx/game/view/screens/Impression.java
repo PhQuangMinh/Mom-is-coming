@@ -9,7 +9,7 @@ import com.mygdx.game.controller.MakeSize;
 
 public class Impression {
     Texture impression;
-    private int countImpress = 0;
+    private float countImpress = 0;
     MakeSize makeSize;
     Vector2 sizeItem;
 
@@ -20,13 +20,10 @@ public class Impression {
         makeSize = new MakeSize();
     }
 
-    public int getCountImpress() {
+    public float getCountImpress() {
         return countImpress;
     }
 
-    public void setCountImpress(int count){
-        this.countImpress = count;
-    }
 
     public Impression(){
         sizeItem = new Vector2();
@@ -47,12 +44,13 @@ public class Impression {
         batch.end();
     }
 
-    public void drawGame (SpriteBatch batch, float stateTime){
+    public void drawGame (SpriteBatch batch, float delta){
         if (countImpress>=5) return;
+//        System.out.println("count impress" + countImpress + " " + stateTime);
         batch.setColor(1, 1, 1, 1);
-        makeSize.getSize(impressions[countImpress], ItemConstant.IMPRESSION_SIZE, sizeItem);
+        makeSize.getSize(impressions[(int)countImpress], ItemConstant.IMPRESSION_SIZE, sizeItem);
         int[] a = {110, 110, 110, 500, 680};
-        batch.draw(impressions[countImpress], 115, a[countImpress], sizeItem.x, sizeItem.y);
-        countImpress = (int) (1 + stateTime * 4);
+        batch.draw(impressions[(int)countImpress], 115, a[(int)countImpress], sizeItem.x, sizeItem.y);
+        countImpress += delta*2.5f;
     }
 }

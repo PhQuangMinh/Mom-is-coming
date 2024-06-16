@@ -65,6 +65,6 @@ public class DrawSingle extends InitDraw{
             drawSinglePlayer(dynamicItems, staticItems, player, batch, delta, drawText);
         }
         drawMap.drawBarsSingle(batch, player);
-        impression.drawGame(batch, stateTime);
+        impression.drawGame(batch, delta);
     }
 }

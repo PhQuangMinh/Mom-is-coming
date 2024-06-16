@@ -121,6 +121,6 @@ public class DrawMulti extends InitDraw{
             drawMultiPlayer(dynamicItems, staticItems, firstPlayer, batch, delta, drawText, secondPlayer);
         }
         drawMap.drawBarsMulti(batch, firstPlayer, secondPlayer);
-        impression.drawGame(batch, stateTime);
+        impression.drawGame(batch, delta);
     }
 }
