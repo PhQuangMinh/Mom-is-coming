@@ -50,10 +50,7 @@ public class NameInputRequest {
 
         int fx = Gdx.input.getX();
         int fy = 960 - Gdx.input.getY();
-        if((fx >= x && fx <= x + BUTTON_WIDTH) && (fy >= y && fy <= y + BUTTON_HEIGHT)){
-            return true;
-        }
-        return false;
+        return (fx >= x && fx <= x + BUTTON_WIDTH) && (fy >= y && fy <= y + BUTTON_HEIGHT);
     }
 
     public void render(Batch batch, float delta){

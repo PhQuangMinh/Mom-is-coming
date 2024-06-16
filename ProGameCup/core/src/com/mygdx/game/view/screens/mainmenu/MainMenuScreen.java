@@ -9,21 +9,23 @@ import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
+import com.mygdx.game.view.screens.optionplayer.OptionPlayer;
 
 public class MainMenuScreen implements Screen {
     private final SpriteBatch batch;
     SpaceGame spaceGame;
     ButtonMenu buttonMenu;
-    MainStory mainStory;
     Texture background;
+
+    OptionPlayer optionPlayer;
+
 
 
     public MainMenuScreen(SpaceGame game) {
         this.batch = game.getBatch();
         this.spaceGame = game;
         buttonMenu = new ButtonMenu(game);
-        mainStory = new MainStory(game, this);
-
+        optionPlayer = new OptionPlayer(game, this);
         background = new Texture("otherImage/background.png");
     }
     @Override
@@ -36,7 +38,7 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, 0, 0 , GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
-        buttonMenu.draw(this, mainStory);
+        buttonMenu.draw(optionPlayer);
         batch.end();
     }
 

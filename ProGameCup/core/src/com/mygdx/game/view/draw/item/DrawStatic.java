@@ -16,7 +16,7 @@ import com.mygdx.game.view.draw.text.DrawText;
 import java.util.ArrayList;
 
 public class DrawStatic {
-    private float noteX, noteY;
+    Texture note = new Texture("alert/note.png");
     private int getFirstPosition(int quantity){
         switch (quantity){
             case 1:
@@ -33,8 +33,8 @@ public class DrawStatic {
 
     private void drawNoteStatic(StaticItem item, SpriteBatch batch, DrawText drawText, Player player){
         drawText.drawNoteName(item, batch, drawText);
-        noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT;
+        float noteX = (GameConstant.WINDOW_WIDTH - note.getWidth()) / 2 + 40;
+        float noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight();
         if (item.getName().equals("dish-washing")){
             return;
         }
@@ -92,6 +92,7 @@ public class DrawStatic {
     }
 
     public void drawStaticInGame(ArrayList<StaticItem> items, SpriteBatch batch, Player player, DrawText drawText){
+        if (items.isEmpty()) return;
         for (StaticItem item : items) {
             drawStaticItemInGame(item, batch, drawText, player);
         }

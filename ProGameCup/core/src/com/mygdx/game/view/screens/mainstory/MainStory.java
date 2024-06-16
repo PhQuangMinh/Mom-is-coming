@@ -7,30 +7,41 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.view.screens.Impression;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
+import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 
 public class MainStory implements Screen {
     private final SpaceGame game;
     private final SpriteBatch batch;
     Impression impression;
-
     private float stateTime = 0;
     Message message;
 
     MainGameScreen mainGameScreen;
 
     MainMenuScreen mainMenuScreen;
-    public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen) {
+
+    SinglePlayer singlePlayer;
+
+    MultiPlayer multiPlayer;
+
+    public MainStory(SpaceGame game, MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer,
+                     MultiPlayer multiPlayer) {
         this.mainMenuScreen = mainMenuScreen;
         this.game = game;
-
         batch = game.getBatch();
+        this.singlePlayer = singlePlayer;
+        this.multiPlayer = multiPlayer;
+        mainGameScreen = new MainGameScreen(game, mainMenuScreen, 180);
+        impression = new Impression("story/impression1.png");
     }
     @Override
     public void show() {
-        mainGameScreen = new MainGameScreen(game, mainMenuScreen, this, 180);
-        impression = new Impression("story/impression1.png");
-        message = new Message("story/press.png", mainGameScreen);
+        message = new Message("story/press.png", singlePlayer, multiPlayer);
+        stateTime = 0;
+//        impression.setCountImpress(0);
+
     }
 
     @Override

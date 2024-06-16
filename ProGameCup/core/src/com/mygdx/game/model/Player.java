@@ -2,9 +2,11 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.Direction;
+import com.mygdx.game.common.constant.ActivityStatus;
 import com.mygdx.game.common.constant.CharacterStatus;
+import com.mygdx.game.common.constant.Direction;
 import com.mygdx.game.common.constant.FrameStatus;
+import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
@@ -14,15 +16,14 @@ import java.util.LinkedHashMap;
 public class Player extends Sprite {
     private float STRAIGHT_SPEED = 4;
     private float DIAGONAL_SPEED = 2.8F;
-    private Direction direction;
-    private CharacterStatus status;
-
     private boolean overlap, validThrow;
-    private Item itemHolding;
+    private DynamicItem itemHolding, itemMopping;
     private Item itemInRange;
     private StaticItem container;
     private Vector2 positionThrew;
     private int statusHold;
+
+    private Direction direction;
     // statusHold = 4: đang cầm đồ vật bằng vải đứng trên vũng nước, chuẩn bị lau
 
     private LinkedHashMap<String, Animation> animations;
@@ -30,9 +31,15 @@ public class Player extends Sprite {
 
     private FrameStatus frameStatus;
 
+    Movement movement;
+
+    boolean discoverItem;
+
+    private float distanceOverlaps;
+
+    ActivityStatus activity;
+
     public Player(){
-        direction = Direction.LEFT;
-        status = CharacterStatus.IDLE;
         setPosition(0, 0);
     }
     public Player(TextureAtlas atlas, String[] animationNames, String[] textureNames, float x, float y, float width, float height, float speed){
@@ -43,6 +50,10 @@ public class Player extends Sprite {
         setSpeed(speed);
         setSize(width, height);
         frameStatus = FrameStatus.RIGHT_FRAME;
+        movement = new Movement();
+        direction = Direction.DOWN;
+        validThrow = true;
+        distanceOverlaps = height/2;
     }
 
     public void setAnimation(TextureAtlas atlas, String[] animationNames){
@@ -88,6 +99,38 @@ public class Player extends Sprite {
         return null;
     }
 
+    public ActivityStatus getActivity() {
+        return activity;
+    }
+
+    public DynamicItem getItemMopping() {
+        return itemMopping;
+    }
+
+    public void setItemMopping(DynamicItem itemMopping) {
+        this.itemMopping = itemMopping;
+    }
+
+    public void setActivity(ActivityStatus activity) {
+        this.activity = activity;
+    }
+
+    public float getDistanceOverlaps() {
+        return distanceOverlaps;
+    }
+
+    public void setDistanceOverlaps(float distanceOverlaps) {
+        this.distanceOverlaps = distanceOverlaps;
+    }
+
+    public boolean isDiscoverItem() {
+        return discoverItem;
+    }
+
+    public void setDiscoverItem(boolean discoverItem) {
+        this.discoverItem = discoverItem;
+    }
+
     public FrameStatus getFrameStatus() {
         return frameStatus;
     }
@@ -126,11 +169,11 @@ public class Player extends Sprite {
         this.container = container;
     }
 
-    public Item getItemHolding() {
+    public DynamicItem getItemHolding() {
         return itemHolding;
     }
 
-    public void setItemHolding(Item itemHolding) {
+    public void setItemHolding(DynamicItem itemHolding) {
         this.itemHolding = itemHolding;
     }
 
@@ -142,21 +185,6 @@ public class Player extends Sprite {
         this.overlap = overlap;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public CharacterStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CharacterStatus status) {
-        this.status = status;
-    }
 
     public float getSTRAIGHT_SPEED() {
         return STRAIGHT_SPEED;
@@ -177,5 +205,21 @@ public class Player extends Sprite {
 
     public void setItemInRange(Item itemInRange) {
         this.itemInRange = itemInRange;
+    }
+
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public void setMovement(Movement movement) {
+        this.movement = movement;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

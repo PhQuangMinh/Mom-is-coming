@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
-import com.mygdx.game.view.draw.item.Draw;
+import com.mygdx.game.view.draw.screengame.DrawEndGame;
 import com.mygdx.game.view.draw.map.DrawMap;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.screens.endgame.DrawMom.Mom;
-import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
@@ -24,23 +24,20 @@ import java.util.ArrayList;
 public class MapEndGame implements Screen {
     ArrayList<StaticItem> staticItems;
     ArrayList<DynamicItem> dynamicItems;
-
     SpaceGame game;
     SpriteBatch batch;
     Mom mother;
-    Draw draw;
-    Texture player, mom, chat;
-    MainStory mainStory;
-
+    DrawEndGame drawEndGame;
+    Texture firstPlayer, secondPlayer, mom, chat;
     DrawMap drawMap;
     MainEndStory mainEndStory;
     ResultScreen resultScreen;
     DrawText drawText;
-    MakeSize makeSize;
+    MainMenuScreen mainMenuScreen;
 
     public MapEndGame(SpaceGame game, ArrayList<DynamicItem> dynamicItems
-            , MainStory mainStory, ArrayList<StaticItem> staticItems, MainEndStory mainEndStory){
-        this.mainStory = mainStory;
+            , ArrayList<StaticItem> staticItems, MainEndStory mainEndStory, MainMenuScreen mainMenuScreen){
+        this.mainMenuScreen = mainMenuScreen;
         this.game = game;
         this.dynamicItems = dynamicItems;
         this.staticItems = staticItems;
@@ -50,14 +47,15 @@ public class MapEndGame implements Screen {
 
     @Override
     public void show() {
-        player = new Texture("animations/main-char/idle-endgame.png");
+        firstPlayer = new Texture("animations/main-char1/idle-endgame.png");
+        secondPlayer = new Texture("animations/main-char2/idle-endgame.png");
         mom = new Texture("animations/mom/mom-walking.png");
         chat = new Texture("alert/note.png");
         drawMap = new DrawMap();
-        draw = new Draw();
+        drawEndGame = new DrawEndGame(game);
         drawText = new DrawText("fonts/char.fnt", Color.BLACK, mainEndStory);
-        resultScreen = new ResultScreen(game, dynamicItems, mainStory, mainEndStory);
-        mother = new Mom(mom, game, dynamicItems, mainStory, resultScreen, drawText, drawMap);
+        resultScreen = new ResultScreen(game, dynamicItems, mainEndStory, mainMenuScreen);
+        mother = new Mom(mom, game, dynamicItems, resultScreen, drawText, drawMap);
     }
 
     @Override
@@ -67,10 +65,14 @@ public class MapEndGame implements Screen {
 
         batch.begin();
         drawMap.drawMap(batch);
-        draw.drawEndGame(dynamicItems, staticItems, batch);
-        batch.draw(player, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 230,
+        drawEndGame.drawEndGame(dynamicItems, staticItems, batch);
+        batch.draw(firstPlayer, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 230,
                 32, 58);
-        mother.draw(chat, game, batch, delta, mainStory);
+        if (GameConstant.FORMAT_PLAYER == 2){
+            batch.draw(secondPlayer, MapConstant.POS_MAP_Y + 150, MapConstant.POS_MAP_Y + 200,
+                    32, 58);
+        }
+        mother.draw(chat,game, batch, delta);
         batch.end();
     }
 

@@ -2,6 +2,7 @@ package com.mygdx.game.model.item;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.model.Player;
 
 public class Item extends Sprite{
     private Texture image;
@@ -9,6 +10,7 @@ public class Item extends Sprite{
     private String name;
     private float overlap;
     private boolean discover;
+    private Player playerDiscover;
 
     public Item(String name, Texture image, Texture chosenImage, float x, float y, float width, float height, float overlap) {
         this.name = name;
@@ -27,6 +29,14 @@ public class Item extends Sprite{
         this.setX(x);
         this.setY(y);
         this.setSize(width, height);
+    }
+
+    public Player getPlayerDiscover() {
+        return playerDiscover;
+    }
+
+    public void setPlayerDiscover(Player playerDiscover) {
+        this.playerDiscover = playerDiscover;
     }
 
     public boolean getDiscover() {

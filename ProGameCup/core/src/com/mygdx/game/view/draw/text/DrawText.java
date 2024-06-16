@@ -55,7 +55,7 @@ public class DrawText {
         makeSize.getSize(note, 550, sizeItem);
         noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
         noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT + 5;
-        batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 30
+        batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 10
                 , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10, sizeItem.x, sizeItem.y);
         String noteText;
         if (item instanceof StaticItem){
@@ -64,19 +64,20 @@ public class DrawText {
         else{
             noteText = "It's a " + item.getName() + ".";
         }
-        System.out.println(noteY);
         drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
     }
 
-    public void drawClock(ArrayList<DynamicItem> dynamicItems, SpaceGame game, SpriteBatch batch, float stateTime, int initTime, float x, float y, float size, MainEndStory mainEndStory){
-        charFont.getData().setScale(size/2);
+    public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int initTime,
+                          MainEndStory mainEndStory){
+        charFont.getData().setScale(1);
         float timeLeft = initTime  - stateTime;
         if(timeLeft <= 0){
             game.setScreen(mainEndStory);
         }
         int remainMinutes = (int) (timeLeft / 60);
         int remainSeconds = (int) (timeLeft % 60);
-        charFont.draw(batch, String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds),x, y );
+        charFont.draw(batch, String.format("%02d", remainMinutes) + ":" + String.format("%02d", remainSeconds),
+                GameConstant.WINDOW_WIDTH/2 - 20, GameConstant.WINDOW_HEIGHT - 40);
 
     }
 }

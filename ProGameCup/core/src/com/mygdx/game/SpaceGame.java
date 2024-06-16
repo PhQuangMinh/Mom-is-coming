@@ -3,10 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.effect.MakeMusic;
-import com.mygdx.game.view.screens.endgame.MainEndStory;
-import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
+import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
-import com.mygdx.game.view.screens.mainstory.MainStory;
 
 public class SpaceGame extends Game {
 

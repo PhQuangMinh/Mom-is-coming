@@ -25,13 +25,13 @@ public class ResultScreen implements Screen {
     Texture endGame, A, B, C, D, F;
     Result result;
     DrawText drawText;
-    MainStory mainStory;
     NameInputRequest dialog;
     MainEndStory mainEndStory;
     MainMenuScreen mainMenuScreen;
 
-    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory, MainEndStory mainEndStory){
-        this.mainStory = mainStory;
+    public ResultScreen(SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainEndStory mainEndStory,
+                        MainMenuScreen mainMenuScreen){
+        this.mainMenuScreen = mainMenuScreen;
         this.game = game;
         this.batch = game.getBatch();
         this.dynamicItems = dynamicItems;
@@ -59,7 +59,8 @@ public class ResultScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             game.setScreen(mainMenuScreen);
         batch.begin();
-        batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100, GameConstant.WINDOW_HEIGHT - 100);
+        batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100,
+                GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);
         if(NameInputRequest.nameInputDialogOpen){
             dialog.render(batch, delta);

@@ -13,8 +13,6 @@ public class Knock extends Sprite {
     public static boolean isNextMapEndGame = false;
     private boolean soundPlay = false;
     private Animation<TextureRegion>[] knocking;
-
-    private TextureRegion[] knock;
     private int KNOCK_WIDTH = 52;
     private int KNOCK_HEIGHT = 16;
     private float stateTime;

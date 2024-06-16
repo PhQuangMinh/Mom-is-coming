@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 public class DynamicItem extends Item {
     private boolean visible;
     private boolean cross;
-    private boolean isClothes;
+    private final boolean isClothes;
+
+    private int actionCount;
+    private final int cleanTime = 12;
     public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width
             , float height, float overlap, boolean cross, boolean isClothes) {
         super(name, image, chosenImage, x, y, width, height, overlap);
@@ -13,6 +16,19 @@ public class DynamicItem extends Item {
         this.cross = cross;
         this.isClothes = isClothes;
     }
+
+    public int getActionCount() {
+        return actionCount;
+    }
+
+    public void setActionCount(int actionCount) {
+        this.actionCount = actionCount;
+    }
+
+    public int getCleanTime() {
+        return cleanTime;
+    }
+
     public boolean isVisible() {
         return visible;
     }

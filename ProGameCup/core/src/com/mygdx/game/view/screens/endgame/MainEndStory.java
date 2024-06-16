@@ -11,7 +11,9 @@ import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.mainmenu.Leaderboard;
+import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
+import jdk.tools.jmod.Main;
 
 import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
@@ -23,20 +25,18 @@ public class MainEndStory implements Screen {
     Texture texture;
     ArrayList<DynamicItem> dynamicItems;
     ArrayList<StaticItem> staticItems;
-    MainStory mainStory;
     MapEndGame mapEndGame;
     Leaderboard leaderboard;
 
-    public MainEndStory(SpaceGame game, ArrayList<DynamicItem> dynamicItems
-            , MainStory mainStory, ArrayList<StaticItem> staticItems){
+    public MainEndStory(SpaceGame game, ArrayList<DynamicItem> dynamicItems,
+                        ArrayList<StaticItem> staticItems, MainMenuScreen mainMenuScreen){
         this.game = game;
         batch = game.getBatch();
         this.dynamicItems = dynamicItems;
         texture = new Texture("otherImage/knock.png");
         knock = new Knock(texture);
-        this.mainStory = mainStory;
         this.staticItems = staticItems;
-        mapEndGame = new MapEndGame(game, dynamicItems, mainStory, staticItems, this);
+        mapEndGame = new MapEndGame(game, dynamicItems, staticItems, this, mainMenuScreen);
         leaderboard = new Leaderboard();
     }
 

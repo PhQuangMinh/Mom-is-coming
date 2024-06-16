@@ -40,13 +40,11 @@ public class Mom extends Sprite {
     DrawText drawText;
     DrawMap drawMap;
     MakeSize makeSize;
-    MainStory mainStory;
     ResultScreen resultScreen;
     Vector2 sizeItem;
-
-     public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems, MainStory mainStory, ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
+     public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems,
+                ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
          this.dynamicItems = dynamicItems;
-         this.mainStory = mainStory;
          this.resultScreen = resultScreen;
          this.drawText = drawText;
          verticalColumn = new Texture("maps/verticalColumn.png");
@@ -72,7 +70,7 @@ public class Mom extends Sprite {
         return false;
     }
 
-    public void draw(Texture chat, SpaceGame game, SpriteBatch batch, float delta, MainStory mainStory){
+    public void draw(Texture chat, SpaceGame game, SpriteBatch batch, float delta){
         makeSize.getSize(verticalColumn, 263, sizeItem);
         columnWidth = sizeItem.x;
         stateTime += delta;
@@ -88,7 +86,7 @@ public class Mom extends Sprite {
             if (!isBehindVerticalColumn()) {
                 batch.draw(currentFrame, currentX, MapConstant.POS_MAP_Y + 230, 32, 58);
             }
-            drawMap.drawOverlapsMap(batch, verticalColumn, 207, 209, 263);
+            drawMap.drawOverlap(batch, verticalColumn, 207, 209, 263);
             if (isBehindVerticalColumn()) {
                 batch.draw(currentFrame, currentX, MapConstant.POS_MAP_Y + 230, 32, 58);
             }
