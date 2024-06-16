@@ -58,7 +58,6 @@ public class SinglePlayer extends MainGameScreen {
         }
         makeAlert.update(batch, stateTime, player);
         batch.end();
-        System.out.println(player.getX() + " " + player.getY());
     }
 
     @Override

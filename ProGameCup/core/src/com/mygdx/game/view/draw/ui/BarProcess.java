@@ -19,11 +19,13 @@ public class BarProcess {
     float ratio = GameConstant.LOADING_BAR_RATIO;
     private void updateXY(Player player, CharacterStatus status){
         if(status == CharacterStatus.MOPPING_FLOOR){
-            x = player.getItemInRange().getX() + (player.getItemInRange().getWidth() - loading_bar_background.getWidth() * ratio)/2;
+            x = player.getItemInRange().getX() + (player.getItemInRange().getWidth() -
+                    loading_bar_background.getWidth() * ratio)/2;
             y = player.getItemInRange().getY() + 70;
         }
         else{
-            x = player.getContainer().getX() + (player.getContainer().getWidth() - loading_bar_background.getWidth() * ratio)/2;
+            x = player.getContainer().getX() + (player.getContainer().getWidth() -
+                    loading_bar_background.getWidth() * ratio)/2;
             y = player.getContainer().getY() + 70;
         }
     }

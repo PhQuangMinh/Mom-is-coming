@@ -34,9 +34,11 @@ public class DrawSingle extends InitDraw{
         dynamicFloor.clear();
         dynamicTable.clear();
         dynamicTop.clear();
+        dynamicMiddle.clear();
         staticBottom.clear();
         staticTop.clear();
-        filterDynamicSingle.filter(dynamicItems, staticItems, player, dynamicFloor, dynamicTable, dynamicTop);
+        filterDynamicSingle.filter(dynamicItems, staticItems, player, dynamicFloor, dynamicTable, dynamicTop,
+                dynamicMiddle);
         filterStaticSingle.filter(player, staticItems, staticTop, staticMiddle, staticBottom, dynamicTable, dynamicTop);
     }
 
@@ -49,6 +51,7 @@ public class DrawSingle extends InitDraw{
         drawDynamic.drawDynamicSingle(dynamicTable, batch, player, drawText);
         boolean pressedEnter = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
         drawPlayer.draw(player, batch, delta, pressedEnter);
+        drawDynamic.drawDynamicSingle(dynamicMiddle, batch, player, drawText);
         drawStatic.drawStaticInGame(staticTop, batch, player, drawText);
         drawDynamic.drawDynamicSingle(dynamicTop, batch, player, drawText);
     }

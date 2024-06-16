@@ -40,7 +40,7 @@ public class MultiPlayer extends MainGameScreen {
         firstPlayer = new Player(textureAtlasFirst, animationNames, textureNames, 500, 380,
                 GameConstant.PLAYER_WIDTH, GameConstant.PLAYER_HEIGHT, 120);
         TextureAtlas textureAtlasSecond = new TextureAtlas("animations/Main_char_animations2.atlas");
-        secondPlayer = new Player(textureAtlasSecond, animationNames, textureNames, 500, 380,
+        secondPlayer = new Player(textureAtlasSecond, animationNames, textureNames, 600, 380,
                 GameConstant.PLAYER_WIDTH, GameConstant.PLAYER_HEIGHT, 120);
         stateTime = 0;
     }
@@ -70,6 +70,6 @@ public class MultiPlayer extends MainGameScreen {
         makeAlert.update(batch, stateTime, firstPlayer);
         makeAlert.update(batch, stateTime, secondPlayer);
         batch.end();
+        System.out.println(firstPlayer.getX() + " " + firstPlayer.getY());
     }
-
 }

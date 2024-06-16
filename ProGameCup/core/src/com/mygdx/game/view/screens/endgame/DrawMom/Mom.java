@@ -42,7 +42,8 @@ public class Mom extends Sprite {
     MakeSize makeSize;
     ResultScreen resultScreen;
     Vector2 sizeItem;
-     public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems, ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
+     public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems,
+                ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
          this.dynamicItems = dynamicItems;
          this.resultScreen = resultScreen;
          this.drawText = drawText;
@@ -55,6 +56,7 @@ public class Mom extends Sprite {
 
         sizeItem = new Vector2();
      }
+
     public void setAnimation(Texture texture){
         mom_walking = new Animation[10];
         TextureRegion[][] region = TextureRegion.split(texture, MOM_WIDTH, MOM_HEIGHT);
@@ -62,6 +64,7 @@ public class Mom extends Sprite {
            mom_walking[i] = new Animation(0.2f, region[i]);
         }
     }
+
     public boolean isBehindVerticalColumn() {
         if(currentX >= columnStartX && currentX <= columnStartX + columnWidth) return true;
         return false;

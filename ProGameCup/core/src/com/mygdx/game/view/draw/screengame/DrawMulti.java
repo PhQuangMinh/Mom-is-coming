@@ -29,7 +29,22 @@ public class DrawMulti extends InitDraw{
         filterStaticMulti  = new FilterStaticMulti();
     }
 
-    public boolean checkMiddle(Player firstPlayer, Player secondPlayer) {
+    public boolean checkDynamicMiddle(Player firstPlayer, Player secondPlayer) {
+        if (dynamicMiddle.isEmpty()) return true;
+        for (DynamicItem dynamicItem : dynamicMiddle) {
+            if (checkObscure(dynamicItem, firstPlayer)){
+                return false;
+            }
+            else {
+                if (checkObscure(dynamicItem, secondPlayer)){
+                    return true;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkStaticMiddle(Player firstPlayer, Player secondPlayer) {
         if (staticMiddle.isEmpty()) return true;
         for (StaticItem staticItem : staticMiddle) {
             if (checkObscure(staticItem, firstPlayer)){
@@ -49,16 +64,39 @@ public class DrawMulti extends InitDraw{
         dynamicFloor.clear();
         dynamicTable.clear();
         dynamicTop.clear();
+        dynamicMiddle.clear();
         staticBottom.clear();
         staticMiddle.clear();
         staticTop.clear();
         filterDynamicMulti.filter(firstPlayer, secondPlayer, dynamicItems, staticItems, dynamicFloor,
-                dynamicTable, dynamicTop);
+                dynamicTable, dynamicTop, dynamicMiddle);
         filterStaticMulti.filter(firstPlayer, secondPlayer, staticItems, staticTop, staticBottom,
                 dynamicTable, dynamicTop, staticMiddle);
     }
 
-
+    public void drawMiddle(Player firstPlayer, Player secondPlayer, SpriteBatch batch, float delta){
+        boolean pressEnter = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
+        boolean pressSpace = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
+        boolean checkDynamic = checkDynamicMiddle(firstPlayer, secondPlayer);
+        if (!checkStaticMiddle(firstPlayer, secondPlayer)){
+            drawPlayer.draw(firstPlayer, batch, delta, pressEnter);
+            drawStatic.drawStaticInGame(staticMiddle, batch, firstPlayer, drawText);
+            if (!checkDynamic)
+                drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicMiddle, batch);
+            drawPlayer.draw(secondPlayer, batch, delta, pressSpace);
+            if (checkDynamic)
+                drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicMiddle, batch);
+        }
+        else{
+            drawPlayer.draw(secondPlayer, batch, delta, pressSpace);
+            drawStatic.drawStaticInGame(staticMiddle, batch, secondPlayer, drawText);
+            if (checkDynamic)
+                drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicMiddle, batch);
+            drawPlayer.draw(firstPlayer, batch, delta, pressEnter);
+            if (!checkDynamic)
+                drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicMiddle, batch);
+        }
+    }
 
     public void drawMultiPlayer(ArrayList<DynamicItem> dynamicItems, ArrayList<StaticItem> staticItems,
                                 Player firstPlayer, SpriteBatch batch, float delta, DrawText drawText,
@@ -67,18 +105,7 @@ public class DrawMulti extends InitDraw{
         drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicFloor, batch);
         drawStatic.drawStaticInGame(staticBottom, batch, firstPlayer, drawText);
         drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicTable, batch);
-        boolean pressEnter = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
-        boolean pressSpace = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
-        if (!checkMiddle(firstPlayer, secondPlayer)){
-            drawPlayer.draw(firstPlayer, batch, delta, pressEnter);
-            drawStatic.drawStaticInGame(staticMiddle, batch, firstPlayer, drawText);
-            drawPlayer.draw(secondPlayer, batch, delta, pressSpace);
-        }
-        else{
-            drawPlayer.draw(secondPlayer, batch, delta, pressSpace);
-            drawStatic.drawStaticInGame(staticMiddle, batch, secondPlayer, drawText);
-            drawPlayer.draw(firstPlayer, batch, delta, pressEnter);
-        }
+        drawMiddle(firstPlayer, secondPlayer, batch, delta);
         drawStatic.drawStaticInGame(staticTop, batch, firstPlayer, drawText);
         drawDynamic.drawDynamicMulti(firstPlayer, secondPlayer, drawText, dynamicTop, batch);
     }
@@ -87,7 +114,6 @@ public class DrawMulti extends InitDraw{
                      ArrayList<StaticItem> staticItems, SpriteBatch batch, float stateTime,
                      float delta, MainEndStory mainEndStory){
         drawMap.drawMap(batch);
-        System.out.println("HIHI" + impression.getCountImpress());
         if (impression.getCountImpress()>=5){
             buttonGame.drawPauseGame(game, batch, stateTime, drawText, mainEndStory);
             holding.drawHoldMulti(firstPlayer, secondPlayer, batch);

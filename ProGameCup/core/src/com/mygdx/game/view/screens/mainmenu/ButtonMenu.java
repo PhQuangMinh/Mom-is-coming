@@ -8,7 +8,6 @@ import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.view.draw.ui.DrawButton;
 import com.mygdx.game.view.screens.optionplayer.OptionPlayer;
 
-import java.util.ArrayList;
 
 public class ButtonMenu {
     Texture play, playPress, leaderboard, leaderboardPress, back, backPress, github, githubPress,
@@ -20,25 +19,21 @@ public class ButtonMenu {
     int posX = (int)(GameConstant.WINDOW_WIDTH- widthButton)/2;
     SpriteBatch batch;
     SpaceGame game;
+    public static boolean isLeaderboardOpen;
+    public static boolean isHowToPlayOpen;
+    Leaderboard ldb;
 
-//<<<<<<< HEAD
     DrawButton drawButton;
     public ButtonMenu(SpaceGame game) {
         this.game = game;
         batch = game.getBatch();
         drawButton = new DrawButton(game);
-//=======
-//    NewButton newButton;
-//    DrawText drawText;
-//    public ButtonMenu(SpaceGame game) {
-//        this.game = game;
-//        batch = game.getBatch();
-//        listButton = new ArrayList<>();
-//        newButton = new NewButton(game);
-//        drawText = new DrawText("fonts/char.fnt", Color.ORANGE);
-//>>>>>>> develop
         initMenu();
+        isLeaderboardOpen = false;
+        isHowToPlayOpen = false;
+        ldb = new Leaderboard();
     }
+
     public void initMenu() {
         play = new Texture("button/menu/play.png");
         playPress = new Texture("button/menu/playPress.png");
@@ -54,7 +49,6 @@ public class ButtonMenu {
         howToPlayPress = new Texture("button/menu/howToPlayPress.png");
     }
 
-//<<<<<<< HEAD
     public void drawBigButton(OptionPlayer optionPlayer){
         drawButton.drawButtonMenu(play, playPress, posX,600, widthButton, heightButton,1,
                 optionPlayer);
@@ -70,22 +64,13 @@ public class ButtonMenu {
         drawButton.drawButtonMenu(github, githubPress, 15,15, widthIcon, heightIcon, 6,
                 optionPlayer);
         drawButton.drawMusicButton(musicOn, musicOff, 840, 900);
-        drawButton.drawHowToPlayButton(135, 300, 672,280);
+        drawButton.drawHowToPlayButton();
     }
 
 
     public void draw(OptionPlayer optionPlayer){
         drawBigButton(optionPlayer);
         drawIconButton(optionPlayer);
-//=======
-//    public void draw(MainMenuScreen mainMenuScreen, MainStory mainStory){
-//        newButton.drawButton(play, playPress, posX,600, widthButton, heightButton,1, mainMenuScreen, mainStory, drawText);
-//        newButton.drawMusicButton(musicOn, musicOff, 840, 900, widthIcon, heightIcon);
-//        newButton.drawButton(leaderboard, leaderboardPress, posX, 500, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
-//        newButton.drawButton(back, backPress, posX,  400, widthButton, heightButton,3, mainMenuScreen, mainStory, drawText);
-//        newButton.drawButton(github, githubPress, 15,15,widthIcon, heightIcon, 5, mainMenuScreen, mainStory, drawText);
-//        newButton.drawButton(howToPlay, howToPlayPress, 900, 900, widthIcon, heightIcon, 2, mainMenuScreen, mainStory, drawText);
-//        newButton.drawHowToPlayButton(135, 300, 672,280);
-//>>>>>>> develop
+        ldb.draw(batch, isLeaderboardOpen);
     }
 }

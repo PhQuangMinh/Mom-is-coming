@@ -1,12 +1,6 @@
 package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.common.constant.ItemConstant;
-import com.mygdx.game.common.constant.MapConstant;
-import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 
 import java.io.BufferedReader;
@@ -28,7 +22,7 @@ public class SetStaticItem {
     }
 
     public void setStatic(ArrayList<StaticItem> items){
-        String filePath = "assets/items/static-items/datatwoplayer.txt";
+        String filePath = "assets/items/static-items/datastatic.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while (true) {
                 String name = br.readLine();

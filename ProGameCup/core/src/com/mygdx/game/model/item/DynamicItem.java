@@ -8,7 +8,7 @@ public class DynamicItem extends Item {
     private final boolean isClothes;
 
     private int actionCount;
-    private final int cleanTime = 5;
+    private final int cleanTime = 12;
     public DynamicItem(String name, Texture image, Texture chosenImage, float x, float y, float width
             , float height, float overlap, boolean cross, boolean isClothes) {
         super(name, image, chosenImage, x, y, width, height, overlap);

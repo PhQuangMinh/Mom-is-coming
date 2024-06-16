@@ -25,6 +25,7 @@ public class ButtonGame {
         drawButton = new DrawButton(game);
         init();
     }
+
     public void init(){
         resume = new Texture("button/game/resume.png");
         pause = new Texture("button/game/pause.png");
@@ -42,7 +43,6 @@ public class ButtonGame {
             drawButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 900);
         drawText.drawClock(game, batch, stateTime, 180, mainEndStory);
     }
-
 
     public void drawMenuBarSingle(MainMenuScreen mainMenuScreen, SinglePlayer singlePlayer){
         drawButton.drawMusicButton(musicOn, musicOff, 610, 470);
@@ -65,21 +65,5 @@ public class ButtonGame {
                 ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 3, mainMenuScreen, multiPlayer);
 
         drawButton.drawPauseButton(resume, pause, 400, 470);
-
-//=======
-//    public void draw(SpaceGame game, SpriteBatch batch, float stateTime, DrawText drawText
-//            , ArrayList<DynamicItem> dynamicItems, MainMenuScreen mainMenuScreen, MainStory mainStory, MainEndStory mainEndStory, int initTime){
-//        newButton.drawPauseButton(resume, pause, (int) GameConstant.WINDOW_WIDTH - 70, 900
-//                , ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-//        drawText.drawClock(dynamicItems, game, batch, stateTime, initTime, 460, 930, 2f, mainEndStory);
-//        drawText.drawStaticText(batch, "X - Interact Items", 10, 30, 0.5f);
-//
-//    }
-//    public void drawMenuBar(MainMenuScreen mainMenuScreen, MainStory mainStory, DrawText drawText){
-//        newButton.drawMusicButton(musicOn, musicOff, 610, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-//        newButton.drawButton(home, homePress, 470, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 4, mainMenuScreen, mainStory, drawText);
-//        newButton.drawButton(replay, replayPress, 540, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT, 1, mainMenuScreen, mainStory, drawText);
-//        newButton.drawPauseButton(resume, pause, 400, 470, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
-//>>>>>>> develop
     }
 }

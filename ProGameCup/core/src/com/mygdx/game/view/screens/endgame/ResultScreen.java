@@ -25,7 +25,7 @@ public class ResultScreen implements Screen {
     Texture endGame, A, B, C, D, F;
     Result result;
     DrawText drawText;
-
+    NameInputRequest dialog;
     MainEndStory mainEndStory;
     MainMenuScreen mainMenuScreen;
 
@@ -36,6 +36,13 @@ public class ResultScreen implements Screen {
         this.batch = game.getBatch();
         this.dynamicItems = dynamicItems;
         result = new Result();
+        drawText = new DrawText("fonts/char.fnt", Color.BLACK);
+        dialog = new NameInputRequest();
+        mainMenuScreen = new MainMenuScreen(game);
+    }
+
+    @Override
+    public void show() {
         drawText = new DrawText("fonts/char.fnt", Color.BLACK, mainEndStory);
         endGame = new Texture("endgame/endgame.png");
         A = new Texture("endgame/score/A.png");
@@ -46,17 +53,18 @@ public class ResultScreen implements Screen {
     }
 
     @Override
-    public void show() {
-    }
-
-    @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.113f, 0.102f, 0.16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(mainMenuScreen);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            game.setScreen(mainMenuScreen);
         batch.begin();
-        batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100, GameConstant.WINDOW_HEIGHT - 100);
+        batch.draw(endGame, 50, 50, GameConstant.WINDOW_WIDTH - 100,
+                GameConstant.WINDOW_HEIGHT - 100);
         result.drawResult(batch, dynamicItems, drawText, A, B, C, D, F);
+        if(NameInputRequest.nameInputDialogOpen){
+            dialog.render(batch, delta);
+        }
         batch.end();
 
     }

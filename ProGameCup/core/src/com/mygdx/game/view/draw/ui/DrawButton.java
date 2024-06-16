@@ -8,12 +8,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
-import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.effect.MakeMusic;
+import com.mygdx.game.view.screens.maingame.MainGameScreen;
 import com.mygdx.game.view.screens.maingame.multiplayer.MultiPlayer;
 import com.mygdx.game.view.screens.maingame.singleplayer.SinglePlayer;
+import com.mygdx.game.view.screens.mainmenu.ButtonMenu;
 import com.mygdx.game.view.screens.mainmenu.MainMenuScreen;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 import com.mygdx.game.view.screens.optionplayer.OptionPlayer;
@@ -29,7 +30,6 @@ public class DrawButton {
     SpaceGame game;
     public static boolean isPause = false;
     public static boolean isStopMusic = false;
-    public static boolean isHowToPlayOpen = false;
     public static boolean isMenuBarOpen = false;
     Texture close, closePress, howToPlay;
 
@@ -52,39 +52,6 @@ public class DrawButton {
         return Gdx.input.getX() >= x && Gdx.input.getX() <= x + width &&
                 GameConstant.WINDOW_HEIGHT - Gdx.input.getY() >= y &&
                 GameConstant.WINDOW_HEIGHT - Gdx.input.getY() <= y + height;
-    }
-
-    public void drawButton(Texture button, Texture buttonPress, int x, int y, int width, int height
-            , int choice, MainMenuScreen mainMenuScreen, OptionPlayer optionPlayer){
-        if (checkPress(x, y, width, height)){
-            batch.draw(buttonPress, x, y, width, height);
-            if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
-            if (Gdx.input.isTouched()){
-                switch (choice){
-                    case 1:
-                        game.setScreen(optionPlayer);
-                        break;
-                    case 2:
-                        isHowToPlayOpen = true;
-                        break;
-                    case 3:
-                        isMenuBarOpen = true;
-                        break;
-                    case 4:
-                        Gdx.app.exit();
-                        break;
-                    case 5:
-                        game.setScreen(mainMenuScreen);
-                        break;
-                    default:
-                        openLink();
-                        break;
-                }
-            }
-        }
-        else{
-            batch.draw(button, x, y, width, height);
-        }
     }
     private void openLink() {
         try {
@@ -125,19 +92,25 @@ public class DrawButton {
         }
     }
 
-    public void drawHowToPlayButton(int x, int y, int width, int height){
-        if(isHowToPlayOpen){
-            batch.draw(howToPlay, x, y, width, height);
-            int closeButtonX = x + width - 50;
-            int closeButtonY = y + height - 50;
+    public void drawHowToPlayButton(){
+        if(ButtonMenu.isHowToPlayOpen){
+            makeSize.getSize(howToPlay, 850, size);
+            float posX = (GameConstant.WINDOW_WIDTH - size.x)/2;
+            float posY = (GameConstant.WINDOW_HEIGHT - size.y)/2;
+            batch.draw(howToPlay, posX, posY, size.x, size.y);
+            float closeButtonX = posX + size.x - 50;
+            float closeButtonY = posY + size.y - 50;
 
-            if (checkPress(closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT)) {
-                batch.draw(closePress, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            if (checkPress((int)closeButtonX, (int)closeButtonY, ItemConstant.ICON_WIDTH,
+                    ItemConstant.ICON_HEIGHT)) {
+                batch.draw(closePress, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH,
+                        ItemConstant.ICON_HEIGHT);
                 if (Gdx.input.justTouched()) {
-                    isHowToPlayOpen = false;
+                    ButtonMenu.isHowToPlayOpen = false;
                 }
             }
-            else batch.draw(close, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH, ItemConstant.ICON_HEIGHT);
+            else batch.draw(close, closeButtonX, closeButtonY, ItemConstant.ICON_WIDTH,
+                    ItemConstant.ICON_HEIGHT);
         }
     }
 
@@ -195,30 +168,32 @@ public class DrawButton {
 
     public void drawButtonMenu(Texture button, Texture buttonPress, int x, int y, int width, int height
             , int choice, OptionPlayer optionPlayer){
-        if (checkPress(x, y, width, height)){
-            batch.draw(buttonPress, x, y, width, height);
-            if(choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
-            if (Gdx.input.isTouched()){
-                switch (choice){
-                    case 1:
-                        game.setScreen(optionPlayer);
-                        break;
-                    case 2:
-                        isHowToPlayOpen = true;
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        Gdx.app.exit();
-                        break;
-                    default:
-                        openLink();
-                        break;
-                }
-            }
-        }
-        else{
+        if (ButtonMenu.isHowToPlayOpen || ButtonMenu.isLeaderboardOpen ||
+                !checkPress(x, y, width, height)){
             batch.draw(button, x, y, width, height);
+            return;
+        }
+        batch.draw(buttonPress, x, y, width, height);
+        if (choice == 6) drawText.drawStaticText(batch, "Link Github", 80, 40, 0.6f);
+        if (Gdx.input.isTouched()) {
+            switch (choice) {
+                case 1:
+                    MainGameScreen.stateTime = 0f;
+                    game.setScreen(optionPlayer);
+                    break;
+                case 2:
+                    ButtonMenu.isHowToPlayOpen = true;
+                    break;
+                case 3:
+                    ButtonMenu.isLeaderboardOpen = true;
+                    break;
+                case 4:
+                    Gdx.app.exit();
+                    break;
+                default:
+                    openLink();
+                    break;
+            }
         }
     }
 

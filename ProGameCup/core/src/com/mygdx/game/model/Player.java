@@ -51,7 +51,7 @@ public class Player extends Sprite {
         setSize(width, height);
         frameStatus = FrameStatus.RIGHT_FRAME;
         movement = new Movement();
-        direction = Direction.LEFT;
+        direction = Direction.DOWN;
         validThrow = true;
         distanceOverlaps = height/2;
     }

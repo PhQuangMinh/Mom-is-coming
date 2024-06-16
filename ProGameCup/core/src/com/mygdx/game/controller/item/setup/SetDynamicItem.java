@@ -2,6 +2,7 @@ package com.mygdx.game.controller.item.setup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
 import com.mygdx.game.model.item.DynamicItem;
@@ -21,7 +22,13 @@ public class SetDynamicItem {
     }
 
     public void setDynamic(ArrayList<DynamicItem> items){
-        String filePath = "assets/items/dynamic-items/dataoneplayer.txt";
+        String filePath;
+        if (GameConstant.FORMAT_PLAYER == 1){
+            filePath = "assets/items/dynamic-items/dataoneplayer.txt";
+        }
+        else{
+            filePath = "assets/items/dynamic-items/datatwoplayer.txt";
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while (true) {
                 String name = br.readLine();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
+import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.draw.item.DrawDynamic;
 import com.mygdx.game.view.draw.item.DrawStatic;
@@ -28,6 +29,8 @@ public class InitDraw {
 
     public ArrayList<StaticItem> staticMiddle;
     public ArrayList<StaticItem> staticTop;
+
+    public ArrayList<DynamicItem> dynamicMiddle;
     public DrawStatic drawStatic;
     public DrawDynamic drawDynamic;
     DrawPlayer drawPlayer;
@@ -52,13 +55,14 @@ public class InitDraw {
         staticBottom = new ArrayList<>();
         staticMiddle = new ArrayList<>();
         staticTop = new ArrayList<>();
+        dynamicMiddle = new ArrayList<>();
         drawDynamic = new DrawDynamic();
         drawStatic = new DrawStatic();
         drawPlayer = new DrawPlayer();
     }
 
 
-    public boolean checkObscure(StaticItem item, Player player){
+    public boolean checkObscure(Item item, Player player){
         return player.getX() + player.getWidth() >= item.getX()
                 && player.getX() <= item.getX() + item.getWidth()
                 && player.getY() >= item.getY() + item.getHeight() - item.getOverlap()
