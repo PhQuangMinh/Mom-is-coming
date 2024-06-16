@@ -16,8 +16,10 @@ import com.mygdx.game.view.draw.map.DrawMap;
 import com.mygdx.game.view.draw.text.DrawText;
 import com.mygdx.game.view.effect.MakeSound;
 import com.mygdx.game.view.screens.endgame.MainEndStory;
+import com.mygdx.game.view.screens.endgame.NameInputRequest;
 import com.mygdx.game.view.screens.endgame.ResultScreen;
 import com.mygdx.game.view.screens.maingame.MainGameScreen;
+import com.mygdx.game.view.screens.mainmenu.Leaderboard;
 import com.mygdx.game.view.screens.mainstory.MainStory;
 
 import java.util.ArrayList;
@@ -42,6 +44,8 @@ public class Mom extends Sprite {
     MakeSize makeSize;
     ResultScreen resultScreen;
     Vector2 sizeItem;
+    Leaderboard leaderboard;
+
      public Mom(Texture texture,SpaceGame game, ArrayList<DynamicItem> dynamicItems,
                 ResultScreen resultScreen, DrawText drawText, DrawMap drawMap){
          this.dynamicItems = dynamicItems;
@@ -53,7 +57,7 @@ public class Mom extends Sprite {
         currentX = 130;
         this.drawMap = drawMap;
         makeSize = new MakeSize();
-
+        leaderboard = new Leaderboard();
         sizeItem = new Vector2();
      }
 
@@ -116,6 +120,13 @@ public class Mom extends Sprite {
             noteState++;
             noteTime = 0;
         }
-        if(noteState >= 3) game.setScreen(resultScreen);
+        if(noteState >= 3){
+            ResultScreen.stateTime = 0f;
+            int min = (int) (MainGameScreen.stateTime / 60);
+            int sec = (int) (MainGameScreen.stateTime % 60);
+            if(leaderboard.isANewRecord(MainGameScreen.dynamicItemHidden, min, sec))
+                NameInputRequest.nameInputDialogOpen = true;
+            game.setScreen(resultScreen);
+        }
     }
 }

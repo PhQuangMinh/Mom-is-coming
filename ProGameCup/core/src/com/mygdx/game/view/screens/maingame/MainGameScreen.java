@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceGame;
+import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.controller.handleinput.HandleInput;
 import com.mygdx.game.common.constant.GameConstant;
 import com.mygdx.game.common.constant.MapConstant;
@@ -34,6 +35,7 @@ public class MainGameScreen implements Screen {
     protected SetItem setItem;
     protected MainMenuScreen mainMenuScreen;
     public static float stateTime;
+    public static int dynamicItemHidden; //use in recognise new record
 
     protected MainEndStory mainEndStory;
 
@@ -90,6 +92,7 @@ public class MainGameScreen implements Screen {
         if(dynamicItems.isEmpty()){
             game.setScreen(mainEndStory);
         }
+        dynamicItemHidden = ItemConstant.dynamicItemsCount - dynamicItems.size();
         batch.end();
     }
 

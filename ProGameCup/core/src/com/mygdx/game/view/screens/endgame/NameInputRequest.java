@@ -63,9 +63,8 @@ public class NameInputRequest {
             int sec = (int) (MainGameScreen.stateTime % 60);
 
             String name = textField.getText();
-            String time = String.format("%02d:%02d", min, sec);
             try{
-                leaderboard.add(name, time);
+                leaderboard.add(name, MainGameScreen.dynamicItemHidden, min, sec);
             }
             catch(Exception e){
                 e.printStackTrace();

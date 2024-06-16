@@ -11,6 +11,7 @@ public class GameConstant {
     public static final int SCORE_WIDTH = 200;
     public static final float LOADING_BAR_RATIO = 0.3f;
     public static int FORMAT_PLAYER;
-    public static final int gameTimeInMinute = 10;
-    public static final int gameTimeInSecond = 0;
+    public static final int onePlayerModeTime = 180;
+    public static final int twoPlayerModeTime = 120;
+    public static int gameType;
 }

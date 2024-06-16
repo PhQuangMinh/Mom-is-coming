@@ -10,4 +10,5 @@ public class ItemConstant {
     public static final int BUTTON_HEIGHT = 80;
     public static final float NOTE_WIDTH = 469;
     public static final float NOTE_HEIGHT = 75;
+    public static int dynamicItemsCount;
 }
