@@ -4,7 +4,6 @@ import com.mygdx.game.controller.filter.FilterDynamic;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
 import com.mygdx.game.model.item.StaticItem;
-import com.sun.tools.javac.jvm.PoolConstant;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,7 @@
 package com.mygdx.game.controller.item.setup;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.model.item.StaticItem;
 
@@ -22,8 +24,9 @@ public class SetStaticItem {
     }
 
     public void setStatic(ArrayList<StaticItem> items){
-        String filePath = "assets/items/static-items/datastatic.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String filePath = "items/static-items/datastatic.txt";
+        FileHandle fileHandle = Gdx.files.internal(filePath);
+        try (BufferedReader br = new BufferedReader(fileHandle.reader())) {
             while (true) {
                 String name = br.readLine();
                 if (name == null) return;

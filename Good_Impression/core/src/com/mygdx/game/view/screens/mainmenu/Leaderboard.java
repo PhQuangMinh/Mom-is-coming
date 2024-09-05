@@ -2,6 +2,7 @@ package com.mygdx.game.view.screens.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,7 +18,7 @@ public class Leaderboard {
     Texture leaderboard;
     Texture close = new Texture("button/game/close.png");
     Texture closePress = new Texture("button/game/closePress.png");
-    File file;
+    FileHandle file;
     BitmapFont font;
     ArrayList<Map.Entry<String, String>> list; //<tên, record>
     int mode;
@@ -43,7 +44,7 @@ public class Leaderboard {
 
     public void initPrint(){
         leaderboard = new Texture("leaderboard/1PlayerLocalLeaderboard.png");
-        file = new File("./assets/files/1PlayerLocalLeaderboard.txt");
+        file = Gdx.files.internal("files/1PlayerLocalLeaderboard.txt");
         mode = 1; // view 1 player leaderboard
         try{
             read();
@@ -55,9 +56,9 @@ public class Leaderboard {
 
     private void initAdd(){
         if(GameConstant.gameType == 1)
-            file = new File("./assets/files/1PlayerLocalLeaderboard.txt");
+            file = Gdx.files.internal("files/1PlayerLocalLeaderboard.txt");
         else if(GameConstant.gameType == 2)
-            file = new File("./assets/files/2PlayerLocalLeaderboard.txt");
+            file = Gdx.files.internal("files/2PlayerLocalLeaderboard.txt");
     }
 
     private boolean checkButtonPressed(int x, int y, int width, int height){
@@ -85,7 +86,7 @@ public class Leaderboard {
         if(mode == 1){
             if(checkButtonPressed(tab2X, tabOriginY, originTabWidth, originTabHeight)){
                 mode = 2;
-                file = new File("./assets/files/2PlayerLocalLeaderboard.txt");
+                file = Gdx.files.internal("files/2PlayerLocalLeaderboard.txt");
                 leaderboard = new Texture("leaderboard/2PlayerLocalLeaderboard.png");
                 try{
                     read();
@@ -98,7 +99,7 @@ public class Leaderboard {
         else if(mode == 2){
             if(checkButtonPressed(tab1X, tabOriginY, originTabWidth, originTabHeight)){
                 mode = 1;
-                file = new File("./assets/files/1PlayerLocalLeaderboard.txt");
+                file = Gdx.files.internal("files/1PlayerLocalLeaderboard.txt");
                 leaderboard = new Texture("leaderboard/1PlayerLocalLeaderboard.png");
                 try{
                     read();
@@ -205,7 +206,7 @@ public class Leaderboard {
     }
 
     public void read() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(file.reader());
         list = new ArrayList<>();
 
         String name;
@@ -220,7 +221,7 @@ public class Leaderboard {
     }
 
     public void save() throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+        BufferedWriter bw = new BufferedWriter(file.writer(false));
 
         for(int i = 0; i < Math.min(5, list.size()); ++i){
             Map.Entry<String, String> entry = list.get(i);

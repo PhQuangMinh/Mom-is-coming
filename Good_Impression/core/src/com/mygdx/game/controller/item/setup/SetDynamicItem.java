@@ -1,5 +1,7 @@
 package com.mygdx.game.controller.item.setup;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
@@ -23,13 +25,15 @@ public class SetDynamicItem {
 
     public void setDynamic(ArrayList<DynamicItem> items){
         String filePath;
-        if (GameConstant.FORMAT_PLAYER == 1){
-            filePath = "assets/items/dynamic-items/dataoneplayer.txt";
+        if (GameConstant.FORMAT_PLAYER == 1) {
+            filePath = "items/dynamic-items/dataoneplayer.txt";  // Không cần 'assets/' khi dùng Gdx.files.internal
+        } else {
+            filePath = "items/dynamic-items/datatwoplayer.txt";
         }
-        else{
-            filePath = "assets/items/dynamic-items/datatwoplayer.txt";
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+        FileHandle fileHandle = Gdx.files.internal(filePath);
+
+        try (BufferedReader br = new BufferedReader(fileHandle.reader())) {  // Dùng fileHandle.reader() để lấy BufferedReader
             while (true) {
                 String name = br.readLine();
                 if (name == null) return;
