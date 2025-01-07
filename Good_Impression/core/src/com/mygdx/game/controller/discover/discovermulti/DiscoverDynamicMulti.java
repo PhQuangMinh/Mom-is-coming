@@ -24,7 +24,7 @@ public class DiscoverDynamicMulti extends DiscoverDynamic {
             if (!firstPlayer.isDiscoverItem() && checkDiscover(item, firstPlayer) &&
             !secondPlayer.isDiscoverItem() && checkDiscover(item, secondPlayer)){
                 item.setDiscover(true);
-                int choice = random.nextInt(0, 2);
+                int choice = random.nextInt(2);
                 if (choice == 0){
                     firstPlayer.setDiscoverItem(true);
                     item.setPlayerDiscover(firstPlayer);

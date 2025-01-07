@@ -50,21 +50,14 @@ public class DrawText {
         charFont.draw(batch, text, x, y);
     }
 
-    public void drawNoteName(Item item, SpriteBatch batch, DrawText drawText){
+    public void drawNoteName(SpriteBatch batch, DrawText drawText, String noteText, int y){
         MakeSize makeSize = new MakeSize();
         makeSize.getSize(note, 550, sizeItem);
         noteX = (GameConstant.WINDOW_WIDTH- ItemConstant.NOTE_WIDTH)/2 + 40;
-        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT + 5;
+        noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + ItemConstant.NOTE_HEIGHT + 5 + y;
         batch.draw(note, (GameConstant.WINDOW_WIDTH-note.getWidth())/2 + 10
-                , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10, sizeItem.x, sizeItem.y);
-        String noteText;
-        if (item instanceof StaticItem){
-            noteText = "It's the " + item.getName() + ".";
-        }
-        else{
-            noteText = "It's a " + item.getName() + ".";
-        }
-        drawText.drawStaticText(batch, noteText, noteX, noteY,0.5f);
+                , MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + 10 + y, sizeItem.x, sizeItem.y);
+        drawText.drawStaticText(batch, noteText, noteX, noteY, MapConstant.SIZE_TEXT_NOTE);
     }
 
     public void drawClock(SpaceGame game, SpriteBatch batch, float stateTime, int initTime,

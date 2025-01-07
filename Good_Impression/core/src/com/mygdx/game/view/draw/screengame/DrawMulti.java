@@ -117,7 +117,7 @@ public class DrawMulti extends InitDraw{
         drawMap.drawMap(batch);
         if (impression.getCountImpress()>=5){
             buttonGame.drawPauseGame(game, batch, stateTime, GameConstant.twoPlayerModeTime, drawText, mainEndStory);
-            holding.drawHoldMulti(firstPlayer, secondPlayer, batch);
+//            holding.drawHoldMulti(firstPlayer, secondPlayer, batch);
             drawMultiPlayer(dynamicItems, staticItems, firstPlayer, batch, delta, drawText, secondPlayer);
         }
         drawMap.drawBarsMulti(batch, firstPlayer, secondPlayer);

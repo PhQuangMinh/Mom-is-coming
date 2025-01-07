@@ -2,14 +2,10 @@ package com.mygdx.game.view.draw.item;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.common.constant.GameConstant;
-import com.mygdx.game.common.constant.ItemConstant;
 import com.mygdx.game.common.constant.MapConstant;
-import com.mygdx.game.controller.MakeSize;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.item.DynamicItem;
-import com.mygdx.game.model.item.Item;
 import com.mygdx.game.model.item.StaticItem;
 import com.mygdx.game.view.draw.text.DrawText;
 
@@ -32,26 +28,28 @@ public class DrawStatic {
     }
 
     private void drawNoteStatic(StaticItem item, SpriteBatch batch, DrawText drawText, Player player){
-        drawText.drawNoteName(item, batch, drawText);
+        drawText.drawNoteName(batch, drawText, "It's the " + item.getName() + ".", 0);
         float noteX = (GameConstant.WINDOW_WIDTH - note.getWidth()) / 2 + 40;
         float noteY = MapConstant.POS_MAP_Y + MapConstant.MAP_HEIGHT + note.getHeight();
         if (item.getName().equals("dish-washing")){
             return;
         }
+        String noteContains = getString(item, player);
+        drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, MapConstant.SIZE_TEXT_NOTE);
+    }
+
+    private String getString(StaticItem item, Player player) {
         String noteContains;
-        if (item.getItems().isEmpty()) {
-            noteContains = "It's empty.";
-            drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f);
+        if (player.getItemHolding()==null){
+            if (item.getItems().isEmpty()) noteContains = "It's empty.";
+            else
+                noteContains = "Press enter to take " + item.getItems().get(item.getItems().size() - 1).getName() + " from it.";
+        } else{
+            if (item.getItems().size()< item.getNumber()) noteContains = "Press enter to put item to it.";
+            else
+                noteContains = "It is full. You can't put item to it";
         }
-        else if (item.getItems().size() == item.getNumber()) {
-            noteContains = "It's full.";
-            drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f);
-        }
-        else
-            if (player.getItemHolding()==null){
-                noteContains = "You can take " + item.getItems().get(item.getItems().size() - 1).getName() + ".";
-                drawText.drawStaticText(batch, noteContains, noteX, noteY - 20, 0.5f);
-            }
+        return noteContains;
     }
 
     private void drawContains(StaticItem item, SpriteBatch batch){
@@ -70,7 +68,7 @@ public class DrawStatic {
         Texture image;
         if (item.getDiscover() && item.getChosenImage()!=null){
             image = item.getChosenImage();
-            drawNoteStatic(item, batch, drawText, player);
+//            drawNoteStatic(item, batch, drawText, player);
             if (!item.getName().equals("dish-washing")){
                 drawContains(item, batch);
             }

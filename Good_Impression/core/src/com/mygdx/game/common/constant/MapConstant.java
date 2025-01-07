@@ -26,4 +26,5 @@ public class MapConstant {
     public static final float VERTICAL_COLUMN_Y = 209;
     public static final float VERTICAL_COLUMN_WIDTH = 85;
     public static final float VERTICAL_COLUMN_HEIGHT = 263;
+    public static final float SIZE_TEXT_NOTE = 0.4f;
 }
